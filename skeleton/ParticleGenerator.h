@@ -48,6 +48,7 @@ public:
 
 	virtual void setVars() = 0;
 	inline void setOrigin(const Vector3& p) { _origin = p; }
+	inline const Vector3& getOrigin() { return _origin; }
 	inline void setOffset(const Vector3& f) { offset = f; }
 	inline void setMeanVelocity(const Vector3& v) {
 		_mean_velocity = v;

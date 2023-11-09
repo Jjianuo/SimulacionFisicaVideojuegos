@@ -140,11 +140,15 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			}
 			case '3':
 			{
-				//pSys->addGenerator(3);
+				pSys->addGenerator(3);
 				pSys->addGenerator(4);
 				break;
 			}
-
+			case '4': 
+			{
+				pSys->generateForce(0);
+				break;
+			}
 			}
 			default:
 				break;

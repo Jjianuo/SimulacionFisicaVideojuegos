@@ -55,6 +55,9 @@
     <ClCompile Include="TornadoGenerator.cpp">
       <Filter>Forces</Filter>
     </ClCompile>
+    <ClCompile Include="ExplosiveForce.cpp">
+      <Filter>Forces</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -112,6 +115,9 @@
       <Filter>Forces</Filter>
     </ClInclude>
     <ClInclude Include="TornadoGenerator.h">
+      <Filter>Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosiveForce.h">
       <Filter>Forces</Filter>
     </ClInclude>
   </ItemGroup>

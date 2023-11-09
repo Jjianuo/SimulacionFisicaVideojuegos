@@ -19,7 +19,6 @@ void ParticleSystem::onParticleDeath(Particle* p)
 
 ParticleSystem::ParticleSystem(const Vector3& g) : _gravity(g)
 {
-	forces.push_back(new GravityForceGenerator({ 0.0, -9.8, 0.0 }));
 }
 
 ParticleSystem::~ParticleSystem()
@@ -41,16 +40,23 @@ void ParticleSystem::update(double t)
 		}
 	}
 	pfr.updateForces(t);
+	for (auto g : pfr.getForceGens()) {
+		if (!g.first->updateTime(t)) {
+			pfr.deleteForce(g.first);
+		}
+	}
 	for (auto e : _particles) {
 		e->integrate(t);
 		e->_ls -= t;
 		if (e->_ls < 0) {
 			onParticleDeath(e);
+
 			_dumpster.push_back(e);
 		}
 	}
 
 	for (auto d : _dumpster) {
+		pfr.deleteParticleRegistry(d);
 		_particles.remove(d);
 		d->die();
 	}
@@ -192,6 +198,21 @@ void ParticleSystem::generateFirework(unsigned firework_type)
 	}
 }
 
+void ParticleSystem::generateForce(unsigned type)
+{
+	switch (type)
+	{
+	case 0:
+	{
+		ExplosiveForce* aux = new ExplosiveForce();
+		aux->setOrigin({ 20.0f, 15.0f, 20.0f });
+		pfr.addPaticleGenerator(aux, uniGen);
+	}
+	default:
+		break;
+	}
+}
+
 void ParticleSystem::addGenerator(unsigned type) {
 	switch (type)
 	{
@@ -227,7 +248,7 @@ void ParticleSystem::addGenerator(unsigned type) {
 		break;
 	}
 	case 3: {
-		UniformParticleGenerator* uniGen = new UniformParticleGenerator();
+		uniGen = new UniformParticleGenerator();
 		Particle* auxParticle = new Particle(partType[ICE], true);
 		auxParticle->getSize() = 0.2;
 		auxParticle->getMass() = 10;
@@ -235,9 +256,9 @@ void ParticleSystem::addGenerator(unsigned type) {
 		uniGen->setMeanVelocity({ 3, 3, 3 });
 		uniGen->setOrigin({ 20.0f, 20.0f, 20.0f });
 		pfr.addPaticleGenerator(new GravityForceGenerator({ 0.0, -9.8, 0.0, }), uniGen);
-		WindGenerator* aux = new WindGenerator();
-		aux->setOrigin({ 20.0f, 20.0f, 20.0f });
-		pfr.addPaticleGenerator(aux, uniGen);
+		//WindGenerator* aux = new WindGenerator();
+		//aux->setOrigin({ 20.0f, 20.0f, 20.0f });
+		//pfr.addPaticleGenerator(aux, uniGen);
 
 		_pGenerator.push_back(uniGen);
 

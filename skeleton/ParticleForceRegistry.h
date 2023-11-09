@@ -13,15 +13,20 @@ class ParticleForceRegistry
 	unordered_map<ForceGenerator*, pair<unordered_set<Particle*>, unordered_set<ParticleGenerator*>>> gens;
 	unordered_map<ParticleGenerator*, unordered_set<ForceGenerator*>> particleGenerators;
 	particulas particles;
+	list<ForceGenerator*> killList;
 public:
 	ParticleForceRegistry() {};
 
-	void updateForces(double d) {
+	void updateForces(double t) {
 		for (auto& g : gens) {
 			for (auto& p : g.second.first) { //p es la particula
-				g.first->updateForce(p, d);
+				g.first->updateForce(p, t);
 			}
 		}
+		for (auto& e : killList) {
+			deleteForce(e);
+		}
+		killList.clear();
 	}
 
 	void addRegistry(ForceGenerator* fg, Particle* p) {
@@ -45,17 +50,14 @@ public:
 
 	void deleteForce(ForceGenerator* fg) {
 		if (gens.count(fg) > 0) {
-			for (auto& e : gens[fg].first) {
-				particles.erase(e);
-			}
 			for (auto& e : gens[fg].second) {
-				particleGenerators.erase(e);
+				particleGenerators[e].erase(fg);
 			}
 			gens.erase(fg);
 		}
 	}
 
 	inline unordered_map<ParticleGenerator*, unordered_set<ForceGenerator*>>& getPartGens() { return particleGenerators; }
-	
+	inline unordered_map<ForceGenerator*, pair<unordered_set<Particle*>, unordered_set<ParticleGenerator*>>> getForceGens() { return gens; }
 };
 

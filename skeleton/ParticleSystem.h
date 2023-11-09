@@ -12,6 +12,7 @@
 #include "ParticleDragGenerator.h"
 #include "WindGenerator.h"
 #include "TornadoGenerator.h"
+#include "ExplosiveForce.h"
 #include "ParticleForceRegistry.h"
 
 using namespace std;
@@ -26,10 +27,9 @@ class ParticleSystem
 	int payload;
 	// This generator is only to shoot the firework!!
 	ParticleGenerator* _firework_generator;
-	// Fireworks to be used as models!
-	vector<Firework*> _firework_pool;
 	ParticleForceRegistry pfr;
-	list<ForceGenerator*> forces;
+
+	UniformParticleGenerator* uniGen;
 	//! This is used currently in the Fireworks to spread more Fireworks!
 	void onParticleDeath(Particle* p);
 public:
@@ -39,6 +39,7 @@ public:
 	void update(double t);
 	// Method to generate a Firework with the appropiate type
 	void generateFirework(unsigned firework_type);
+	void generateForce(unsigned type);
 	// Gets a particle generator with name...
 	ParticleGenerator* getParticleGenerator(const string& n);
 
