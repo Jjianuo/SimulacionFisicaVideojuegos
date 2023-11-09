@@ -11,6 +11,7 @@
 #include "GravityForceGenerator.h"
 #include "ParticleDragGenerator.h"
 #include "WindGenerator.h"
+#include "TornadoGenerator.h"
 #include "ParticleForceRegistry.h"
 
 using namespace std;

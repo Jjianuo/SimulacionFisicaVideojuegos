@@ -237,7 +237,7 @@ void ParticleSystem::addGenerator(unsigned type) {
 		pfr.addPaticleGenerator(new GravityForceGenerator({ 0.0, -9.8, 0.0, }), uniGen);
 		WindGenerator* aux = new WindGenerator();
 		aux->setOrigin({ 20.0f, 20.0f, 20.0f });
-		pfr.addPaticleGenerator(new WindGenerator(), uniGen);
+		pfr.addPaticleGenerator(aux, uniGen);
 
 		_pGenerator.push_back(uniGen);
 
@@ -247,10 +247,15 @@ void ParticleSystem::addGenerator(unsigned type) {
 	case 4: {
 		GaussianParticleGenerator* gausGen = new GaussianParticleGenerator();
 		Particle* auxParticle2 = new Particle(partType[ICE]);
+		auxParticle2->getMass() = 10;
+		auxParticle2->getSize() = 0.1;
 		gausGen->setParticle(auxParticle2);
 		gausGen->setMeanVelocity({ 3, 3, 3 });
 		gausGen->setOrigin({ -20.0f, 20.0f, 20.0f });
 		pfr.addPaticleGenerator(new GravityForceGenerator({ 0.0, -2, 0.0, }), gausGen);
+		WindGenerator* aux = new TornadoGenerator();
+		aux->setOrigin({ -20.0f, 20.0f, 20.0f });
+		pfr.addPaticleGenerator(aux, gausGen);
 
 		_pGenerator.push_back(gausGen);
 
