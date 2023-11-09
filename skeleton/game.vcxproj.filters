@@ -49,6 +49,9 @@
     <ClCompile Include="ParticleDragGenerator.cpp">
       <Filter>Forces</Filter>
     </ClCompile>
+    <ClCompile Include="WindGenerator.cpp">
+      <Filter>Forces</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -100,6 +103,9 @@
       <Filter>Forces</Filter>
     </ClInclude>
     <ClInclude Include="ParticleDragGenerator.h">
+      <Filter>Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="WindGenerator.h">
       <Filter>Forces</Filter>
     </ClInclude>
   </ItemGroup>

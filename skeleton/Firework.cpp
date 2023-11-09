@@ -1,7 +1,7 @@
 #include "Firework.h"
 
 Firework::Firework(bool v, Vector3 pos, Vector3 Vel, Vector3 Acc, double m, double damp, double ls, Vector4 c, unsigned t, int gen)
-	: Particle(false, { 0.0, 0.0, 0.0 }, { 0.0, 25.0, 0.0 }, Acc, m, damp, ls, c, t, gen)
+	: Particle(false, { 0.0, 0.0, 0.0 }, { 0.0, 25.0, 0.0 }, Acc, m, damp, ls, m, c, t, gen)
 {
 	if (pInfo.visible)
 		pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(m)), &pInfo.pose, c);

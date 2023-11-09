@@ -57,6 +57,7 @@ namespace part {
 		double mass;
 		double damping;
 		double lifespan;
+		double size;
 		Vector4 color;
 		int _generation;
 
@@ -67,31 +68,31 @@ namespace part {
 
 	static ParticleInfo partType[nTypes] = {
 		{DEFAULT, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 2, 0.998, 5,
+		{ 0.0, 0.0, 0.0 }, 2, 0.998, 5, 2,
 		colorsInfo[GRAY], 1, false, true, nullptr},
 
 		{BULLET, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 1, 0.998, 3,
+		{ 0.0, 0.0, 0.0 }, 1, 0.998, 3, 1,
 		colorsInfo[BLACK], 1, true, true, nullptr},
 
 		{FIREWORK, { 0.0, 0.0, 0.0 }, { 0.0, 55.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 0.8, 0.998, 2,
+		{ 0.0, 0.0, 0.0 }, 0.8, 0.998, 2, 0.8,
 		colorsInfo[WHITE], 3, true, true, nullptr},
 
 		{CHERRY_BLOSSOM, { 0.0, 0.0, 0.0 }, { 0.2, 0.0, -0.2 },
-		{ 0.0, 9.8, -0.01 }, 0.1, 0.998, 10,
+		{ 0.0, 9.8, -0.01 }, 0.1, 0.998, 10, 0.1,
 		colorsInfo[PINK], 1, true, true, nullptr},
 
 		{MIST, { 0.0, 0.0, 0.0 }, { 0.1, 0.1, -0.1 },
-		{ 0.1, 9.8, -0.01 }, 1, 0.998, 10,
+		{ 0.1, 9.8, -0.01 }, 1, 0.998, 10, 1,
 		colorsInfo[GRAY], 1, true, true, nullptr},
 
 		{ICE, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 1, 0.998, 10,
+		{ 0.0, 0.0, 0.0 }, 1, 0.998, 10, 1,
 		colorsInfo[LIGHT_BLUE], 1, true, true, nullptr},
 
 		{WATER, { 0.0, 0.0, 0.0 }, { 1.0, 0.0, 1.0 },
-		{ 0.0, 0.0, 0.0 }, 0.1, 0.998, 10,
+		{ 0.0, 0.0, 0.0 }, 0.1, 0.998, 10, 1,
 		colorsInfo[BLUE], 1, true, true, nullptr},
 	};
 }
@@ -102,7 +103,7 @@ class Particle
 {
 public:
 	Particle(bool v = true, Vector3 pos = { 0.0, 0.0, 0.0 }, Vector3 Vel = { 0.0, 0.0, 0.0 },
-		Vector3 Acc = { 0.0, 0.0, 0.0 }, double m = 0.1, double damp = 0.998, double ls = 5, 
+		Vector3 Acc = { 0.0, 0.0, 0.0 }, double m = 0.1, double damp = 0.998, double ls = 5, double size = 1,
 		Vector4 c = { 0.19, 0.1, 0.2, 1.0 }, unsigned t = 0, int gen = 0);
 	Particle(int type, bool v = true);
 	Particle(Particle* p, bool v = true);
@@ -116,6 +117,7 @@ protected:
 	ParticleInfo pInfo;
 	Vector3 force;
 	double _inv_mass;
+	double friction;
 
 public:
 
@@ -125,6 +127,7 @@ public:
 	inline double& getLifespan() { return pInfo.lifespan; };
 	inline Vector4& getColor() { return pInfo.color; };
 	inline double& getMass() { return pInfo.mass; };
+	inline double& getSize() { return pInfo.size; };
 	inline int& getType() { return pInfo._type; };
 	inline int& getGeneration() { return pInfo._generation; };
 	inline double& getInvMass() { return _inv_mass; };

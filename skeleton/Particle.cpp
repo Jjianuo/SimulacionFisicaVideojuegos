@@ -1,6 +1,7 @@
 #include "Particle.h"
 
-Particle::Particle(bool v, Vector3 pos, Vector3 Vel, Vector3 Acc, double m, double damp, double ls, Vector4 c, unsigned t, int gen)
+Particle::Particle(bool v, Vector3 pos, Vector3 Vel, Vector3 Acc, double m, double damp, double ls, double size,
+	Vector4 c, unsigned t, int gen)
 	//: pose(PxTransform(pos.x, pos.y, pos.z)), velocity(Vel), acceleration(Acc), mass(m), damping(damp), lifespan(ls), 
 	//_ls(ls), alive(true), color(c), _type(t), _generation(gen)
 {
@@ -10,6 +11,7 @@ Particle::Particle(bool v, Vector3 pos, Vector3 Vel, Vector3 Acc, double m, doub
 	pInfo.mass = m;
 	pInfo.damping = damp;
 	pInfo.lifespan = ls;
+	pInfo.size = size;
 	pInfo.color = c;
 	pInfo._type = t;
 	pInfo._generation = gen;
@@ -21,7 +23,7 @@ Particle::Particle(bool v, Vector3 pos, Vector3 Vel, Vector3 Acc, double m, doub
 	_ls = ls;
 
 	if (v)
-		pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(m)), &pInfo.pose, c);
+		pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(size)), &pInfo.pose, c);
 	else
 		pInfo.renderItem = nullptr;
 }
@@ -34,7 +36,7 @@ Particle::Particle(int type, bool v)
 	force = { 0.0,0.0,0.0 };
 
 	if (v)
-		pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.mass)), &pInfo.pose, pInfo.color);
+		pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.size)), &pInfo.pose, pInfo.color);
 	else
 		pInfo.renderItem = nullptr;
 }
@@ -44,7 +46,7 @@ Particle::Particle(Particle* p, bool v) : pInfo(p->pInfo), _ls(p->_ls)
 	_inv_mass = 1 / pInfo.mass;
 	force = { 0.0,0.0,0.0 };
 	if (v)
-		pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.mass)), &pInfo.pose, pInfo.color);
+		pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.size)), &pInfo.pose, pInfo.color);
 	else
 		pInfo.renderItem = nullptr;
 }
@@ -54,7 +56,7 @@ Particle::Particle(ParticleInfo pI, bool v) : pInfo(pI), _ls(pI.lifespan)
 	_inv_mass = 1 / pInfo.mass;
 	force = { 0.0,0.0,0.0 };
 	if (v)
-		pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.mass)), &pInfo.pose, pInfo.color);
+		pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.size)), &pInfo.pose, pInfo.color);
 	else
 		pInfo.renderItem = nullptr;
 }
@@ -84,5 +86,5 @@ Particle* Particle::clone() const
 {
 	//Vector3 pos, Vector3 Vel, Vector3 Acc, double m, double damp, double ls, PxShape* s, Vector4 c
 	return new Particle((pInfo.renderItem != nullptr), pInfo.pose.p, pInfo.velocity, pInfo.acceleration, 
-		pInfo.mass, pInfo.damping, pInfo.lifespan, pInfo.color, pInfo._type, pInfo._generation);
+		pInfo.mass, pInfo.damping, pInfo.lifespan, pInfo.size, pInfo.color, pInfo._type, pInfo._generation);
 }

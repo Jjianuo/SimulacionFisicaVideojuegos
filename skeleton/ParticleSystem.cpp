@@ -229,10 +229,15 @@ void ParticleSystem::addGenerator(unsigned type) {
 	case 3: {
 		UniformParticleGenerator* uniGen = new UniformParticleGenerator();
 		Particle* auxParticle = new Particle(partType[ICE], true);
+		auxParticle->getSize() = 0.2;
+		auxParticle->getMass() = 10;
 		uniGen->setParticle(auxParticle);
 		uniGen->setMeanVelocity({ 3, 3, 3 });
 		uniGen->setOrigin({ 20.0f, 20.0f, 20.0f });
 		pfr.addPaticleGenerator(new GravityForceGenerator({ 0.0, -9.8, 0.0, }), uniGen);
+		WindGenerator* aux = new WindGenerator();
+		aux->setOrigin({ 20.0f, 20.0f, 20.0f });
+		pfr.addPaticleGenerator(new WindGenerator(), uniGen);
 
 		_pGenerator.push_back(uniGen);
 

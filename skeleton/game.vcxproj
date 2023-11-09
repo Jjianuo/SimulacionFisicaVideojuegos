@@ -269,6 +269,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="UniformParticleGenerator.cpp" />
+    <ClCompile Include="WindGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
@@ -288,6 +289,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="UniformParticleGenerator.h" />
+    <ClInclude Include="WindGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
