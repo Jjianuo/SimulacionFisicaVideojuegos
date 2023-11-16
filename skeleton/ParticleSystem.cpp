@@ -17,12 +17,21 @@ void ParticleSystem::onParticleDeath(Particle* p)
 	}
 }
 
-ParticleSystem::ParticleSystem(const Vector3& g) : _gravity(g)
+bool ParticleSystem::outOfBounds(Particle* p)
+{
+	if (p->getPose().p.magnitude() > area)
+		return true;
+	return false;
+}
+
+ParticleSystem::ParticleSystem() : area(50)
 {
 }
 
 ParticleSystem::~ParticleSystem()
 {
+	for (auto& p : _particles)
+		delete p;
 	_particles.clear();
 	for (auto pg : _pGenerator)
 		delete pg;
@@ -48,7 +57,7 @@ void ParticleSystem::update(double t)
 	for (auto e : _particles) {
 		e->integrate(t);
 		e->_ls -= t;
-		if (e->_ls < 0) {
+		if (e->_ls < 0 || outOfBounds(e)) {
 			onParticleDeath(e);
 
 			_dumpster.push_back(e);
@@ -255,6 +264,7 @@ void ParticleSystem::addGenerator(unsigned type) {
 		uniGen->setParticle(auxParticle);
 		uniGen->setMeanVelocity({ 3, 3, 3 });
 		uniGen->setOrigin({ 20.0f, 20.0f, 20.0f });
+		uniGen->setOffset({ 3,3,3 });
 		pfr.addPaticleGenerator(new GravityForceGenerator({ 0.0, -9.8, 0.0, }), uniGen);
 		//WindGenerator* aux = new WindGenerator();
 		//aux->setOrigin({ 20.0f, 20.0f, 20.0f });
@@ -268,14 +278,34 @@ void ParticleSystem::addGenerator(unsigned type) {
 	case 4: {
 		GaussianParticleGenerator* gausGen = new GaussianParticleGenerator();
 		Particle* auxParticle2 = new Particle(partType[ICE]);
-		auxParticle2->getMass() = 10;
-		auxParticle2->getSize() = 0.1;
+		auxParticle2->getMass() = 200;
+		auxParticle2->getSize() = 1;
 		gausGen->setParticle(auxParticle2);
 		gausGen->setMeanVelocity({ 3, 3, 3 });
 		gausGen->setOrigin({ -20.0f, 20.0f, 20.0f });
-		pfr.addPaticleGenerator(new GravityForceGenerator({ 0.0, -2, 0.0, }), gausGen);
-		WindGenerator* aux = new TornadoGenerator();
+		pfr.addPaticleGenerator(new GravityForceGenerator({ 0.0, -9.8, 0.0, }), gausGen);
+		TornadoGenerator* aux = new TornadoGenerator(3);
+		aux->setArea(70.0);
 		aux->setOrigin({ -20.0f, 20.0f, 20.0f });
+		pfr.addPaticleGenerator(aux, gausGen);
+
+		_pGenerator.push_back(gausGen);
+
+		delete auxParticle2;
+		break;
+	}
+	case 5: {
+		GaussianParticleGenerator* gausGen = new GaussianParticleGenerator();
+		Particle* auxParticle2 = new Particle(partType[ICE]);
+		auxParticle2->getMass() = 200;
+		auxParticle2->getSize() = 1;
+		gausGen->setParticle(auxParticle2);
+		gausGen->setMeanVelocity({ 3, 3, 3 });
+		gausGen->setOrigin({ -20.0f, 20.0f, -20.0f });
+		pfr.addPaticleGenerator(new GravityForceGenerator({ 0.0, -9.8, 0.0, }), gausGen);
+		WindGenerator* aux = new WindGenerator();
+		aux->setArea(70.0);
+		aux->setOrigin({ -20.0f, -20.0f, -20.0f });
 		pfr.addPaticleGenerator(aux, gausGen);
 
 		_pGenerator.push_back(gausGen);

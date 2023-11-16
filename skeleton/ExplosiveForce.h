@@ -15,7 +15,7 @@ protected:
 
 	Vector3 force;
 public:
-	ExplosiveForce(const Vector3& _origin = { 0.0, 0.0, 0.0 }, const double p = 50000, const double _area = 25, const double d = 1)
+	ExplosiveForce(const Vector3& _origin = { 0.0, 0.0, 0.0 }, const double p = 1000, const double _area = 25, const double d = 1)
 		: origin(_origin), area(_area), K(p), dur(d) {
 		_duration = d;
 	};

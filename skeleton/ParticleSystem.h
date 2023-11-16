@@ -22,7 +22,6 @@ class ParticleSystem
 	list<Particle*> _dumpster;
 	// These are the registred generators(for on demand set generation prob.to 0)
 	list<ParticleGenerator*> _pGenerator;
-	Vector3 _gravity;
 
 	int payload;
 	// This generator is only to shoot the firework!!
@@ -32,8 +31,10 @@ class ParticleSystem
 	UniformParticleGenerator* uniGen;
 	//! This is used currently in the Fireworks to spread more Fireworks!
 	void onParticleDeath(Particle* p);
+	bool outOfBounds(Particle* p);
+	double area;
 public:
-	ParticleSystem(const Vector3& g = { 0.0f, -9.8f, 0.0f });
+	ParticleSystem();
 	~ParticleSystem();
 
 	void update(double t);

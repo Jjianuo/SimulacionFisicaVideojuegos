@@ -21,7 +21,7 @@ SceneManager::SceneManager()
 	sceneDesc->simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(*sceneDesc);
 
-	changeScene(0);
+	changeScene(1);
 }
 
 SceneManager::~SceneManager()
@@ -33,6 +33,12 @@ SceneManager::~SceneManager()
 	{
 		delete shoot;
 		delete pSys;
+		break;
+	}
+	case 1:
+	{
+		delete pSys;
+		break;
 	}
 	default:
 		break;
@@ -63,6 +69,9 @@ void SceneManager::update(double t)
 		shoot->integrate(t);
 		pSys->update(t);
 	}
+	case 1: {
+		pSys->update(t);
+	}
 	default:
 		break;
 	}
@@ -73,32 +82,46 @@ void SceneManager::update(double t)
 
 void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 {
+	switch (toupper(key)) {
+	case '0': {
+		currScene = 0;
+		changeScene(0);
+		break;
+	}
+	case '1': {
+		currScene = 1;
+		changeScene(1);
+		break;
+	}
+	default:
+		break;
+	}
 	switch (currScene)
 	{
 		case 0:
 		{
 			switch (toupper(key))
 			{
-			//case 'P':
-			//{
-			//	shoot->shoot(Shooter::PISTOL);
-			//	break;
-			//}
-			//case 'L':
-			//{
-			//	shoot->shoot(Shooter::LASER);
-			//	break;
-			//}
-			//case 'J':
-			//{
-			//	shoot->shoot(Shooter::ARTILLERY);
-			//	break;
-			//}
-			//case 'B':
-			//{
-			//	shoot->shoot(Shooter::FIREBALL);
-			//	break;
-			//}
+			case 'P':
+			{
+				shoot->shoot(Shooter::PISTOL);
+				break;
+			}
+			case 'L':
+			{
+				shoot->shoot(Shooter::LASER);
+				break;
+			}
+			case 'K':
+			{
+				shoot->shoot(Shooter::ARTILLERY);
+				break;
+			}
+			case 'B':
+			{
+				shoot->shoot(Shooter::FIREBALL);
+				break;
+			}
 			case 'M':
 			{
 				pSys->addGenerator(9);
@@ -123,35 +146,43 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			{	pSys->generateFirework(3);
 				break;
 			}
-			case '0': 
+			}
+			default:
+				break;
+		}
+		case 1: {
+			switch (toupper(key))
+			{
+			case 'Z':
 			{
 				pSys->addGenerator(0);
 				break;
 			}
-			case '1':
+			case 'X':
 			{
 				pSys->addGenerator(1);
 				break;
 			}
-			case '2':
+			case 'C':
 			{
 				pSys->addGenerator(2);
 				break;
 			}
-			case '3':
+			case 'V':
 			{
 				pSys->addGenerator(3);
 				pSys->addGenerator(4);
+				pSys->addGenerator(5);
 				break;
 			}
-			case '4': 
+			case 'B':
 			{
 				pSys->generateForce(0);
 				break;
 			}
-			}
 			default:
 				break;
+			}
 		}
 	}
 }
@@ -166,10 +197,12 @@ void SceneManager::changeScene(int scene)
 	{
 		shoot = new Shooter();
 		pSys = new ParticleSystem();
+		break;
 	}
 	case 1: 
 	{
 		pSys = new ParticleSystem();
+		break;
 	}
 	default:
 		break;
@@ -178,6 +211,6 @@ void SceneManager::changeScene(int scene)
 
 void SceneManager::clear()
 {
-	//gScene->release();
-	//gScene = gPhysics->createScene(*sceneDesc);
+	gScene->release();
+	gScene = gPhysics->createScene(*sceneDesc);
 }

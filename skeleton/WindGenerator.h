@@ -16,7 +16,7 @@ protected:
 	double airDensity;
 	Vector3 windVel;
 public:
-	WindGenerator(const Vector3& _origin = {0.0, 0.0, 0.0}, const double _area = 25, const Vector3& vel = {5.0,5.0,5.0})
+	WindGenerator(const Vector3& _origin = {0.0, 0.0, 0.0}, const double _area = -1, const Vector3& vel = {5.0,5.0,5.0})
 		: origin(_origin), area(_area), k1(0.3), dragCoef(0.5), airDensity(1.225), windVel(vel) {};
 
 	virtual void updateForce(Particle* p, double t);
