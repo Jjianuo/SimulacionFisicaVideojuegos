@@ -177,6 +177,11 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 				pSys->generateForce(1);
 				break;
 			}
+			case 'N':
+			{
+				pSys->generateBuoyancyDemo();
+				break;
+			}
 			default:
 				break;
 			}

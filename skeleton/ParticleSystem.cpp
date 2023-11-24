@@ -56,11 +56,13 @@ void ParticleSystem::update(double t)
 	}
 	for (auto e : _particles) {
 		e->integrate(t);
-		e->_ls -= t;
-		if (e->_ls < 0 || outOfBounds(e)) {
-			onParticleDeath(e);
+		if (e->getLifespan() != -1) {
+			e->_ls -= t;
+			if (e->_ls < 0 || outOfBounds(e)) {
+				onParticleDeath(e);
 
-			_dumpster.push_back(e);
+				_dumpster.push_back(e);
+			}
 		}
 	}
 
@@ -304,6 +306,25 @@ void ParticleSystem::generateSlinkyDemo()
 	_particles.push_back(p4);
 	_particles.push_back(p5);
 	_particles.push_back(p6);
+}
+
+void ParticleSystem::generateBuoyancyDemo()
+{
+	Particle* water = new Particle(partType[WATER], false);
+	water->getRenderItem() = new RenderItem(CreateShape(PxBoxGeometry(50, 0.1, 50)), &water->getPose(), water->getColor());
+	water->changeLifespan(-1);
+
+	Particle* p2 = new Particle(false, { 0.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 50, 0.449);
+	p2->changeLifespan(-1);
+	water->getRenderItem() = new RenderItem(CreateShape(PxBoxGeometry(2,2,2)), &p2->getPose(), colorsInfo[RED]);
+
+	GravityForceGenerator* g = new GravityForceGenerator({ 0,-9.8,0 });
+	BuoyancyForceGenerator* bg = new BuoyancyForceGenerator(water, 2, 5, 1000);
+	pfr.addRegistry(g, p2);
+	pfr.addRegistry(bg, p2);
+
+	_particles.push_back(water);
+	_particles.push_back(p2);
 }
 
 void ParticleSystem::addGenerator(unsigned type) {

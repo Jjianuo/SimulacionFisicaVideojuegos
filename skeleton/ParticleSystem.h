@@ -15,6 +15,7 @@
 #include "ExplosiveForce.h"
 #include "SpringForce.h"
 #include "ElasticBandForce.h"
+#include "BuoyancyForceGenerator.h"
 #include "ParticleForceRegistry.h"
 
 using namespace std;
@@ -47,6 +48,7 @@ public:
 	void generateSpringDemo();
 	void generateSpringDemo2();
 	void generateSlinkyDemo();
+	void generateBuoyancyDemo();
 	// Gets a particle generator with name...
 	ParticleGenerator* getParticleGenerator(const string& n);
 

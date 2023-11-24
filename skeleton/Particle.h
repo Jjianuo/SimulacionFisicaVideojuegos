@@ -146,6 +146,7 @@ public:
 	inline double& getMass() { return pInfo.mass; };
 	inline double& getSize() { return pInfo.size; };
 	inline int& getType() { return pInfo._type; };
+	inline RenderItem*& getRenderItem() { return pInfo.renderItem; }
 	inline int& getGeneration() { return pInfo._generation; };
 	inline double& getInvMass() { return _inv_mass; };
 	inline void setPos(Vector3 pos) { pInfo.pose = PxTransform(pos.x, pos.y, pos.z); }
