@@ -22,6 +22,11 @@ namespace part {
 		WHITE
 	};
 
+	enum _shape : int {
+		SPHERE,
+		CUBE
+	};
+
 	static Vector4 colorsInfo[nColors] = {
 		{0.2, 0.2, 0.2, 1.0},//gray
 		{1.0, 0.0, 0.0, 1.0},//red
@@ -92,8 +97,20 @@ namespace part {
 		colorsInfo[LIGHT_BLUE], 1, true, true, nullptr},
 
 		{WATER, { 0.0, 0.0, 0.0 }, { 1.0, 0.0, 1.0 },
-		{ 0.0, 0.0, 0.0 }, 0.1, 0.998, 10, 1,
+		{ 0.0, 0.0, 0.0 }, 1, 0.998, 10, 1,
 		colorsInfo[BLUE], 1, true, true, nullptr},
+		
+		{FIRE, { 0.0, 0.0, 0.0 }, { 1.0, 0.0, 1.0 },
+		{ 0.0, 0.0, 0.0 }, 0.5, 0.998, 10, 1,
+		colorsInfo[RED], 1, true, true, nullptr},
+		
+		{LIGHT, { 0.0, 0.0, 0.0 }, { 1.0, 0.0, 1.0 },
+		{ 0.0, 0.0, 0.0 }, 0.1, 0.998, 10, 1,
+		colorsInfo[WHITE], 1, true, true, nullptr},
+
+		{DARK, { 0.0, 0.0, 0.0 }, { 1.0, 0.0, 1.0 },
+		{ 0.0, 0.0, 0.0 }, 0.1, 0.998, 10, 1,
+		colorsInfo[BLACK], 1, true, true, nullptr},
 	};
 }
 
@@ -131,6 +148,23 @@ public:
 	inline int& getType() { return pInfo._type; };
 	inline int& getGeneration() { return pInfo._generation; };
 	inline double& getInvMass() { return _inv_mass; };
+	inline void setPos(Vector3 pos) { pInfo.pose = PxTransform(pos.x, pos.y, pos.z); }
+
+	inline void changeLifespan(double d) { pInfo.lifespan = d; _ls = d; }
+	inline void setShape(_shape newShape) { 
+		RenderItem* aux = pInfo.renderItem;
+		switch (newShape)
+		{
+		case part::SPHERE:
+			break;
+		case part::CUBE:
+			pInfo.renderItem = new RenderItem(CreateShape(PxBoxGeometry(pInfo.size, pInfo.size, pInfo.size)), &pInfo.pose, pInfo.color);
+			break;
+		default:
+			break;
+		}
+		//delete aux;
+	}
 
 	double _ls;
 	

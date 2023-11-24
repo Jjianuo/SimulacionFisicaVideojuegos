@@ -29,13 +29,13 @@
       <Filter>ParticleTypes</Filter>
     </ClCompile>
     <ClCompile Include="GaussianParticleGenerator.cpp">
-      <Filter>Generators</Filter>
+      <Filter>ParticleGenerators</Filter>
     </ClCompile>
     <ClCompile Include="UniformParticleGenerator.cpp">
-      <Filter>Generators</Filter>
+      <Filter>ParticleGenerators</Filter>
     </ClCompile>
     <ClCompile Include="Shooter.cpp">
-      <Filter>Generators</Filter>
+      <Filter>ParticleGenerators</Filter>
     </ClCompile>
     <ClCompile Include="ForceGenerator.cpp">
       <Filter>Forces</Filter>
@@ -56,6 +56,12 @@
       <Filter>Forces</Filter>
     </ClCompile>
     <ClCompile Include="ExplosiveForce.cpp">
+      <Filter>Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="SpringForce.cpp">
+      <Filter>Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="ElasticBandForce.cpp">
       <Filter>Forces</Filter>
     </ClCompile>
   </ItemGroup>
@@ -88,16 +94,16 @@
       <Filter>ParticleTypes</Filter>
     </ClInclude>
     <ClInclude Include="GaussianParticleGenerator.h">
-      <Filter>Generators</Filter>
+      <Filter>ParticleGenerators</Filter>
     </ClInclude>
     <ClInclude Include="ParticleGenerator.h">
-      <Filter>Generators</Filter>
+      <Filter>ParticleGenerators</Filter>
     </ClInclude>
     <ClInclude Include="UniformParticleGenerator.h">
-      <Filter>Generators</Filter>
+      <Filter>ParticleGenerators</Filter>
     </ClInclude>
     <ClInclude Include="Shooter.h">
-      <Filter>Generators</Filter>
+      <Filter>ParticleGenerators</Filter>
     </ClInclude>
     <ClInclude Include="ForceGenerator.h">
       <Filter>Forces</Filter>
@@ -120,6 +126,10 @@
     <ClInclude Include="ExplosiveForce.h">
       <Filter>Forces</Filter>
     </ClInclude>
+    <ClInclude Include="SpringForce.h">
+      <Filter>Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="ElasticBandForce.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
@@ -137,7 +147,7 @@
     <Filter Include="Forces">
       <UniqueIdentifier>{a1587827-2c8e-4767-b31d-cf5026e0990a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Generators">
+    <Filter Include="ParticleGenerators">
       <UniqueIdentifier>{11c572f1-6138-4e03-864f-0b65a297d964}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

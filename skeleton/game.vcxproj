@@ -254,6 +254,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
+    <ClCompile Include="ElasticBandForce.cpp" />
     <ClCompile Include="ExplosiveForce.cpp" />
     <ClCompile Include="Firework.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
@@ -269,6 +270,7 @@
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shooter.cpp" />
+    <ClCompile Include="SpringForce.cpp" />
     <ClCompile Include="TornadoGenerator.cpp" />
     <ClCompile Include="UniformParticleGenerator.cpp" />
     <ClCompile Include="WindGenerator.cpp" />
@@ -276,6 +278,7 @@
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="core.hpp" />
+    <ClInclude Include="ElasticBandForce.h" />
     <ClInclude Include="ExplosiveForce.h" />
     <ClInclude Include="Firework.h" />
     <ClInclude Include="ForceGenerator.h" />
@@ -291,6 +294,7 @@
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shooter.h" />
+    <ClInclude Include="SpringForce.h" />
     <ClInclude Include="TornadoGenerator.h" />
     <ClInclude Include="UniformParticleGenerator.h" />
     <ClInclude Include="WindGenerator.h" />

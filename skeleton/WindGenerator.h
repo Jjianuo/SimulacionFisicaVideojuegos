@@ -4,8 +4,6 @@
 #include "core.hpp"
 #include <cmath>
 
-const double PI = 3.14159265358979323846;
-
 class WindGenerator : public ForceGenerator
 {
 protected:

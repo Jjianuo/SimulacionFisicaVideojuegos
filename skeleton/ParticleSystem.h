@@ -13,6 +13,8 @@
 #include "WindGenerator.h"
 #include "TornadoGenerator.h"
 #include "ExplosiveForce.h"
+#include "SpringForce.h"
+#include "ElasticBandForce.h"
 #include "ParticleForceRegistry.h"
 
 using namespace std;
@@ -29,6 +31,7 @@ class ParticleSystem
 	ParticleForceRegistry pfr;
 
 	UniformParticleGenerator* uniGen;
+	Particle* p1;
 	//! This is used currently in the Fireworks to spread more Fireworks!
 	void onParticleDeath(Particle* p);
 	bool outOfBounds(Particle* p);
@@ -41,6 +44,9 @@ public:
 	// Method to generate a Firework with the appropiate type
 	void generateFirework(unsigned firework_type);
 	void generateForce(unsigned type);
+	void generateSpringDemo();
+	void generateSpringDemo2();
+	void generateSlinkyDemo();
 	// Gets a particle generator with name...
 	ParticleGenerator* getParticleGenerator(const string& n);
 

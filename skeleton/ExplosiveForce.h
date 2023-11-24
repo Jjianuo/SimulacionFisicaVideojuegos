@@ -3,8 +3,6 @@
 #include "ForceGenerator.h"
 #include "core.hpp"
 
-const double e = 2.718281828459045;
-
 class ExplosiveForce : public ForceGenerator
 {
 protected:

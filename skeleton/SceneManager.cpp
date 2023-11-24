@@ -153,19 +153,16 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 		case 1: {
 			switch (toupper(key))
 			{
-			case 'Z':
-			{
-				pSys->addGenerator(0);
+			case 'Z': {
+				pSys->generateSlinkyDemo();
 				break;
 			}
-			case 'X':
-			{
-				pSys->addGenerator(1);
+			case 'X': {
+				pSys->generateSpringDemo2();
 				break;
 			}
-			case 'C':
-			{
-				pSys->addGenerator(2);
+			case 'C': {
+				pSys->generateSpringDemo();
 				break;
 			}
 			case 'V':
@@ -177,7 +174,7 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			}
 			case 'B':
 			{
-				pSys->generateForce(0);
+				pSys->generateForce(1);
 				break;
 			}
 			default:

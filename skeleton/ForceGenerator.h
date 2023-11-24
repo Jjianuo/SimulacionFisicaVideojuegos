@@ -2,6 +2,9 @@
 #include <string>
 #include "Particle.h"
 
+const double PI = 3.14159265358979323846;
+const double e = 2.718281828459045;
+
 class ForceGenerator
 {
 public:

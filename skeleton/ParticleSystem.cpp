@@ -24,7 +24,7 @@ bool ParticleSystem::outOfBounds(Particle* p)
 	return false;
 }
 
-ParticleSystem::ParticleSystem() : area(50)
+ParticleSystem::ParticleSystem() : area(500)
 {
 }
 
@@ -217,9 +217,93 @@ void ParticleSystem::generateForce(unsigned type)
 		aux->setOrigin({ 20.0f, 15.0f, 20.0f });
 		pfr.addPaticleGenerator(aux, uniGen);
 	}
+	case 1:
+	{
+		ExplosiveForce* aux = new ExplosiveForce();
+		aux->setOrigin({ -3.0f, 10.0f, 0.0f });
+		pfr.addRegistry(aux, p1);
+	}
 	default:
 		break;
 	}
+}
+
+void ParticleSystem::generateSpringDemo()
+{
+	p1 = new Particle(true, {-10.0, 10.0,0.0}, {0.0,0.0,0.0}, {0.0,0.0,0.0}, 1);
+	Particle* p2 = new Particle(true, {10.0, 10.0,0.0}, {0.0,0.0,0.0}, {0.0,0.0,0.0}, 9999999999);
+	p1->changeLifespan(99);
+	p2->changeLifespan(99);
+	p2->setShape(CUBE);
+
+	SpringForce* f1 = new SpringForce(1, 10, p2);
+	SpringForce* f2 = new SpringForce(1, 10, p1);
+	GravityForceGenerator* g1 = new GravityForceGenerator({0,-9.8,0});
+	pfr.addRegistry(g1, p1);
+	pfr.addRegistry(f1, p1);
+	pfr.addRegistry(f2, p2);
+	_particles.push_back(p1);
+	_particles.push_back(p2);
+}
+
+void ParticleSystem::generateSpringDemo2()
+{
+	p1 = new Particle(true, { -1.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 1);
+	Particle* p2 = new Particle(true, { 1.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 2);
+	p1->changeLifespan(99);
+	p2->changeLifespan(99);
+
+	ElasticBandForce* f1 = new ElasticBandForce(1, 10, p2);
+	ElasticBandForce* f2 = new ElasticBandForce(1, 10, p1);
+	pfr.addRegistry(f1, p1);
+	pfr.addRegistry(f2, p2);
+	_particles.push_back(p1);
+	_particles.push_back(p2);
+}
+
+void ParticleSystem::generateSlinkyDemo()
+{
+	Particle* p1 = new Particle(partType[ICE]);
+	Particle* p2 = new Particle(partType[FIRE]);
+	Particle* p3 = new Particle(partType[WATER]);
+	Particle* p4 = new Particle(partType[LIGHT]);
+	Particle* p5 = new Particle(partType[DARK]);
+	Particle* p6 = new Particle(partType[DEFAULT]);
+
+	p1->setPos({ 0,25,0 });
+	p2->setPos({ 0,20,0 });
+	p3->setPos({ 0,15,0 });
+	p4->setPos({ 0,10,0 });
+	p5->setPos({ 0,5,0 });
+	p6->setPos({ 0,0,0 });
+
+	ElasticBandForce* f1 = new ElasticBandForce(1, 10, p2);
+	ElasticBandForce* f2 = new ElasticBandForce(1, 10, p3);
+	ElasticBandForce* f3 = new ElasticBandForce(1, 10, p4);
+	ElasticBandForce* f4 = new ElasticBandForce(1, 10, p5);
+	ElasticBandForce* f5 = new ElasticBandForce(1, 10, p6);
+
+	GravityForceGenerator* g = new GravityForceGenerator({ 0,-3.8,0 });
+
+	pfr.addRegistry(f1, p1);
+	pfr.addRegistry(f2, p2);
+	pfr.addRegistry(f3, p3);
+	pfr.addRegistry(f4, p4);
+	pfr.addRegistry(f5, p5);
+
+	pfr.addRegistry(g, p1);
+	pfr.addRegistry(g, p2);
+	pfr.addRegistry(g, p3);
+	pfr.addRegistry(g, p4);
+	pfr.addRegistry(g, p5);
+	pfr.addRegistry(g, p6);
+
+	_particles.push_back(p1);
+	_particles.push_back(p2);
+	_particles.push_back(p3);
+	_particles.push_back(p4);
+	_particles.push_back(p5);
+	_particles.push_back(p6);
 }
 
 void ParticleSystem::addGenerator(unsigned type) {
