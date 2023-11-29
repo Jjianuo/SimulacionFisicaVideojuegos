@@ -250,13 +250,23 @@ void ParticleSystem::generateSpringDemo()
 
 void ParticleSystem::generateSpringDemo2()
 {
-	p1 = new Particle(true, { -1.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 1);
-	Particle* p2 = new Particle(true, { 1.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 2);
-	p1->changeLifespan(99);
-	p2->changeLifespan(99);
+	p1 = new Particle(true, { -5.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 1);
+	Particle* p2 = new Particle(false, { 5.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 1);
+	p2->getRenderItem() = new RenderItem(CreateShape(PxSphereGeometry(1)), &p2->getPose(), colorsInfo[RED]);
+	p1->changeLifespan(-1);
+	p2->changeLifespan(-1);
 
-	ElasticBandForce* f1 = new ElasticBandForce(1, 10, p2);
-	ElasticBandForce* f2 = new ElasticBandForce(1, 10, p1);
+	TornadoGenerator* aux = new TornadoGenerator(3);
+	aux->setOrigin({ -1.0f, -20.0f, 0.0 });
+	pfr.addRegistry(aux, p1);
+	pfr.addRegistry(aux, p2);
+
+	SpringForce* f1 = new SpringForce(1, 5, p2);
+	SpringForce* f2 = new SpringForce(1, 5, p1);
+
+	//ElasticBandForce* f1 = new ElasticBandForce(1, 10, p2);
+	//ElasticBandForce* f2 = new ElasticBandForce(1, 10, p1);
+
 	pfr.addRegistry(f1, p1);
 	pfr.addRegistry(f2, p2);
 	_particles.push_back(p1);
@@ -272,12 +282,12 @@ void ParticleSystem::generateSlinkyDemo()
 	Particle* p5 = new Particle(partType[DARK]);
 	Particle* p6 = new Particle(partType[DEFAULT]);
 
-	p1->setPos({ 0,25,0 });
-	p2->setPos({ 0,20,0 });
+	p1->setPos({ 0,35,0 });
+	p2->setPos({ 0,25,0 });
 	p3->setPos({ 0,15,0 });
 	p4->setPos({ 0,10,0 });
 	p5->setPos({ 0,5,0 });
-	p6->setPos({ 0,0,0 });
+	p6->setPos({ 0,-20,0 });
 
 	ElasticBandForce* f1 = new ElasticBandForce(1, 10, p2);
 	ElasticBandForce* f2 = new ElasticBandForce(1, 10, p3);
@@ -314,7 +324,7 @@ void ParticleSystem::generateBuoyancyDemo()
 	water->getRenderItem() = new RenderItem(CreateShape(PxBoxGeometry(50, 0.1, 50)), &water->getPose(), water->getColor());
 	water->changeLifespan(-1);
 
-	Particle* p2 = new Particle(false, { 0.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 50, 0.449);
+	Particle* p2 = new Particle(false, { 0.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 5, 0.449);
 	p2->changeLifespan(-1);
 	water->getRenderItem() = new RenderItem(CreateShape(PxBoxGeometry(2,2,2)), &p2->getPose(), colorsInfo[RED]);
 

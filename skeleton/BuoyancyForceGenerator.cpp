@@ -12,7 +12,9 @@ void BuoyancyForceGenerator::updateForce(Particle* p, double t)
 	else if (h0 - h > height * 0.5) immersed = 1.0;
 	else immersed = (h0 - h) / height + 0.5;
 
-	f.y = density * volume * immersed;
+	Vector3 velocity = p->getVelocity();
+	f.y = density * volume * immersed * 9.8;
+	f -= frictionCoef * normal * velocity;
 
 	p->addForce(f);
 }

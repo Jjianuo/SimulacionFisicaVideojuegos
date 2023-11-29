@@ -73,7 +73,7 @@ namespace part {
 
 	static ParticleInfo partType[nTypes] = {
 		{DEFAULT, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 2, 0.998, 5, 2,
+		{ 0.0, 0.0, 0.0 }, 1, 0.998, 5, 2,
 		colorsInfo[GRAY], 1, false, true, nullptr},
 
 		{BULLET, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
@@ -93,7 +93,7 @@ namespace part {
 		colorsInfo[GRAY], 1, true, true, nullptr},
 
 		{ICE, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 1, 0.998, 10, 1,
+		{ 0.0, 0.0, 0.0 }, 0.8, 0.998, 10, 1,
 		colorsInfo[LIGHT_BLUE], 1, true, true, nullptr},
 
 		{WATER, { 0.0, 0.0, 0.0 }, { 1.0, 0.0, 1.0 },

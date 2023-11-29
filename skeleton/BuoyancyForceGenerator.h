@@ -11,9 +11,11 @@ protected:
 	double volume;
 	double density;
 	double immersed;
+	double frictionCoef;
+	double normal;
 public:
-	BuoyancyForceGenerator(Particle* p, double h, double v, double d)
-		: liquid(p), height(h), volume(v), density(d), immersed(0) { };
+	BuoyancyForceGenerator(Particle* p, double h, double v, double d, double fc = 0.01, double n = 1)
+		: liquid(p), height(h), volume(v), density(d), frictionCoef(fc), normal(n), immersed(0) { };
 
 	virtual void updateForce(Particle* p, double t);
 
