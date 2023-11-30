@@ -96,7 +96,7 @@ namespace part {
 		{ 0.0, 0.0, 0.0 }, 0.8, 0.998, 10, 1,
 		colorsInfo[LIGHT_BLUE], 1, true, true, nullptr},
 
-		{WATER, { 0.0, 0.0, 0.0 }, { 1.0, 0.0, 1.0 },
+		{WATER, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
 		{ 0.0, 0.0, 0.0 }, 1, 0.998, 10, 1,
 		colorsInfo[BLUE], 1, true, true, nullptr},
 		

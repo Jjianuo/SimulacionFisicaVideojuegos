@@ -278,8 +278,8 @@ void ParticleSystem::generateSlinkyDemo()
 	Particle* p1 = new Particle(partType[ICE]);
 	Particle* p2 = new Particle(partType[FIRE]);
 	Particle* p3 = new Particle(partType[WATER]);
-	Particle* p4 = new Particle(partType[LIGHT]);
-	Particle* p5 = new Particle(partType[DARK]);
+	Particle* p4 = new Particle(partType[BULLET]);
+	Particle* p5 = new Particle(partType[MIST]);
 	Particle* p6 = new Particle(partType[DEFAULT]);
 
 	p1->setPos({ 0,35,0 });
@@ -289,13 +289,20 @@ void ParticleSystem::generateSlinkyDemo()
 	p5->setPos({ 0,5,0 });
 	p6->setPos({ 0,-20,0 });
 
-	ElasticBandForce* f1 = new ElasticBandForce(1, 10, p2);
-	ElasticBandForce* f2 = new ElasticBandForce(1, 10, p3);
-	ElasticBandForce* f3 = new ElasticBandForce(1, 10, p4);
-	ElasticBandForce* f4 = new ElasticBandForce(1, 10, p5);
-	ElasticBandForce* f5 = new ElasticBandForce(1, 10, p6);
+	p1->changeLifespan(-1);
+	p2->changeLifespan(-1);
+	p3->changeLifespan(-1);
+	p4->changeLifespan(-1);
+	p5->changeLifespan(-1);
+	p6->changeLifespan(-1);
 
-	GravityForceGenerator* g = new GravityForceGenerator({ 0,-3.8,0 });
+	ElasticBandForce* f1 = new ElasticBandForce(1, 1, p2);
+	ElasticBandForce* f2 = new ElasticBandForce(1, 20, p3);
+	ElasticBandForce* f3 = new ElasticBandForce(1, 5, p4);
+	ElasticBandForce* f4 = new ElasticBandForce(1, 2, p5);
+	ElasticBandForce* f5 = new ElasticBandForce(1, 12, p6);
+
+	GravityForceGenerator* g = new GravityForceGenerator({ 0,-9.8,0 });
 
 	pfr.addRegistry(f1, p1);
 	pfr.addRegistry(f2, p2);
@@ -324,12 +331,14 @@ void ParticleSystem::generateBuoyancyDemo()
 	water->getRenderItem() = new RenderItem(CreateShape(PxBoxGeometry(50, 0.1, 50)), &water->getPose(), water->getColor());
 	water->changeLifespan(-1);
 
-	Particle* p2 = new Particle(false, { 0.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 5, 0.449);
+	Particle* p2 = new Particle(false, { 0.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 10, 0.0499);
 	p2->changeLifespan(-1);
-	water->getRenderItem() = new RenderItem(CreateShape(PxBoxGeometry(2,2,2)), &p2->getPose(), colorsInfo[RED]);
+	double cubeSize = 2;
+	water->getRenderItem() = new RenderItem(CreateShape(PxBoxGeometry(cubeSize, cubeSize, cubeSize)), &p2->getPose(), colorsInfo[RED]);
 
-	GravityForceGenerator* g = new GravityForceGenerator({ 0,-9.8,0 });
-	BuoyancyForceGenerator* bg = new BuoyancyForceGenerator(water, 2, 5, 1000);
+	float grav = 9.8f;
+	GravityForceGenerator* g = new GravityForceGenerator({ 0,-grav,0 });
+	BuoyancyForceGenerator* bg = new BuoyancyForceGenerator(water, cubeSize, pow(cubeSize, 3), 1000, grav);
 	pfr.addRegistry(g, p2);
 	pfr.addRegistry(bg, p2);
 
