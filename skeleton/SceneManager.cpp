@@ -10,6 +10,7 @@ SceneManager::SceneManager()
 
 	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), true, gPvd);
 
+	// coef rozamiento estático, coef rozamiento dinámico, coeficiente elástico
 	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.6f);
 
 	// For Solid Rigids +++++++++++++++++++++++++++++++++++++

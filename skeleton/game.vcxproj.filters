@@ -64,7 +64,10 @@
     <ClCompile Include="ElasticBandForce.cpp">
       <Filter>Forces</Filter>
     </ClCompile>
-    <ClCompile Include="BuoyancyForceGenerator.cpp" />
+    <ClCompile Include="BuoyancyForceGenerator.cpp">
+      <Filter>Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="FrictionForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -133,7 +136,10 @@
     <ClInclude Include="ElasticBandForce.h">
       <Filter>Forces</Filter>
     </ClInclude>
-    <ClInclude Include="BuoyancyForceGenerator.h" />
+    <ClInclude Include="BuoyancyForceGenerator.h">
+      <Filter>Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="FrictionForceGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

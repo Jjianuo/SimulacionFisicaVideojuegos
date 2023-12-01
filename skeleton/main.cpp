@@ -11,8 +11,6 @@
 
 #include <iostream>
 
-#include "Shooter.h"
-
 std::string display_text = "I like orcas";
 
 PxDefaultAllocator		gAllocator;
