@@ -68,6 +68,7 @@
       <Filter>Forces</Filter>
     </ClCompile>
     <ClCompile Include="FrictionForceGenerator.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -140,6 +141,7 @@
       <Filter>Forces</Filter>
     </ClInclude>
     <ClInclude Include="FrictionForceGenerator.h" />
+    <ClInclude Include="RigidBody.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
