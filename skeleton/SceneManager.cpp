@@ -22,7 +22,7 @@ SceneManager::SceneManager()
 	sceneDesc->simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(*sceneDesc);
 
-	changeScene(1);
+	changeScene(2);
 }
 
 SceneManager::~SceneManager()
@@ -37,6 +37,11 @@ SceneManager::~SceneManager()
 		break;
 	}
 	case 1:
+	{
+		delete pSys;
+		break;
+	}
+	case 2:
 	{
 		delete pSys;
 		break;
@@ -84,18 +89,18 @@ void SceneManager::update(double t)
 void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 {
 	switch (toupper(key)) {
-	case '0': {
-		currScene = 0;
-		changeScene(0);
-		break;
-	}
-	case '1': {
-		currScene = 1;
-		changeScene(1);
-		break;
-	}
-	default:
-		break;
+		case '0': {
+			currScene = 0;
+			changeScene(0);
+			break;
+		}
+		case '1': {
+			currScene = 1;
+			changeScene(1);
+			break;
+		}
+		default:
+			break;
 	}
 	switch (currScene)
 	{
@@ -147,11 +152,12 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			{	pSys->generateFirework(3);
 				break;
 			}
-			}
 			default:
 				break;
+			}
 		}
-		case 1: {
+		case 1: 
+		{
 			switch (toupper(key))
 			{
 			case 'Z': {
@@ -187,6 +193,21 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 				break;
 			}
 		}
+		case 2:
+		{
+			switch (toupper(key))
+			{
+			case 'Z': {
+				pSys->generateRB();
+				break;
+			}
+			default:
+				break;
+			}
+			break;
+		}
+		default:
+			break;
 	}
 }
 
@@ -207,6 +228,16 @@ void SceneManager::changeScene(int scene)
 		pSys = new ParticleSystem();
 		break;
 	}
+	case 2:
+	{
+		PxRigidStatic* rb = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
+		PxShape* s = CreateShape(PxBoxGeometry(50, 0.1, 50));
+		rb->attachShape(*s);
+		RenderItem* ri = new RenderItem(s, rb, { 1,1,1,1 });
+		gScene->addActor(*rb);
+		pSys = new ParticleSystem();
+		break;
+	}
 	default:
 		break;
 	}
@@ -214,6 +245,8 @@ void SceneManager::changeScene(int scene)
 
 void SceneManager::clear()
 {
+	if(pSys != nullptr)
+		pSys->wipe();
 	gScene->release();
 	gScene = gPhysics->createScene(*sceneDesc);
 }

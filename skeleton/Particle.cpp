@@ -63,7 +63,6 @@ Particle::Particle(ParticleInfo pI, bool v) : pInfo(pI), _ls(pI.lifespan)
 
 Particle::~Particle()
 {
-	die();
 }
 
 void Particle::integrate(double t)

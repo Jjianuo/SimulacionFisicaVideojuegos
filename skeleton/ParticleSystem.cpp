@@ -30,11 +30,7 @@ ParticleSystem::ParticleSystem() : area(500)
 
 ParticleSystem::~ParticleSystem()
 {
-	for (auto& p : _particles)
-		delete p;
-	_particles.clear();
-	for (auto pg : _pGenerator)
-		delete pg;
+	wipe();
 }
 
 void ParticleSystem::update(double t)
@@ -70,6 +66,7 @@ void ParticleSystem::update(double t)
 		pfr.deleteParticleRegistry(d);
 		_particles.remove(d);
 		d->die();
+		delete d;
 	}
 	_dumpster.clear();
 }
@@ -346,6 +343,14 @@ void ParticleSystem::generateBuoyancyDemo()
 	_particles.push_back(p2);
 }
 
+void ParticleSystem::generateRB()
+{
+	PxMaterial* mMaterial;
+	mMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.1f);
+
+	_rigidBodies.push_back(new RigidBody(PxVec3( 0, 5, 0 ), 1, CreateShape(PxSphereGeometry(1)), colorsInfo[RED], mMaterial));
+}
+
 void ParticleSystem::addGenerator(unsigned type) {
 	switch (type)
 	{
@@ -452,4 +457,16 @@ void ParticleSystem::addGenerator(unsigned type) {
 	default:
 		break;
 	}
+}
+
+void ParticleSystem::wipe()
+{
+	for (auto pg : _pGenerator)
+		delete pg;
+	for (auto& p : _particles) {
+		p->die();
+		delete p;
+	}
+	_pGenerator.clear();
+	_particles.clear();
 }

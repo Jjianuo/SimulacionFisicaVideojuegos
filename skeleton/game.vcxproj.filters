@@ -69,6 +69,7 @@
     </ClCompile>
     <ClCompile Include="FrictionForceGenerator.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="RBSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -142,6 +143,8 @@
     </ClInclude>
     <ClInclude Include="FrictionForceGenerator.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RBSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
@@ -162,5 +165,8 @@
     <Filter Include="ParticleGenerators">
       <UniqueIdentifier>{11c572f1-6138-4e03-864f-0b65a297d964}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc" />
   </ItemGroup>
 </Project>

@@ -32,8 +32,8 @@ private:
 	vector<PxScene*> scenes;
 	int currScene;
 	vector<Particle*> particles;
-	Shooter* shoot;
-	ParticleSystem* pSys;
+	Shooter* shoot = nullptr;
+	ParticleSystem* pSys = nullptr;
 	
 public:
 	SceneManager();

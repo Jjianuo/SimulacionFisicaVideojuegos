@@ -14,3 +14,7 @@ RigidBody::RigidBody(PxVec3 pos, double m, PxShape* s, PxVec4 c, PxMaterial* mat
 
 	//PxRigidBodyExt::updateMassAndInertia(rB, m * s.);
 }
+
+RigidBody::~RigidBody()
+{
+}

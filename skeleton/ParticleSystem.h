@@ -18,11 +18,16 @@
 #include "BuoyancyForceGenerator.h"
 #include "ParticleForceRegistry.h"
 
+#include "RigidBody.h"
+
+extern PxPhysics* gPhysics;
+
 using namespace std;
 class ParticleSystem
 {
 	list<Particle*> _particles;
 	list<Particle*> _dumpster;
+	list<RigidBody*> _rigidBodies;
 	// These are the registred generators(for on demand set generation prob.to 0)
 	list<ParticleGenerator*> _pGenerator;
 
@@ -49,9 +54,12 @@ public:
 	void generateSpringDemo2();
 	void generateSlinkyDemo();
 	void generateBuoyancyDemo();
+
+	void generateRB();
 	// Gets a particle generator with name...
 	ParticleGenerator* getParticleGenerator(const string& n);
 
 	void addGenerator(unsigned type);
+	void wipe();
 };
 

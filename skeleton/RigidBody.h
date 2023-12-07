@@ -8,6 +8,7 @@ class RigidBody
 {
 public:
 	RigidBody(PxVec3 pos, double m, PxShape* s, PxVec4 c, PxMaterial* mat);
+	~RigidBody();
 
 	PxRigidDynamic* rB;
 };
