@@ -67,10 +67,18 @@
     <ClCompile Include="BuoyancyForceGenerator.cpp">
       <Filter>Forces</Filter>
     </ClCompile>
-    <ClCompile Include="FrictionForceGenerator.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
-    <ClCompile Include="RBSystem.cpp" />
-    <ClCompile Include="RigidBodyGenerator.cpp" />
+    <ClCompile Include="FrictionForceGenerator.cpp">
+      <Filter>Forces</Filter>
+    </ClCompile>
+    <ClCompile Include="RBSystem.cpp">
+      <Filter>RigidBodies</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>RigidBodies</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyGenerator.cpp">
+      <Filter>RigidBodies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -142,11 +150,21 @@
     <ClInclude Include="BuoyancyForceGenerator.h">
       <Filter>Forces</Filter>
     </ClInclude>
-    <ClInclude Include="FrictionForceGenerator.h" />
-    <ClInclude Include="RigidBody.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="RBSystem.h" />
-    <ClInclude Include="RigidBodyGenerator.h" />
+    <ClInclude Include="resource.h">
+      <Filter>Dunno lol</Filter>
+    </ClInclude>
+    <ClInclude Include="FrictionForceGenerator.h">
+      <Filter>Forces</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyGenerator.h">
+      <Filter>RigidBodies</Filter>
+    </ClInclude>
+    <ClInclude Include="RBSystem.h">
+      <Filter>RigidBodies</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>RigidBodies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
@@ -166,6 +184,9 @@
     </Filter>
     <Filter Include="ParticleGenerators">
       <UniqueIdentifier>{11c572f1-6138-4e03-864f-0b65a297d964}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RigidBodies">
+      <UniqueIdentifier>{f24e416f-7d68-48a8-8254-7b20e849baf3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

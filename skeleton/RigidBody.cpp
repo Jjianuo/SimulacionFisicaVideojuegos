@@ -32,5 +32,8 @@ void RigidBody::setVelocity(Vector3 v)
 RigidBody* RigidBody::clone() const
 {
 	PxShape* s = CreateShape(PxSphereGeometry(this->pInfo.size));
-	return new RigidBody(this->pInfo.pose.p, this->pInfo.mass, s, this->pInfo.color, material);
+	RigidBody* aux = new RigidBody(this->pInfo.pose.p, this->pInfo.mass, s, this->pInfo.color, material);
+	aux->getPInfo() = this->pInfo;
+	aux->setVelocity(rB->getLinearVelocity());
+	return aux;
 }

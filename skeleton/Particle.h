@@ -137,7 +137,7 @@ protected:
 	double friction;
 
 public:
-
+	inline ParticleInfo& getPInfo() { return pInfo; }
 	inline PxTransform& getPose() { return pInfo.pose; };
 	inline Vector3& getVelocity() { return pInfo.velocity; };
 	inline Vector3& getAcceleration() { return pInfo.acceleration; };
@@ -149,8 +149,8 @@ public:
 	inline RenderItem*& getRenderItem() { return pInfo.renderItem; }
 	inline int& getGeneration() { return pInfo._generation; };
 	inline double& getInvMass() { return _inv_mass; };
-	inline void setPos(Vector3 pos) { pInfo.pose = PxTransform(pos.x, pos.y, pos.z); }
 
+	inline void setPos(Vector3 pos) { pInfo.pose = PxTransform(pos.x, pos.y, pos.z); }
 	inline void changeLifespan(double d) { pInfo.lifespan = d; _ls = d; }
 	inline void setShape(_shape newShape) { 
 		RenderItem* aux = pInfo.renderItem;

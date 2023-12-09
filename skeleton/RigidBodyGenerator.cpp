@@ -17,6 +17,7 @@ RigidBodyGenerator::RigidBodyGenerator(PxMaterial* mat, Vector3 origin, Vector3 
 	Particle* p = new Particle(false);
 
 	RigidBody* rb = new RigidBody(_origin, p->getMass(), CreateShape(PxSphereGeometry(p->getSize())), p->getColor(), mat);
+	rb->getPInfo() = p->getPInfo();
 	rb->setVelocity(_mean_velocity);
 	setParticle(rb);
 	_mt = std::mt19937{ std::random_device()() };
@@ -29,6 +30,7 @@ RigidBodyGenerator::RigidBodyGenerator(Particle* p, PxMaterial* mat, Vector3 ori
 	_mean_velocity = mean_velocity;
 
 	RigidBody* rb = new RigidBody(_origin, p->getMass(), CreateShape(PxSphereGeometry(p->getSize())), p->getColor(), mat);
+	rb->getPInfo() = p->getPInfo();
 	rb->setVelocity(_mean_velocity);
 	setParticle(rb);
 	_mt = std::mt19937{ std::random_device()() };

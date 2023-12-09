@@ -38,7 +38,7 @@ void RBSystem::addGenerator(unsigned type)
 		auxParticle->getSize() = 0.2;
 		auxParticle->getMass() = 10;
 		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial);
-		rbGen->setMeanVelocity({ 1, 6, 1 });
+		rbGen->setMeanVelocity({ 3, 6, 3 });
 		rbGen->setOrigin({ 0.0f, 50.0f, 0.0f });
 		rbGen->setOffset({ 20,20,20 });
 
