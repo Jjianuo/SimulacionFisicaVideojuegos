@@ -10,6 +10,7 @@ class ParticleGenerator
 {
 protected:
 	ParticleGenerator() {};
+	ParticleGenerator(Particle* p) {};
 
 	int _n_particles = 1; // Number of particles for each generateParticles call(TODO: add randomness ? ? )
 	double _generation_prob = 1.0; // IF 1.0 --> always produces particles

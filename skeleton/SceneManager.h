@@ -7,6 +7,7 @@
 #include "Shooter.h"
 #include "callbacks.hpp"
 #include "ParticleSystem.h"
+#include "RBSystem.h"
 
 using namespace physx;
 using namespace std;
@@ -34,6 +35,7 @@ private:
 	vector<Particle*> particles;
 	Shooter* shoot = nullptr;
 	ParticleSystem* pSys = nullptr;
+	RBSystem* rbSys = nullptr;
 	
 public:
 	SceneManager();

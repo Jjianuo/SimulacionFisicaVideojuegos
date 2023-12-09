@@ -272,6 +272,7 @@
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="RigidBodyGenerator.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpringForce.cpp" />
@@ -301,6 +302,7 @@
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="RigidBodyGenerator.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpringForce.h" />

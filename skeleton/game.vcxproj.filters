@@ -70,6 +70,7 @@
     <ClCompile Include="FrictionForceGenerator.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RBSystem.cpp" />
+    <ClCompile Include="RigidBodyGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -145,6 +146,7 @@
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RBSystem.h" />
+    <ClInclude Include="RigidBodyGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

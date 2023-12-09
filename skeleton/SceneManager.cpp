@@ -44,6 +44,7 @@ SceneManager::~SceneManager()
 	case 2:
 	{
 		delete pSys;
+		delete rbSys;
 		break;
 	}
 	default:
@@ -74,9 +75,15 @@ void SceneManager::update(double t)
 	case 0: {
 		shoot->integrate(t);
 		pSys->update(t);
+		break;
 	}
 	case 1: {
 		pSys->update(t);
+		break;
+	}
+	case 2: {
+		rbSys->update(t);
+		break;
 	}
 	default:
 		break;
@@ -97,6 +104,11 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 		case '1': {
 			currScene = 1;
 			changeScene(1);
+			break;
+		}
+		case '2': {
+			currScene = 2;
+			changeScene(2);
 			break;
 		}
 		default:
@@ -198,7 +210,11 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			switch (toupper(key))
 			{
 			case 'Z': {
-				pSys->generateRB();
+				rbSys->generateRB();
+				break;
+			}
+			case 'X': {
+				rbSys->addGenerator(1);
 				break;
 			}
 			default:
@@ -230,12 +246,7 @@ void SceneManager::changeScene(int scene)
 	}
 	case 2:
 	{
-		PxRigidStatic* rb = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
-		PxShape* s = CreateShape(PxBoxGeometry(50, 0.1, 50));
-		rb->attachShape(*s);
-		RenderItem* ri = new RenderItem(s, rb, { 1,1,1,1 });
-		gScene->addActor(*rb);
-		pSys = new ParticleSystem();
+		rbSys = new RBSystem();
 		break;
 	}
 	default:

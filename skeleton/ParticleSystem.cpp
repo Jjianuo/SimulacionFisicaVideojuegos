@@ -343,14 +343,6 @@ void ParticleSystem::generateBuoyancyDemo()
 	_particles.push_back(p2);
 }
 
-void ParticleSystem::generateRB()
-{
-	PxMaterial* mMaterial;
-	mMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.1f);
-
-	_rigidBodies.push_back(new RigidBody(PxVec3( 0, 5, 0 ), 1, CreateShape(PxSphereGeometry(1)), colorsInfo[RED], mMaterial));
-}
-
 void ParticleSystem::addGenerator(unsigned type) {
 	switch (type)
 	{

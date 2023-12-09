@@ -1,9 +1,22 @@
 #pragma once
-#include <list>
-#include <iostream>
-#include <vector>
+#include "ParticleSystem.h"
+#include "RigidBody.h"
+#include "RigidBodyGenerator.h"
 
-class RBSystem
+extern PxPhysics* gPhysics;
+extern PxScene* gScene;
+
+class RBSystem : public ParticleSystem
 {
+	list<Particle*> _rigidBodies;
+	list<RigidBodyGenerator*> _rBGenerators;
+public:
+	RBSystem();
+	~RBSystem();
+
+	void update(double t);
+
+	void addGenerator(unsigned type);
+	void generateRB();
 };
 
