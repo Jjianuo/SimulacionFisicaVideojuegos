@@ -14,7 +14,7 @@ protected:
 
 	int _n_particles = 1; // Number of particles for each generateParticles call(TODO: add randomness ? ? )
 	double _generation_prob = 1.0; // IF 1.0 --> always produces particles
-	Particle* _model_particle = nullptr; // Has the attributes of the particle that will be generated!(damping, lifetime, etc.)
+	ParticleInfo _model_particle;
 	Vector3 _origin, _mean_velocity;
 	Vector3 offset = { 0.0, 0.0, 0.0 };
 	float minVar = -1, maxVar = 1;
@@ -26,22 +26,20 @@ protected:
 	int minLifespan = 1;
 
 public:
-	~ParticleGenerator() { if(_model_particle != nullptr) delete _model_particle; };
+	~ParticleGenerator() {  };
 
 	virtual std::list<Particle*> generateParticles() {
 		std::list<Particle*> ret;
 		if (_u(_mt) <= _generation_prob) {
 			for (int i = 0; i < _n_particles; ++i) {
-				Vector3 v = getRandomDist() * _mean_velocity;
-				_model_particle->getPose() = PxTransform(_origin + (getRandomDist() * offset));
-				_model_particle->getVelocity() = v;
+				Particle* p = new Particle(_model_particle, true);
+				p->setPos(_origin + (getRandomDist() * offset));
+				p->setVelocity(getRandomDist() * _mean_velocity);
 				if (randomLifespan) {
-					_model_particle->getLifespan() = (_u(_mt) * randomLifespanLimits) + minLifespan;
+					p->changeLifespan((_u(_mt) * randomLifespanLimits) + minLifespan);
 				}
 
-				ret.push_back(_model_particle);
-
-				setParticle(_model_particle, false);
+				ret.push_back(p);
 			}
 		}
 		return ret;
@@ -58,13 +56,11 @@ public:
 		return _mean_velocity;
 	}
 	inline void setMeanDuration(double new_duration) {
-		_model_particle->getLifespan() = new_duration;
+		_model_particle.lifespan = new_duration;
 	}
 	//! @brief --> sets the particle, including its type, lifetime and mean positionsand velocities
 	inline void setParticle(Particle* p, bool modify_pos_vel = true) {
-		if(_model_particle != p) delete _model_particle;
-		_model_particle = p->clone();
-		randomLifespanLimits = _model_particle->_ls;
+		_model_particle = p->getPInfo();
 		if (modify_pos_vel) {
 			_origin = p->getPose().p;
 			_mean_velocity = p->getVelocity();

@@ -10,6 +10,7 @@ class RBSystem : public ParticleSystem
 {
 	list<Particle*> _rigidBodies;
 	list<RigidBodyGenerator*> _rBGenerators;
+	PxRigidStatic* rb = nullptr;
 public:
 	RBSystem();
 	~RBSystem();
@@ -18,5 +19,7 @@ public:
 
 	void addGenerator(unsigned type);
 	void generateRB();
+
+	virtual void wipe();
 };
 

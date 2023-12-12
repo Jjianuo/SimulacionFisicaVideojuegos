@@ -77,22 +77,22 @@ void ParticleSystem::generateFirework(unsigned firework_type)
 	{
 	case 0: { //??
 		Firework* temp = new Firework(partType[FIREWORK]);
-		temp->getPose() = PxTransform(0.0, 0.0, 0.0);
-		temp->getAcceleration() += Vector3{0.0, -9.8, 0.0};
-		temp->getGeneration() = 2;
+		temp->setPos(Vector3(0.0, 0.0, 0.0));
+		temp->setAcceleration(temp->getAcceleration() + Vector3{ 0.0, -9.8, 0.0 });
+		temp->setGeneration(2);
 
 
 		std::shared_ptr<ParticleGenerator> auxGen1(new GaussianParticleGenerator());
 		Firework* aux1 = new Firework(partType[CHERRY_BLOSSOM]);
-		aux1->getMass() = 3;
+		aux1->setMass(3);
 		auxGen1->setParticle(aux1);
 		auxGen1->setRandomLifespan(true);
 		auxGen1->setNParticles(5);
 
 		std::shared_ptr<ParticleGenerator> auxGen2(new GaussianParticleGenerator());
 		Firework* aux2 = new Firework(partType[FIREWORK]);
-		aux2->getColor() = colorsInfo[LIGHT_BLUE];
-		aux2->getMass() = 3;
+		aux2->setColor(colorsInfo[LIGHT_BLUE]);
+		aux2->setMass(3);
 		aux2->addGenerator(auxGen1);
 		auxGen2->setParticle(aux2);
 		auxGen2->setRandomLifespan(true);
@@ -109,14 +109,14 @@ void ParticleSystem::generateFirework(unsigned firework_type)
 	}
 	case 1: { //RAINBOW
 		Firework* temp = new Firework(partType[FIREWORK]);
-		temp->getGeneration() = 2;
-		temp->getPose() = PxTransform(0.0, 0.0, 0.0);
-		temp->getAcceleration() += Vector3{ 0.0, -9.8, 0.0 };
+		temp->setGeneration(2);
+		temp->setPos(Vector3(0.0, 0.0, 0.0));
+		temp->setAcceleration(temp->getAcceleration() + Vector3{ 0.0, -9.8, 0.0 });
 
 		for (int i = 0; i < 7; ++i) {
 			std::shared_ptr<ParticleGenerator> auxGen1(new GaussianParticleGenerator());
 			Firework* aux1 = new Firework(partType[DEFAULT]);
-			aux1->getColor() = colorsInfo[RED + i];
+			aux1->setColor(colorsInfo[RED + i]);
 			auxGen1->setParticle(aux1);
 			auxGen1->setNParticles(2);
 			auxGen1->setRandomLifespan(true);
@@ -129,13 +129,13 @@ void ParticleSystem::generateFirework(unsigned firework_type)
 	}
 	case 2: { //LAME 
 		Firework* temp = new Firework(partType[FIREWORK]);
-		temp->getGeneration() = 4;
-		temp->getPose() = PxTransform(0.0, 0.0, 0.0);
-		temp->getAcceleration() += Vector3{ 0.0, -9.8, 0.0 };
+		temp->setGeneration(4);
+		temp->setPos(Vector3(0.0, 0.0, 0.0));
+		temp->setAcceleration(temp->getAcceleration() + Vector3 { 0.0, -9.8, 0.0 });
 
 		std::shared_ptr<ParticleGenerator> auxGen1(new GaussianParticleGenerator());
 		Firework* aux1 = new Firework(partType[DEFAULT]);
-		aux1->getColor() = colorsInfo[RED];
+		aux1->setColor(colorsInfo[RED]);
 		auxGen1->setParticle(aux1);
 		auxGen1->setNParticles(100);
 		auxGen1->setRandomLifespan(true);
@@ -147,9 +147,9 @@ void ParticleSystem::generateFirework(unsigned firework_type)
 	}
 	case 3: { //wtfd
 		Firework* temp = new Firework(partType[FIREWORK]);
-		temp->getGeneration() = 4;
-		temp->getPose() = PxTransform(0.0, 0.0, 0.0);
-		temp->getAcceleration() += Vector3{ 0.0, -9.8, 0.0 };
+		temp->setGeneration(4);
+		temp->setPos(Vector3(0.0, 0.0, 0.0));
+		temp->setAcceleration(temp->getAcceleration() + Vector3{ 0.0, -9.8, 0.0 });
 
 		std::shared_ptr<ParticleGenerator> auxGen1(new GaussianParticleGenerator()); //genera aux1234
 		std::shared_ptr<ParticleGenerator> auxGen2(new GaussianParticleGenerator()); //genera aux234
@@ -157,11 +157,11 @@ void ParticleSystem::generateFirework(unsigned firework_type)
 		std::shared_ptr<ParticleGenerator> auxGen4(new GaussianParticleGenerator()); //genera aux4
 
 		Firework* aux1 = new Firework(partType[FIREWORK]);
-		aux1->getColor() = colorsInfo[RED];
+		aux1->setColor(colorsInfo[RED]);
 		Firework* aux2 = new Firework(partType[FIREWORK]);
-		aux2->getColor() = colorsInfo[LIGHT_BLUE];
+		aux2->setColor(colorsInfo[LIGHT_BLUE]);
 		Firework* aux3 = new Firework(partType[FIREWORK]); //aux3 genera particulas aux4
-		aux3->getColor() = colorsInfo[GREEN];
+		aux3->setColor(colorsInfo[GREEN]);
 		Firework* aux4 = new Firework(partType[DEFAULT]); //aux4 genera particulas normales
 
 		auxGen1->setNParticles(4);
@@ -173,7 +173,7 @@ void ParticleSystem::generateFirework(unsigned firework_type)
 		auxGen3->setRandomLifespan(true);
 		auxGen4->setRandomLifespan(true);
 
-		aux4->getColor() = colorsInfo[PINK];
+		aux4->setColor(colorsInfo[PINK]);
 		auxGen4->setParticle(aux4);
 
 		aux3->addGenerator(auxGen4);
@@ -233,7 +233,7 @@ void ParticleSystem::generateSpringDemo()
 	Particle* p2 = new Particle(true, {10.0, 10.0,0.0}, {0.0,0.0,0.0}, {0.0,0.0,0.0}, 9999999999);
 	p1->changeLifespan(99);
 	p2->changeLifespan(99);
-	p2->setShape(CUBE);
+	p2->setShape(PxGeometryType::eBOX);
 
 	SpringForce* f1 = new SpringForce(1, 10, p2);
 	SpringForce* f2 = new SpringForce(1, 10, p1);
@@ -249,7 +249,7 @@ void ParticleSystem::generateSpringDemo2()
 {
 	p1 = new Particle(true, { -5.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 1);
 	Particle* p2 = new Particle(false, { 5.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 1);
-	p2->getRenderItem() = new RenderItem(CreateShape(PxSphereGeometry(1)), &p2->getPose(), colorsInfo[RED]);
+	p2->setColor(colorsInfo[RED]);
 	p1->changeLifespan(-1);
 	p2->changeLifespan(-1);
 
@@ -325,13 +325,14 @@ void ParticleSystem::generateSlinkyDemo()
 void ParticleSystem::generateBuoyancyDemo()
 {
 	Particle* water = new Particle(partType[WATER], false);
-	water->getRenderItem() = new RenderItem(CreateShape(PxBoxGeometry(50, 0.1, 50)), &water->getPose(), water->getColor());
+	water->setPos(Vector3( 0, 0, 0 ));
+	water->setRenderItem(CreateShape(PxBoxGeometry(50, 0.1, 50)), water->getPose().p, water->getColor());
 	water->changeLifespan(-1);
 
 	Particle* p2 = new Particle(false, { 0.0, 10.0,0.0 }, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 }, 10, 0.0499);
 	p2->changeLifespan(-1);
 	double cubeSize = 2;
-	water->getRenderItem() = new RenderItem(CreateShape(PxBoxGeometry(cubeSize, cubeSize, cubeSize)), &p2->getPose(), colorsInfo[RED]);
+	p2->setRenderItem(CreateShape(PxBoxGeometry(cubeSize, cubeSize, cubeSize)), p2->getPose().p, colorsInfo[RED]);
 
 	float grav = 9.8f;
 	GravityForceGenerator* g = new GravityForceGenerator({ 0,-grav,0 });
@@ -380,8 +381,8 @@ void ParticleSystem::addGenerator(unsigned type) {
 	case 3: {
 		uniGen = new UniformParticleGenerator();
 		Particle* auxParticle = new Particle(partType[ICE], true);
-		auxParticle->getSize() = 0.2;
-		auxParticle->getMass() = 10;
+		auxParticle->setSize(0.2);
+		auxParticle->setMass(10);
 		uniGen->setParticle(auxParticle);
 		uniGen->setMeanVelocity({ 3, 3, 3 });
 		uniGen->setOrigin({ 20.0f, 20.0f, 20.0f });
@@ -399,8 +400,8 @@ void ParticleSystem::addGenerator(unsigned type) {
 	case 4: {
 		GaussianParticleGenerator* gausGen = new GaussianParticleGenerator();
 		Particle* auxParticle2 = new Particle(partType[ICE]);
-		auxParticle2->getMass() = 200;
-		auxParticle2->getSize() = 1;
+		auxParticle2->setMass(200);
+		auxParticle2->setSize(1);
 		gausGen->setParticle(auxParticle2);
 		gausGen->setMeanVelocity({ 3, 3, 3 });
 		gausGen->setOrigin({ -20.0f, 20.0f, 20.0f });
@@ -418,8 +419,8 @@ void ParticleSystem::addGenerator(unsigned type) {
 	case 5: {
 		GaussianParticleGenerator* gausGen = new GaussianParticleGenerator();
 		Particle* auxParticle2 = new Particle(partType[ICE]);
-		auxParticle2->getMass() = 200;
-		auxParticle2->getSize() = 1;
+		auxParticle2->setMass(200);
+		auxParticle2->setSize(1);
 		gausGen->setParticle(auxParticle2);
 		gausGen->setMeanVelocity({ 3, 3, 3 });
 		gausGen->setOrigin({ -20.0f, 20.0f, -20.0f });

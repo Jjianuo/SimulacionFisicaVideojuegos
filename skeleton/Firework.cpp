@@ -30,8 +30,8 @@ std::list<Particle*> Firework::explode()
 		e->setMeanDuration(pInfo.lifespan);
 
 		for (auto g : e->generateParticles()) {
-			g->getGeneration() = pInfo._generation - 1;
-			g->getLifespan() = pInfo.lifespan;
+			g->setGeneration(pInfo._generation - 1);
+			g->changeLifespan(pInfo.lifespan);
 			ret.push_back(g);
 		}
 	}

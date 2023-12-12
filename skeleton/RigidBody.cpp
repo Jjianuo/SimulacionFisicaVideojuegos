@@ -16,6 +16,20 @@ RigidBody::RigidBody(PxVec3 pos, double m, PxShape* s, PxVec4 c, PxMaterial* mat
 	//PxRigidBodyExt::updateMassAndInertia(rB, m * s.);
 }
 
+RigidBody::RigidBody(Vector3 pos, double m, PxShape* s, PxVec4 c, Vector3 mat)
+{
+	PxMaterial* mMaterial;
+	mMaterial = gPhysics->createMaterial(mat.x, mat.y, mat.z);
+
+	rB = gPhysics->createRigidDynamic(PxTransform(pos));
+	rB->setMass(m);
+	s->setMaterials(&mMaterial, 1);
+	material = mMaterial;
+	rB->attachShape(*s);
+	ri = new RenderItem(s, rB, c);
+	gScene->addActor(*rB);
+}
+
 RigidBody::~RigidBody()
 {
 	if (ri != nullptr)
@@ -39,4 +53,9 @@ RigidBody* RigidBody::clone() const
 void RigidBody::addForce(const Vector3& f)
 {
 	rB->addForce(f);
+}
+
+void RigidBody::setPos(const Vector3& f)
+{
+
 }

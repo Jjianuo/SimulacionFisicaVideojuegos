@@ -256,8 +256,14 @@ void SceneManager::changeScene(int scene)
 
 void SceneManager::clear()
 {
-	if(pSys != nullptr)
+	if(rbSys != nullptr)
+		rbSys->wipe();
+	else if(pSys != nullptr)
 		pSys->wipe();
+
+	rbSys = nullptr;
+	pSys = nullptr;
+
 	gScene->release();
 	gScene = gPhysics->createScene(*sceneDesc);
 }

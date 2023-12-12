@@ -2,7 +2,7 @@
 
 RBSystem::RBSystem() : ParticleSystem()
 {
-	PxRigidStatic* rb = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
+	rb = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
 	PxShape* s = CreateShape(PxBoxGeometry(50, 0.1, 50));
 	rb->attachShape(*s);
 	RenderItem* ri = new RenderItem(s, rb, { 1,1,1,1 });
@@ -11,8 +11,7 @@ RBSystem::RBSystem() : ParticleSystem()
 
 RBSystem::~RBSystem()
 {
-	for (auto e : _rigidBodies)
-		delete e;
+	wipe();
 }
 
 void RBSystem::update(double t)
@@ -35,8 +34,8 @@ void RBSystem::addGenerator(unsigned type)
 		mMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.1f);
 
 		Particle* auxParticle = new Particle(partType[ICE], true);
-		auxParticle->getSize() = 2;
-		auxParticle->getMass() = 2;
+		auxParticle->setSize(2);
+		auxParticle->setMass(2);
 		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial);
 		rbGen->setOrigin({ 20.0f, 50.0f, 0.0f });
 		rbGen->setMeanVelocity({ 10,10,10 });
@@ -51,8 +50,8 @@ void RBSystem::addGenerator(unsigned type)
 		mMaterial = gPhysics->createMaterial(0.2f, 0.8f, 0.6f);
 
 		Particle* auxParticle = new Particle(partType[FIRE], true);
-		auxParticle->getSize() = 1;
-		auxParticle->getMass() = 1;
+		auxParticle->setSize(1);
+		auxParticle->setMass(1);
 		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial);
 		rbGen->setOrigin({ -20.0f, 50.0f, 0.0f });
 		rbGen->setMeanVelocity({ 2,2,2 });
@@ -72,5 +71,14 @@ void RBSystem::generateRB()
 	PxMaterial* mMaterial;
 	mMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.1f);
 
-	_rigidBodies.push_back(new RigidBody(PxVec3(0, 5, 0), 1, CreateShape(PxSphereGeometry(1)), colorsInfo[RED], mMaterial));
+	_rigidBodies.push_back(new RigidBody(Vector3(0, 5, 0), 1, CreateShape(PxSphereGeometry(1)), colorsInfo[RED], mMaterial));
+}
+
+void RBSystem::wipe()
+{
+	ParticleSystem::wipe();
+
+	for (auto e : _rigidBodies)
+		delete e;
+	
 }

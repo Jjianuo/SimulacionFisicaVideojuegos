@@ -55,6 +55,6 @@ public:
 	ParticleGenerator* getParticleGenerator(const string& n);
 
 	void addGenerator(unsigned type);
-	void wipe();
+	virtual void wipe();
 };
 
