@@ -97,17 +97,14 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 {
 	switch (toupper(key)) {
 		case '0': {
-			currScene = 0;
 			changeScene(0);
 			break;
 		}
 		case '1': {
-			currScene = 1;
 			changeScene(1);
 			break;
 		}
 		case '2': {
-			currScene = 2;
 			changeScene(2);
 			break;
 		}
@@ -167,6 +164,7 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			default:
 				break;
 			}
+			break;
 		}
 		case 1: 
 		{
@@ -204,6 +202,7 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			default:
 				break;
 			}
+			break;
 		}
 		case 2:
 		{
@@ -215,6 +214,7 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			}
 			case 'X': {
 				rbSys->addGenerator(1);
+				rbSys->addGenerator(2);
 				break;
 			}
 			default:

@@ -17,13 +17,13 @@ RBSystem::~RBSystem()
 
 void RBSystem::update(double t)
 {
-	ParticleSystem::update(t);
-
 	for (auto g : _rBGenerators) {
 		for (auto pg : g->generateParticles()) {
-			_rigidBodies.push_back(pg);
+			_particles.push_back(pg);
 		}
 	}
+
+	ParticleSystem::update(t);
 }
 
 void RBSystem::addGenerator(unsigned type)
@@ -35,12 +35,28 @@ void RBSystem::addGenerator(unsigned type)
 		mMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.1f);
 
 		Particle* auxParticle = new Particle(partType[ICE], true);
-		auxParticle->getSize() = 0.2;
-		auxParticle->getMass() = 10;
+		auxParticle->getSize() = 2;
+		auxParticle->getMass() = 2;
 		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial);
-		rbGen->setMeanVelocity({ 3, 6, 3 });
-		rbGen->setOrigin({ 0.0f, 50.0f, 0.0f });
-		rbGen->setOffset({ 20,20,20 });
+		rbGen->setOrigin({ 20.0f, 50.0f, 0.0f });
+		rbGen->setMeanVelocity({ 10,10,10 });
+		rbGen->setOffset({ 1,1,1 });
+
+		_rBGenerators.push_back(rbGen);
+		delete auxParticle;
+		break;
+	}
+	case 2: {
+		PxMaterial* mMaterial;
+		mMaterial = gPhysics->createMaterial(0.2f, 0.8f, 0.6f);
+
+		Particle* auxParticle = new Particle(partType[FIRE], true);
+		auxParticle->getSize() = 1;
+		auxParticle->getMass() = 1;
+		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial);
+		rbGen->setOrigin({ -20.0f, 50.0f, 0.0f });
+		rbGen->setMeanVelocity({ 2,2,2 });
+		rbGen->setOffset({ 2,2,2 });
 
 		_rBGenerators.push_back(rbGen);
 		delete auxParticle;

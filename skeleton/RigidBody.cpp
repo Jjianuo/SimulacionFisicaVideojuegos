@@ -10,18 +10,16 @@ RigidBody::RigidBody(PxVec3 pos, double m, PxShape* s, PxVec4 c, PxMaterial* mat
 	s->setMaterials(&mat, 1);
 	material = mat;
 	rB->attachShape(*s);
-	RenderItem* ri = new RenderItem(s, rB, c);
+	ri = new RenderItem(s, rB, c);
 	gScene->addActor(*rB);
 
 	//PxRigidBodyExt::updateMassAndInertia(rB, m * s.);
 }
 
-//RigidBody::RigidBody(Particle* p, PxMaterial* mat)
-//{
-//}
-
 RigidBody::~RigidBody()
 {
+	if (ri != nullptr)
+		ri->release();
 }
 
 void RigidBody::setVelocity(Vector3 v)
@@ -36,4 +34,9 @@ RigidBody* RigidBody::clone() const
 	aux->getPInfo() = this->pInfo;
 	aux->setVelocity(rB->getLinearVelocity());
 	return aux;
+}
+
+void RigidBody::addForce(const Vector3& f)
+{
+	rB->addForce(f);
 }

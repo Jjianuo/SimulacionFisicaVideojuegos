@@ -24,7 +24,7 @@ bool ParticleSystem::outOfBounds(Particle* p)
 	return false;
 }
 
-ParticleSystem::ParticleSystem() : area(500)
+ParticleSystem::ParticleSystem() : area(70)
 {
 }
 

@@ -174,11 +174,11 @@ public:
 	enum ParticleType { DEFAULT, BULLET, FIREWORK};
 
 	virtual Particle* clone() const;
-	inline void die() { if (pInfo.renderItem != nullptr) pInfo.renderItem->release(); };
+	inline virtual void die() { if (pInfo.renderItem != nullptr) pInfo.renderItem->release(); };
 	inline void show() { if(pInfo.renderItem == nullptr) pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.mass)), &pInfo.pose, pInfo.color); }
 	inline int randomColor() { return rand() % nColors ; }
 
-	void addForce(const Vector3& f) { force += f; }
-	inline void clearForce() { force *= 0.0; }
+	virtual void addForce(const Vector3& f) { force += f; }
+	virtual inline void clearForce() { force *= 0.0; }
 };
 

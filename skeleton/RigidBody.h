@@ -8,9 +8,9 @@ using namespace physx;
 class RigidBody : public Particle
 {
 	PxMaterial* material = nullptr;
+	RenderItem* ri = nullptr;
 public:
 	RigidBody(PxVec3 pos, double m, PxShape* s, PxVec4 c, PxMaterial* mat);
-	//RigidBody(Particle* p, PxMaterial* mat = nullptr);
 	~RigidBody();
 
 	void setVelocity(Vector3 v);
@@ -18,5 +18,8 @@ public:
 	PxRigidDynamic* rB;
 
 	RigidBody* clone() const;
+	inline virtual void die() { if (ri != nullptr) ri->release(); Particle::die(); };
+	virtual void addForce(const Vector3& f);
+
 };
 
