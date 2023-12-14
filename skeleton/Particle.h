@@ -175,8 +175,12 @@ public:
 	inline double getInvMass() { return _inv_mass; };
 
 	inline void setShape(PxGeometryType::Enum newShape) { 
+		pInfo.shape = newShape;
 		switch (newShape)
 		{
+		case PxGeometryType::eSPHERE:
+			pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.size)), &pInfo.pose, pInfo.color);
+			break;
 		case PxGeometryType::eBOX:
 			pInfo.renderItem = new RenderItem(CreateShape(PxBoxGeometry(pInfo.size, pInfo.size, pInfo.size)), &pInfo.pose, pInfo.color);
 			break;

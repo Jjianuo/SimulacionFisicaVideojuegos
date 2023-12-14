@@ -16,11 +16,11 @@ RBSystem::~RBSystem()
 
 void RBSystem::update(double t)
 {
-	for (auto g : _rBGenerators) {
-		for (auto pg : g->generateParticles()) {
-			_particles.push_back(pg);
-		}
-	}
+	//for (auto g : _rBGenerators) {
+	//	for (auto pg : g->generateParticles()) {
+	//		_particles.push_back(pg);
+	//	}
+	//}
 
 	ParticleSystem::update(t);
 }
@@ -33,15 +33,20 @@ void RBSystem::addGenerator(unsigned type)
 		PxMaterial* mMaterial;
 		mMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.1f);
 
-		Particle* auxParticle = new Particle(partType[ICE], true);
+		Particle* auxParticle = new Particle(partType[ICE], false);
 		auxParticle->setSize(2);
 		auxParticle->setMass(2);
 		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial);
 		rbGen->setOrigin({ 20.0f, 50.0f, 0.0f });
-		rbGen->setMeanVelocity({ 10,10,10 });
+		rbGen->setMeanVelocity({ 1,1,1 });
 		rbGen->setOffset({ 1,1,1 });
 
-		_rBGenerators.push_back(rbGen);
+		TornadoGenerator* aux = new TornadoGenerator(0.1);
+		aux->setArea(70.0);
+		aux->setOrigin({ 20.0f, 30.0f, 0.0f });
+		pfr.addPaticleGenerator(aux, rbGen);
+
+		_pGenerator.push_back(rbGen);
 		delete auxParticle;
 		break;
 	}
@@ -49,15 +54,22 @@ void RBSystem::addGenerator(unsigned type)
 		PxMaterial* mMaterial;
 		mMaterial = gPhysics->createMaterial(0.2f, 0.8f, 0.6f);
 
-		Particle* auxParticle = new Particle(partType[FIRE], true);
+		Particle* auxParticle = new Particle(partType[FIRE], false);
+		auxParticle->setShape(PxGeometryType::eBOX);
 		auxParticle->setSize(1);
-		auxParticle->setMass(1);
+		auxParticle->setMass(10);
 		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial);
 		rbGen->setOrigin({ -20.0f, 50.0f, 0.0f });
 		rbGen->setMeanVelocity({ 2,2,2 });
 		rbGen->setOffset({ 2,2,2 });
 
-		_rBGenerators.push_back(rbGen);
+		WindGenerator* windGen = new WindGenerator();
+		windGen->setArea(70.0);
+		windGen->setOrigin({ -20.0f, 20.0f, 0.0f });
+
+		_pGenerator.push_back(rbGen);
+		pfr.addPaticleGenerator(windGen, rbGen);
+
 		delete auxParticle;
 		break;
 	}
@@ -66,19 +78,19 @@ void RBSystem::addGenerator(unsigned type)
 	}
 }
 
+void RBSystem::generateForce(unsigned type)
+{
+}
+
 void RBSystem::generateRB()
 {
 	PxMaterial* mMaterial;
 	mMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.1f);
 
-	_rigidBodies.push_back(new RigidBody(Vector3(0, 5, 0), 1, CreateShape(PxSphereGeometry(1)), colorsInfo[RED], mMaterial));
+	_particles.push_back(new RigidBody(Vector3(0, 5, 0), 1, CreateShape(PxSphereGeometry(1)), colorsInfo[RED], mMaterial));
 }
 
 void RBSystem::wipe()
 {
 	ParticleSystem::wipe();
-
-	for (auto e : _rigidBodies)
-		delete e;
-	
 }

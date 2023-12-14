@@ -45,7 +45,7 @@ public:
 	void update(double t);
 	// Method to generate a Firework with the appropiate type
 	void generateFirework(unsigned firework_type);
-	void generateForce(unsigned type);
+	virtual void generateForce(unsigned type);
 	void generateSpringDemo();
 	void generateSpringDemo2();
 	void generateSlinkyDemo();
@@ -54,7 +54,7 @@ public:
 	// Gets a particle generator with name...
 	ParticleGenerator* getParticleGenerator(const string& n);
 
-	void addGenerator(unsigned type);
+	virtual void addGenerator(unsigned type);
 	virtual void wipe();
 };
 

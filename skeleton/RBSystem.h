@@ -8,8 +8,6 @@ extern PxScene* gScene;
 
 class RBSystem : public ParticleSystem
 {
-	list<Particle*> _rigidBodies;
-	list<RigidBodyGenerator*> _rBGenerators;
 	PxRigidStatic* rb = nullptr;
 public:
 	RBSystem();
@@ -17,7 +15,9 @@ public:
 
 	void update(double t);
 
-	void addGenerator(unsigned type);
+	virtual void addGenerator(unsigned type);
+	virtual void generateForce(unsigned type);
+
 	void generateRB();
 
 	virtual void wipe();
