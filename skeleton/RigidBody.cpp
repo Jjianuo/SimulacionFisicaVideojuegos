@@ -12,8 +12,12 @@ RigidBody::RigidBody(PxVec3 pos, double m, PxShape* s, PxVec4 c, PxMaterial* mat
 	rB->attachShape(*s);
 	ri = new RenderItem(s, rB, c);
 	gScene->addActor(*rB);
-
-	//PxRigidBodyExt::updateMassAndInertia(rB, m * s.);
+	if (inertiaTensor == Vector3(-1, -1, -1))
+		PxRigidBodyExt::setMassAndUpdateInertia(*rB, m);
+	else
+		rB->setMassSpaceInertiaTensor(inertiaTensor);
+		//rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
+		//	inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
 }
 
 RigidBody::RigidBody(Vector3 pos, double m, PxShape* s, PxVec4 c, Vector3 mat, Vector3 inertiaTensor) : Particle(false)
@@ -27,11 +31,12 @@ RigidBody::RigidBody(Vector3 pos, double m, PxShape* s, PxVec4 c, Vector3 mat, V
 	rB->attachShape(*s);
 	ri = new RenderItem(s, rB, c);
 	gScene->addActor(*rB);
-	if (inertiaTensor != Vector3(-1, -1, -1))
+	if (inertiaTensor == Vector3(-1, -1, -1))
 		PxRigidBodyExt::setMassAndUpdateInertia(*rB, m);
 	else
-		rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
-			inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
+		rB->setMassSpaceInertiaTensor(inertiaTensor);
+		//rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
+		//	inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
 }
 
 RigidBody::~RigidBody()

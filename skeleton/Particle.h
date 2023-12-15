@@ -80,7 +80,7 @@ namespace part {
 		{ 0.0, 0.0, 0.0 }, 0.8, 0.998, 2, 0.8,
 		colorsInfo[WHITE], 3, true, true, nullptr},
 
-		{CHERRY_BLOSSOM, { 0.0, 0.0, 0.0 }, { 0.2, 0.0, -0.2 },
+		{CHERRY_BLOSSOM, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
 		{ 0.0, 9.8, -0.01 }, 0.1, 0.998, 10, 0.1,
 		colorsInfo[PINK], 1, true, true, nullptr},
 

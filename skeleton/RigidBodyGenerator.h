@@ -5,6 +5,7 @@
 class RigidBodyGenerator : public ParticleGenerator
 {
 	Vector3 std_dev_pos, std_dev_vel;
+	Vector3 iT;
 	double std_dev_t;
 
 	std::normal_distribution<float> _n{ minVar, maxVar };
@@ -37,8 +38,8 @@ class RigidBodyGenerator : public ParticleGenerator
 		}
 	}
 public:
-	RigidBodyGenerator(PxMaterial* mat, Vector3 origin = { 0.0, 0.0, 0.0 }, Vector3 mean_velocity = { 0.0, 0.0, 0.0 });
-	RigidBodyGenerator(Particle* p, PxMaterial* mat, Vector3 origin = { 0.0, 0.0, 0.0 }, Vector3 mean_velocity = { 0.0, 0.0, 0.0 });
+	RigidBodyGenerator(PxMaterial* mat, Vector3 origin = { 0.0, 0.0, 0.0 }, Vector3 mean_velocity = { 0.0, 0.0, 0.0 }, Vector3 inertiaTensor = { -1,-1,-1 });
+	RigidBodyGenerator(Particle* p, PxMaterial* mat, Vector3 origin = { 0.0, 0.0, 0.0 }, Vector3 mean_velocity = { 0.0, 0.0, 0.0 }, Vector3 inertiaTensor = { -1,-1,-1 });
 	~RigidBodyGenerator() {};
 
 	virtual void setVars();
@@ -50,7 +51,7 @@ public:
 			for (int i = 0; i < _n_particles; ++i) {
 				Vector3 pos = _origin + (getRandomDist() * offset);
 				Particle* p = new RigidBody(pos, _model_particle.mass,
-					generateShape(_model_particle.shape), _model_particle.color, { 0.5,0.5,0.5 });
+					generateShape(_model_particle.shape), _model_particle.color, { 0.5,0.5,0.5 }, iT);
 				p->setVelocity(getRandomDist() * _mean_velocity);
 				if (randomLifespan) {
 					p->changeLifespan((_u(_mt) * randomLifespanLimits) + minLifespan);

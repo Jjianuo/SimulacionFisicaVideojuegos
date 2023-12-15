@@ -58,17 +58,34 @@ void RBSystem::addGenerator(unsigned type)
 		auxParticle->setShape(PxGeometryType::eBOX);
 		auxParticle->setSize(1);
 		auxParticle->setMass(10);
-		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial);
+		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial, {0.0,0.0,0.0}, {0.0,0.0,0.0}, { 10.0, 0.0, 0.0 });
 		rbGen->setOrigin({ -20.0f, 50.0f, 0.0f });
 		rbGen->setMeanVelocity({ 2,2,2 });
 		rbGen->setOffset({ 2,2,2 });
 
+		_pGenerator.push_back(rbGen);
+
+		delete auxParticle;
+		break;
+	}	
+	case 3: {
+		PxMaterial* mMaterial;
+		mMaterial = gPhysics->createMaterial(0.8f, 0.5f, 0.1f);
+
+		Particle* auxParticle = new Particle(partType[CHERRY_BLOSSOM], false);
+		auxParticle->setMass(10);
+		auxParticle->setShape(PxGeometryType::eBOX);
+		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 });
+		rbGen->setOrigin({ 0.0f, 50.0f, 20.0f });
+		rbGen->setMeanVelocity({ 1,1,1 });
+		rbGen->setOffset({ 5,5,5 });
+
 		WindGenerator* windGen = new WindGenerator();
 		windGen->setArea(70.0);
-		windGen->setOrigin({ -20.0f, 20.0f, 0.0f });
+		windGen->setOrigin({ 0.0f, 20.0f, 20.0f });
+		pfr.addPaticleGenerator(windGen, rbGen);
 
 		_pGenerator.push_back(rbGen);
-		pfr.addPaticleGenerator(windGen, rbGen);
 
 		delete auxParticle;
 		break;

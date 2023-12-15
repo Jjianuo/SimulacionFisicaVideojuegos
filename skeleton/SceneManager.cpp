@@ -215,6 +215,7 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			case 'X': {
 				rbSys->addGenerator(1);
 				rbSys->addGenerator(2);
+				rbSys->addGenerator(3);
 				break;
 			}
 			default:
