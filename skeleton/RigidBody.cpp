@@ -1,4 +1,6 @@
 #include "RigidBody.h"
+#include <iostream>
+
 
 extern PxPhysics* gPhysics;
 extern PxScene* gScene;
@@ -15,9 +17,9 @@ RigidBody::RigidBody(PxVec3 pos, double m, PxShape* s, PxVec4 c, PxMaterial* mat
 	if (inertiaTensor == Vector3(-1, -1, -1))
 		PxRigidBodyExt::setMassAndUpdateInertia(*rB, m);
 	else
-		rB->setMassSpaceInertiaTensor(inertiaTensor);
-		//rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
-		//	inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
+		rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
+			inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
+		//rB->setMassSpaceInertiaTensor(inertiaTensor);
 }
 
 RigidBody::RigidBody(Vector3 pos, double m, PxShape* s, PxVec4 c, Vector3 mat, Vector3 inertiaTensor) : Particle(false)
@@ -34,9 +36,9 @@ RigidBody::RigidBody(Vector3 pos, double m, PxShape* s, PxVec4 c, Vector3 mat, V
 	if (inertiaTensor == Vector3(-1, -1, -1))
 		PxRigidBodyExt::setMassAndUpdateInertia(*rB, m);
 	else
-		rB->setMassSpaceInertiaTensor(inertiaTensor);
-		//rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
-		//	inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
+		rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
+			inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
+		//rB->setMassSpaceInertiaTensor(inertiaTensor);
 }
 
 RigidBody::~RigidBody()
@@ -73,4 +75,8 @@ void RigidBody::setInertiaTensor(const Vector3& inertiaTensor)
 {
 	rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
 	inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
+}
+
+void RigidBody::release()
+{
 }

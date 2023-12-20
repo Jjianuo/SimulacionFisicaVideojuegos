@@ -23,5 +23,6 @@ public:
 	virtual void addForce(const Vector3& f);
 	virtual void setPos(const Vector3& f);
 	virtual void setInertiaTensor(const Vector3& inertiaTensor);
+	void release();
 };
 

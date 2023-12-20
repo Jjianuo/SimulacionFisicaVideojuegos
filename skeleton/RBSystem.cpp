@@ -46,8 +46,8 @@ void RBSystem::addGenerator(unsigned type)
 		aux->setOrigin({ 20.0f, 30.0f, 0.0f });
 		pfr.addPaticleGenerator(aux, rbGen);
 
+		auxParticle->die();
 		_pGenerator.push_back(rbGen);
-		delete auxParticle;
 		break;
 	}
 	case 2: {
@@ -65,7 +65,7 @@ void RBSystem::addGenerator(unsigned type)
 
 		_pGenerator.push_back(rbGen);
 
-		delete auxParticle;
+		auxParticle->die();
 		break;
 	}	
 	case 3: {
@@ -87,7 +87,7 @@ void RBSystem::addGenerator(unsigned type)
 
 		_pGenerator.push_back(rbGen);
 
-		delete auxParticle;
+		auxParticle->die();
 		break;
 	}
 	default:

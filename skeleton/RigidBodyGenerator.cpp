@@ -21,6 +21,8 @@ RigidBodyGenerator::RigidBodyGenerator(PxMaterial* mat, Vector3 origin, Vector3 
 	rb->getPInfo() = p->getPInfo();
 	rb->setVelocity(_mean_velocity);
 	setParticle(rb);
+
+	rb->die();
 	_mt = std::mt19937{ std::random_device()() };
 }
 
@@ -35,5 +37,7 @@ RigidBodyGenerator::RigidBodyGenerator(Particle* p, PxMaterial* mat, Vector3 ori
 	rb->getPInfo() = p->getPInfo();
 	rb->setVelocity(_mean_velocity);
 	setParticle(rb);
+
+	rb->die();
 	_mt = std::mt19937{ std::random_device()() };
 }

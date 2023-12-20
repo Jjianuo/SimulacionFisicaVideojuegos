@@ -135,29 +135,26 @@ protected:
 public:
 	inline ParticleInfo& getPInfo() { return pInfo; }
 
-	inline PxTransform getPose() { return pInfo.pose; };
+	inline PxTransform getPose() { return pInfo.pose; }
 	virtual inline void setPos(Vector3 pos) { pInfo.pose = PxTransform(pos.x, pos.y, pos.z); }
 
-	inline Vector3 getVelocity() { return pInfo.velocity; };
+	inline Vector3 getVelocity() { return pInfo.velocity; }
 	virtual inline void setVelocity(Vector3 vel) { pInfo.velocity = vel; }
 
-	inline Vector3 getAcceleration() { return pInfo.acceleration; };
+	inline Vector3 getAcceleration() { return pInfo.acceleration; }
 	inline void setAcceleration(Vector3 acc) { pInfo.acceleration = acc; }
 
 	inline double getLifespan() { return pInfo.lifespan; };
 	inline void changeLifespan(double d) { pInfo.lifespan = d; _ls = d; }
 
 	inline Vector4 getColor() { return pInfo.color; };
-	inline void setColor(Vector4 c) { pInfo.color = c; pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.size)), &pInfo.pose, pInfo.color);
-	};
+	inline void setColor(Vector4 c) { pInfo.color = c; setShape(pInfo.shape); }
 
 	inline double getMass() { return pInfo.mass; };
-	inline void setMass(double m) { pInfo.mass = m; pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.size)), &pInfo.pose, pInfo.color);
-	};
+	inline void setMass(double m) { pInfo.mass = m; setShape(pInfo.shape); }
 
-	inline double getSize() { return pInfo.size; };
-	inline void setSize(double s) { pInfo.size = s; pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.size)), &pInfo.pose, pInfo.color);
-	};
+	inline double getSize() { return pInfo.size; }
+	inline void setSize(double s) { pInfo.size = s; setShape(pInfo.shape); }
 
 	inline int getType() { return pInfo._type; };
 
@@ -169,13 +166,14 @@ public:
 		pInfo.renderItem = new RenderItem(s, &pInfo.pose, pInfo.color); 
 	}
 
-	inline int getGeneration() { return pInfo._generation; };
-	inline void setGeneration(int g) { pInfo._generation = g; };
+	inline int getGeneration() { return pInfo._generation; }
+	inline void setGeneration(int g) { pInfo._generation = g; }
 
-	inline double getInvMass() { return _inv_mass; };
+	inline double getInvMass() { return _inv_mass; }
 
 	inline void setShape(PxGeometryType::Enum newShape) { 
 		pInfo.shape = newShape;
+		if(pInfo.renderItem != nullptr) pInfo.renderItem->release();
 		switch (newShape)
 		{
 		case PxGeometryType::eSPHERE:
@@ -188,34 +186,6 @@ public:
 			break;
 		}
 		//delete aux;
-	}
-
-	inline PxShape* generateShape(PxGeometryType::Enum s) {
-		switch (s)
-		{
-		case physx::PxGeometryType::eSPHERE:
-			return CreateShape(PxSphereGeometry(pInfo.size));
-			break;
-		//case physx::PxGeometryType::ePLANE:
-		//	break;
-		//case physx::PxGeometryType::eCAPSULE:
-		//	break;
-		case physx::PxGeometryType::eBOX:
-			CreateShape(PxBoxGeometry(pInfo.size, pInfo.size, pInfo.size));
-			break;
-		//case physx::PxGeometryType::eCONVEXMESH:
-		//	break;
-		//case physx::PxGeometryType::eTRIANGLEMESH:
-		//	break;
-		//case physx::PxGeometryType::eHEIGHTFIELD:
-		//	break;
-		//case physx::PxGeometryType::eGEOMETRY_COUNT:
-		//	break;
-		//case physx::PxGeometryType::eINVALID:
-		//	break;
-		default:
-			break;
-		}
 	}
 
 	double _ls;
