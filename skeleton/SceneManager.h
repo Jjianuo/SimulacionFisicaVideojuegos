@@ -30,9 +30,7 @@ extern ContactReportCallback gContactReportCallback;
 class SceneManager
 {
 private:
-	vector<PxScene*> scenes;
 	int currScene;
-	vector<Particle*> particles;
 	Shooter* shoot = nullptr;
 	ParticleSystem* pSys = nullptr;
 	RBSystem* rbSys = nullptr;

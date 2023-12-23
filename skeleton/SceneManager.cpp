@@ -22,7 +22,7 @@ SceneManager::SceneManager()
 	sceneDesc->simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(*sceneDesc);
 
-	changeScene(2);
+	changeScene(3);
 }
 
 SceneManager::~SceneManager()
@@ -42,8 +42,8 @@ SceneManager::~SceneManager()
 		break;
 	}
 	case 2:
+	case 3:
 	{
-		delete pSys;
 		delete rbSys;
 		break;
 	}
@@ -60,9 +60,6 @@ SceneManager::~SceneManager()
 	transport->release();
 
 	gFoundation->release();
-
-	for (auto e : particles)
-		delete e;
 }
 
 void SceneManager::update(double t)
@@ -85,12 +82,13 @@ void SceneManager::update(double t)
 		rbSys->update(t);
 		break;
 	}
+	case 3: {
+		rbSys->update(t);
+		break;
+	}
 	default:
 		break;
 	}
-
-	for (auto e : particles)
-		e->integrate(t);
 }
 
 void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
@@ -106,6 +104,10 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 		}
 		case '2': {
 			changeScene(2);
+			break;
+		}
+		case '3': {
+			changeScene(3);
 			break;
 		}
 		default:
@@ -223,6 +225,13 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			}
 			break;
 		}
+		case 3: //juego
+		{
+			switch (toupper(key)) {
+
+			}
+			break;
+		}
 		default:
 			break;
 	}
@@ -248,6 +257,14 @@ void SceneManager::changeScene(int scene)
 	case 2:
 	{
 		rbSys = new RBSystem();
+		break;
+	}
+	case 3: //juego
+	{
+		rbSys = new RBSystem();
+		rbSys->gameSetup();
+		GetCamera()->setEye(PxVec3({ -50,75,50 }));
+		GetCamera()->setDir(PxVec3({ 0,0,-45 }));
 		break;
 	}
 	default:

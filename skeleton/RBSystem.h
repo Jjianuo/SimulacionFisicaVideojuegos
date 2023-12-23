@@ -19,6 +19,7 @@ public:
 	virtual void generateForce(unsigned type);
 
 	void generateRB();
+	void gameSetup();
 
 	virtual void wipe();
 };

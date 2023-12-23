@@ -264,9 +264,9 @@ void setupDefaultRenderState()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//glBlendFunc(GL_ZERO, GL_SRC_COLOR);
-	//glEnable(GL_BLEND);
+	glEnable(GL_BLEND);
 
 	// Setup lighting
 	glEnable(GL_LIGHTING);
@@ -316,7 +316,7 @@ void renderShape(const PxShape& shape, const PxTransform& transform, const PxVec
 	PxMat44 mtx(transform);
 	glMultMatrixf(reinterpret_cast<const float*>(&mtx));
 	assert(glGetError() == GL_NO_ERROR);
-	glColor4f(color.x, color.y, color.z, 1.0f);
+	glColor4f(color.x, color.y, color.z, color.w);
 	assert(glGetError() == GL_NO_ERROR);
 	renderGeometry(h, color.w < 0.999f);
 	assert(glGetError() == GL_NO_ERROR);

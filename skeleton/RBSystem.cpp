@@ -2,10 +2,10 @@
 
 RBSystem::RBSystem() : ParticleSystem()
 {
-	rb = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
-	PxShape* s = CreateShape(PxBoxGeometry(50, 0.1, 50));
+	rb = gPhysics->createRigidStatic(PxTransform({ -50,30,-50 }));
+	PxShape* s = CreateShape(PxBoxGeometry(40, 1.5, 7));
 	rb->attachShape(*s);
-	RenderItem* ri = new RenderItem(s, rb, { 1,1,1,1 });
+	RenderItem* ri = new RenderItem(s, rb, { 0.39,0.24,0.16,1 });
 	gScene->addActor(*rb);
 }
 
@@ -105,6 +105,27 @@ void RBSystem::generateRB()
 	mMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.1f);
 
 	_particles.push_back(new RigidBody(Vector3(0, 5, 0), 1, CreateShape(PxSphereGeometry(1)), colorsInfo[RED], mMaterial));
+}
+
+void RBSystem::gameSetup()
+{
+	PxRigidStatic* leftWall = gPhysics->createRigidStatic(PxTransform({ -88.5,80,-50 }));
+	PxShape* s = CreateShape(PxBoxGeometry(1.5, 50, 7));
+	leftWall->attachShape(*s);
+	RenderItem* ri = new RenderItem(s, leftWall, { 0.39,0.24,0.16,1 });
+	gScene->addActor(*leftWall);
+
+	PxRigidStatic* rightWall = gPhysics->createRigidStatic(PxTransform({ -11.5,80,-50 }));
+	s = CreateShape(PxBoxGeometry(1.5, 50, 7));
+	rightWall->attachShape(*s);
+	RenderItem* ri2 = new RenderItem(s, rightWall, { 0.39,0.24,0.16,1 });
+	gScene->addActor(*rightWall);
+
+	PxRigidStatic* backWall = gPhysics->createRigidStatic(PxTransform({ -50,80,-55 }));
+	s = CreateShape(PxBoxGeometry(40, 50, 1.5));
+	backWall->attachShape(*s);
+	RenderItem* ri3 = new RenderItem(s, backWall, { 0.39,0.24,0.16,1 });
+	gScene->addActor(*backWall);
 }
 
 void RBSystem::wipe()
