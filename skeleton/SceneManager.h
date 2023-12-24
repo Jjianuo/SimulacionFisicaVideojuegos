@@ -8,6 +8,7 @@
 #include "callbacks.hpp"
 #include "ParticleSystem.h"
 #include "RBSystem.h"
+#include "GameSystem.h"
 
 using namespace physx;
 using namespace std;
@@ -34,11 +35,13 @@ private:
 	Shooter* shoot = nullptr;
 	ParticleSystem* pSys = nullptr;
 	RBSystem* rbSys = nullptr;
+	GameSystem* gameSys = nullptr;
 	
 public:
 	SceneManager();
 	~SceneManager();
 	void update(double t);
+	void handleMotion(double x, double y);
 	void keyPress(unsigned char key, const PxTransform& camera);
 	void changeScene(int scene);
 	void clear();

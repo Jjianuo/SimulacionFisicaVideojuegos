@@ -13,13 +13,12 @@ public:
 	RBSystem();
 	~RBSystem();
 
-	void update(double t);
+	virtual void update(double t);
 
 	virtual void addGenerator(unsigned type);
 	virtual void generateForce(unsigned type);
 
 	void generateRB();
-	void gameSetup();
 
 	virtual void wipe();
 };

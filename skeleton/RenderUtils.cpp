@@ -1,4 +1,5 @@
 #include <vector>
+#include <iostream>
 
 #include "PxPhysicsAPI.h"
 
@@ -12,6 +13,7 @@ extern void initPhysics(bool interactive);
 extern void stepPhysics(bool interactive, double t);	
 extern void cleanupPhysics(bool interactive);
 extern void keyPress(unsigned char key, const PxTransform& camera);
+extern void handleMotion(int x, int y);
 extern PxPhysics* gPhysics;
 extern PxMaterial* gMaterial;
 
@@ -50,6 +52,11 @@ namespace
 	void motionCallback(int x, int y)
 	{
 		sCamera->handleMotion(x, y);
+	}
+
+	void glutPassiveMotionCallback(int x, int y)
+	{
+		handleMotion(x, y);
 	}
 
 	void keyboardCallback(unsigned char key, int x, int y)
@@ -141,11 +148,13 @@ void renderLoop()
 	setupDefaultWindow("Simulacion Fisica Videojuegos");
 	setupDefaultRenderState();
 
+	glutSetCursor(GLUT_CURSOR_NONE);
 	glutIdleFunc(idleCallback);
 	glutDisplayFunc(renderCallback);
 	glutKeyboardFunc(keyboardCallback);
 	glutMouseFunc(mouseCallback);
 	glutMotionFunc(motionCallback);
+	glutPassiveMotionFunc(glutPassiveMotionCallback);
 	motionCallback(0,0);
 
 	atexit(exitCallback);

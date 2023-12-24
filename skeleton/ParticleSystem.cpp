@@ -173,7 +173,7 @@ void ParticleSystem::generateFirework(unsigned firework_type)
 		auxGen3->setRandomLifespan(true);
 		auxGen4->setRandomLifespan(true);
 
-		aux4->setColor(colorsInfo[PINK]);
+		aux4->setColor(colorsInfo[LIGHT_PINK]);
 		auxGen4->setParticle(aux4);
 
 		aux3->addGenerator(auxGen4);

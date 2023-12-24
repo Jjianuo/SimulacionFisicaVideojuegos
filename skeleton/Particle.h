@@ -5,8 +5,8 @@
 using namespace physx;
 
 namespace part {
-	const int nColors = 11;
-	const int nTypes = 10;
+	const int nColors = 16;
+	const int nTypes = 21;
 
 	enum _colors : int {
 		GRAY,
@@ -17,23 +17,33 @@ namespace part {
 		LIGHT_BLUE,
 		BLUE,
 		PURPLE,
-		PINK,
+		LIGHT_PINK,
 		BLACK,
-		WHITE
+		WHITE,
+		CRIMSON,
+		LIGHT_RED,
+		LIGHT_ORANGE,
+		LIGHT_YELLOW,
+		LIGHT_GREEN
 	};
 
 	static Vector4 colorsInfo[nColors] = {
 		{0.2, 0.2, 0.2, 1.0},//gray
 		{1.0, 0.0, 0.0, 1.0},//red
 		{1.0, 0.37, 0.12, 1.0},//orange
-		{1.0, 1.0, 0.0, 1.0},//yellow
+		{1.0, 0.9, 0.18, 1.0},//yellow
 		{0.0, 1.0, 0.0, 1.0},//green
 		{0.65, 0.78, 0.9, 1.0},//light blue
 		{0.0, 0.0, 1.0, 1.0},//blue
 		{0.19, 0.1, 0.2, 1.0},//purple
 		{1.0, 0.82, 0.86, 1.0},//pink
 		{0.0, 0.0, 0.0, 1.0},//black
-		{1.0, 1.0, 1.0, 1.0}//white
+		{1.0, 1.0, 1.0, 1.0},//white
+		{0.3, 0.02, 0.11, 1.0},//crimson
+		{1.0, 0.5, 0.5, 1.0},//light red
+		{1.0, 0.65, 0.0, 1.0},//light orange
+		{1.0, 1.0, 0.45, 1.0},//light yellow
+		{0.56, 0.93, 0.56, 1.0} //light green
 	};
 
 	enum _types : int {
@@ -46,7 +56,19 @@ namespace part {
 		WATER,
 		FIRE,
 		LIGHT,
-		DARK
+		DARK,
+		CHERRY,
+		STRAWBERRY,
+		BLACKBERRY,
+		DEKOPON,
+		PERSIMMON,
+		APPLE,
+		PEAR,
+		PEACH,
+		PINEAPPLE,
+		MELON,
+		WATERMELON
+
 	};
 
 	struct ParticleInfo {
@@ -82,7 +104,7 @@ namespace part {
 
 		{CHERRY_BLOSSOM, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
 		{ 0.0, 9.8, -0.01 }, 0.1, 0.998, 10, 0.1,
-		colorsInfo[PINK], 1, true, true, nullptr},
+		colorsInfo[LIGHT_PINK], 1, true, true, nullptr},
 
 		{MIST, { 0.0, 0.0, 0.0 }, { 0.1, 0.1, -0.1 },
 		{ 0.1, 9.8, -0.01 }, 1, 0.998, 10, 1,
@@ -107,6 +129,50 @@ namespace part {
 		{DARK, { 0.0, 0.0, 0.0 }, { 1.0, 0.0, 1.0 },
 		{ 0.0, 0.0, 0.0 }, 0.1, 0.998, 10, 1,
 		colorsInfo[BLACK], 1, true, true, nullptr},
+
+		{CHERRY, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 0.2, 0.998, -1, 0.3,
+		colorsInfo[CRIMSON], 1, true, true, nullptr},
+
+		{STRAWBERRY, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 0.4, 0.998, -1, 0.5,
+		colorsInfo[LIGHT_RED], 1, true, true, nullptr},
+
+		{BLACKBERRY, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 0.5, 0.998, -1, 0.8,
+		colorsInfo[PURPLE], 1, true, true, nullptr},
+
+		{DEKOPON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 1, 0.998, -1, 1,
+		colorsInfo[LIGHT_ORANGE], 1, true, true, nullptr},
+
+		{PERSIMMON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 1.3, 0.998, -1, 1.3,
+		colorsInfo[ORANGE], 1, true, true, nullptr},
+
+		{APPLE, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 1.8, 0.998, -1, 1.6,
+		colorsInfo[RED], 1, true, true, nullptr},
+
+		{PEAR, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 2, 0.998, -1, 1.9,
+		colorsInfo[LIGHT_YELLOW], 1, true, true, nullptr},
+
+		{PEACH, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 2.3, 0.998, -1, 2.2,
+		colorsInfo[LIGHT_PINK], 1, true, true, nullptr},
+
+		{PINEAPPLE, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 2.8, 0.998, -1, 2.5,
+		colorsInfo[YELLOW], 1, true, true, nullptr},
+
+		{MELON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 3, 0.998, -1, 2.8,
+		colorsInfo[LIGHT_GREEN], 1, true, true, nullptr},
+
+		{WATERMELON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 3.3, 0.998, -1, 3.0,
+		colorsInfo[GREEN], 1, true, true, nullptr},
 	};
 }
 

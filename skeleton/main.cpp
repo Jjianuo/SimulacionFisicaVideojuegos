@@ -78,6 +78,10 @@ void keyPress(unsigned char key, const PxTransform& camera)
 	scene->keyPress(key, camera);
 }
 
+void handleMotion(int x, int y) {
+	scene->handleMotion(x, y);
+};
+
 void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 {
 	PX_UNUSED(actor1);

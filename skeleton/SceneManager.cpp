@@ -83,12 +83,18 @@ void SceneManager::update(double t)
 		break;
 	}
 	case 3: {
-		rbSys->update(t);
+		gameSys->update(t);
 		break;
 	}
 	default:
 		break;
 	}
+}
+
+void SceneManager::handleMotion(double x, double y)
+{
+	if(gameSys != nullptr)
+		gameSys->handleMotion(x);
 }
 
 void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
@@ -261,9 +267,9 @@ void SceneManager::changeScene(int scene)
 	}
 	case 3: //juego
 	{
-		rbSys = new RBSystem();
-		rbSys->gameSetup();
-		GetCamera()->setEye(PxVec3({ -50,75,50 }));
+		gameSys = new GameSystem();
+		gameSys->gameSetup();
+		GetCamera()->setEye(PxVec3({ -50,87,65 }));
 		GetCamera()->setDir(PxVec3({ 0,0,-45 }));
 		break;
 	}
@@ -274,11 +280,14 @@ void SceneManager::changeScene(int scene)
 
 void SceneManager::clear()
 {
-	if(rbSys != nullptr)
+	if (gameSys != nullptr)
+		gameSys->wipe();
+	else if(rbSys != nullptr)
 		rbSys->wipe();
 	else if(pSys != nullptr)
 		pSys->wipe();
 
+	gameSys = nullptr;
 	rbSys = nullptr;
 	pSys = nullptr;
 

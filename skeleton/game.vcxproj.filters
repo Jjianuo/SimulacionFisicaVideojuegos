@@ -79,6 +79,7 @@
     <ClCompile Include="RigidBodyGenerator.cpp">
       <Filter>RigidBodies</Filter>
     </ClCompile>
+    <ClCompile Include="GameSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -165,6 +166,7 @@
     <ClInclude Include="RigidBody.h">
       <Filter>RigidBodies</Filter>
     </ClInclude>
+    <ClInclude Include="GameSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

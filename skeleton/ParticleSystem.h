@@ -42,7 +42,7 @@ public:
 	ParticleSystem();
 	~ParticleSystem();
 
-	void update(double t);
+	virtual void update(double t);
 	// Method to generate a Firework with the appropiate type
 	void generateFirework(unsigned firework_type);
 	virtual void generateForce(unsigned type);
