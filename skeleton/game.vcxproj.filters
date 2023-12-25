@@ -80,6 +80,7 @@
       <Filter>RigidBodies</Filter>
     </ClCompile>
     <ClCompile Include="GameSystem.cpp" />
+    <ClCompile Include="Fruit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -167,6 +168,7 @@
       <Filter>RigidBodies</Filter>
     </ClInclude>
     <ClInclude Include="GameSystem.h" />
+    <ClInclude Include="Fruit.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

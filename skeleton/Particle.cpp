@@ -43,6 +43,7 @@ Particle::Particle(int type, bool v)
 
 Particle::Particle(Particle* p, bool v) : pInfo(p->pInfo), _ls(p->_ls)
 {
+	_ls = pInfo.lifespan;
 	_inv_mass = 1 / pInfo.mass;
 	force = { 0.0,0.0,0.0 };
 	if (v)
@@ -53,6 +54,7 @@ Particle::Particle(Particle* p, bool v) : pInfo(p->pInfo), _ls(p->_ls)
 
 Particle::Particle(ParticleInfo pI, bool v) : pInfo(pI), _ls(pI.lifespan)
 {
+	_ls = pInfo.lifespan;
 	_inv_mass = 1 / pInfo.mass;
 	force = { 0.0,0.0,0.0 };
 	if (v)
@@ -74,11 +76,6 @@ void Particle::integrate(double t)
 	pInfo.pose.p += pInfo.velocity * t;
 
 	clearForce();
-}
-
-bool Particle::isAlive()
-{
-	return pInfo.alive;
 }
 
 Particle* Particle::clone() const

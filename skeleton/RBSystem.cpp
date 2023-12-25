@@ -2,8 +2,11 @@
 
 RBSystem::RBSystem() : ParticleSystem()
 {
+	PxMaterial* mMaterial;
+	mMaterial = gPhysics->createMaterial(0.5, 0.5, 0.0);
+
 	rb = gPhysics->createRigidStatic(PxTransform({ -50,30,-50 }));
-	PxShape* s = CreateShape(PxBoxGeometry(40, 1.5, 7));
+	PxShape* s = CreateShape(PxBoxGeometry(40, 1.5, 10), mMaterial);
 	rb->attachShape(*s);
 	RenderItem* ri = new RenderItem(s, rb, { 0.39,0.24,0.16,1 });
 	gScene->addActor(*rb);

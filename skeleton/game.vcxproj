@@ -260,6 +260,7 @@
     <ClCompile Include="Firework.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="FrictionForceGenerator.cpp" />
+    <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="GaussianParticleGenerator.cpp" />
     <ClCompile Include="GravityForceGenerator.cpp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="Firework.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="FrictionForceGenerator.h" />
+    <ClInclude Include="Fruit.h" />
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="GaussianParticleGenerator.h" />
     <ClInclude Include="GravityForceGenerator.h" />

@@ -38,13 +38,30 @@ RigidBody::RigidBody(Vector3 pos, double m, PxShape* s, PxVec4 c, Vector3 mat, V
 	else
 		rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
 			inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
-		//rB->setMassSpaceInertiaTensor(inertiaTensor);
+}
+
+RigidBody::RigidBody(Particle* p, Vector3 pos, double m, PxShape* s, PxVec4 c, Vector3 mat, Vector3 inertiaTensor) 
+	: Particle(p, false)
+{
+	PxMaterial* mMaterial;
+	mMaterial = gPhysics->createMaterial(mat.x, mat.y, mat.z);
+
+	rB = gPhysics->createRigidDynamic(PxTransform(pos));
+	s->setMaterials(&mMaterial, 1);
+	material = mMaterial;
+	rB->attachShape(*s);
+	ri = new RenderItem(s, rB, c);
+	gScene->addActor(*rB);
+	if (inertiaTensor == Vector3(-1, -1, -1))
+		PxRigidBodyExt::setMassAndUpdateInertia(*rB, m);
+	else
+		rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
+			inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
 }
 
 RigidBody::~RigidBody()
 {
-	if (ri != nullptr)
-		ri->release();
+	die();
 }
 
 void RigidBody::setVelocity(Vector3 v)
@@ -66,9 +83,9 @@ void RigidBody::addForce(const Vector3& f)
 	rB->addForce(f);
 }
 
-void RigidBody::setPos(const Vector3& f)
+Vector3 RigidBody::getPos()
 {
-
+	return rB->getGlobalPose().p;
 }
 
 void RigidBody::setInertiaTensor(const Vector3& inertiaTensor)

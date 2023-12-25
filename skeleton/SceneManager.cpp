@@ -97,6 +97,12 @@ void SceneManager::handleMotion(double x, double y)
 		gameSys->handleMotion(x);
 }
 
+void SceneManager::mouseClick(int button, int state, int x, int y)
+{
+	if (gameSys != nullptr)
+		gameSys->mouseClick(button, state, x, y);
+}
+
 void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 {
 	switch (toupper(key)) {
@@ -241,6 +247,11 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 		default:
 			break;
 	}
+}
+
+void SceneManager::onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
+{
+	gameSys->onCollision(actor1, actor2);
 }
 
 void SceneManager::changeScene(int scene)

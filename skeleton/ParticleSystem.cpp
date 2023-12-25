@@ -24,7 +24,7 @@ bool ParticleSystem::outOfBounds(Particle* p)
 	return false;
 }
 
-ParticleSystem::ParticleSystem() : area(70)
+ParticleSystem::ParticleSystem() : area(170)
 {
 }
 
@@ -52,7 +52,7 @@ void ParticleSystem::update(double t)
 	}
 	for (auto e : _particles) {
 		e->integrate(t);
-		if (e->getLifespan() != -1) {
+		if (e->getLifespan() != -1 || !e->isAlive()) {
 			e->_ls -= t;
 			if (e->_ls < 0 || outOfBounds(e)) {
 				onParticleDeath(e);
@@ -66,7 +66,7 @@ void ParticleSystem::update(double t)
 		pfr.deleteParticleRegistry(d);
 		_particles.remove(d);
 		d->die();
-		delete d;
+		//delete d;
 	}
 	_dumpster.clear();
 }

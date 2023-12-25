@@ -82,10 +82,16 @@ void handleMotion(int x, int y) {
 	scene->handleMotion(x, y);
 };
 
+void mouseClick(int button, int state, int x, int y) {
+	scene->mouseClick(button, state, x, y);
+}
+
 void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 {
-	PX_UNUSED(actor1);
-	PX_UNUSED(actor2);
+	//PX_UNUSED(actor1);
+	//PX_UNUSED(actor2);
+
+	scene->onCollision(actor1, actor2);
 }
 
 

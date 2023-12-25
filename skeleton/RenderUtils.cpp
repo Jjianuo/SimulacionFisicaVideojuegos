@@ -14,6 +14,7 @@ extern void stepPhysics(bool interactive, double t);
 extern void cleanupPhysics(bool interactive);
 extern void keyPress(unsigned char key, const PxTransform& camera);
 extern void handleMotion(int x, int y);
+extern void mouseClick(int button, int state, int x, int y);
 extern PxPhysics* gPhysics;
 extern PxMaterial* gMaterial;
 
@@ -51,7 +52,7 @@ namespace
 
 	void motionCallback(int x, int y)
 	{
-		sCamera->handleMotion(x, y);
+		//sCamera->handleMotion(x, y);
 	}
 
 	void glutPassiveMotionCallback(int x, int y)
@@ -69,7 +70,8 @@ namespace
 
 	void mouseCallback(int button, int state, int x, int y)
 	{
-		sCamera->handleMouse(button, state, x, y);
+		//sCamera->handleMouse(button, state, x, y);
+		mouseClick(button, state, x, y);
 	}
 
 	void idleCallback()

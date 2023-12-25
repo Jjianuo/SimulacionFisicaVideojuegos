@@ -42,7 +42,9 @@ public:
 	~SceneManager();
 	void update(double t);
 	void handleMotion(double x, double y);
+	void mouseClick(int button, int state, int x, int y);
 	void keyPress(unsigned char key, const PxTransform& camera);
+	void onCollision(physx::PxActor* actor1, physx::PxActor* actor2);
 	void changeScene(int scene);
 	void clear();
 };

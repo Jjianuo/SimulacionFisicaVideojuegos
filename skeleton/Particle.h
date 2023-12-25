@@ -182,14 +182,14 @@ class Particle
 {
 public:
 	Particle(bool v = true, Vector3 pos = { 0.0, 0.0, 0.0 }, Vector3 Vel = { 0.0, 0.0, 0.0 },
-		Vector3 Acc = { 0.0, 0.0, 0.0 }, double m = 0.1, double damp = 0.998, double ls = 5, double size = 1,
+		Vector3 Acc = { 0.0, 0.0, 0.0 }, double m = 0.1, double damp = 0.998, double ls = -1, double size = 1,
 		Vector4 c = { 0.19, 0.1, 0.2, 1.0 }, unsigned t = 0, int gen = 0);
 	Particle(int type, bool v = true);
 	Particle(Particle* p, bool v = true);
 	Particle(ParticleInfo pI, bool v = true);
 	~Particle();
 
-	void integrate(double t);
+	virtual void integrate(double t);
 
 protected:
 
@@ -256,12 +256,13 @@ public:
 
 	double _ls;
 	
-	bool isAlive();
+	inline bool isAlive() { return pInfo.alive; };
+	inline void kill() { pInfo.alive = false; };
 
 	enum ParticleType { DEFAULT, BULLET, FIREWORK};
 
 	virtual Particle* clone() const;
-	inline virtual void die() { if (pInfo.renderItem != nullptr) pInfo.renderItem->release(); };
+	inline virtual void die() { if (pInfo.renderItem != nullptr) pInfo.renderItem->release(); pInfo.renderItem = nullptr; };
 	inline void show() { if(pInfo.renderItem == nullptr) pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.mass)), &pInfo.pose, pInfo.color); }
 	inline int randomColor() { return rand() % nColors ; }
 
