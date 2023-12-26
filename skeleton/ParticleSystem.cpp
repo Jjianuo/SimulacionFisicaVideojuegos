@@ -66,7 +66,7 @@ void ParticleSystem::update(double t)
 		pfr.deleteParticleRegistry(d);
 		_particles.remove(d);
 		d->die();
-		//delete d;
+		delete d;
 	}
 	_dumpster.clear();
 }

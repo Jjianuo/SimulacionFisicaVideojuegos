@@ -14,6 +14,8 @@ RigidBody::RigidBody(PxVec3 pos, double m, PxShape* s, PxVec4 c, PxMaterial* mat
 	rB->attachShape(*s);
 	ri = new RenderItem(s, rB, c);
 	gScene->addActor(*rB);
+	ri->shape->getSphereGeometry(geometry);
+
 	if (inertiaTensor == Vector3(-1, -1, -1))
 		PxRigidBodyExt::setMassAndUpdateInertia(*rB, m);
 	else
@@ -33,6 +35,8 @@ RigidBody::RigidBody(Vector3 pos, double m, PxShape* s, PxVec4 c, Vector3 mat, V
 	rB->attachShape(*s);
 	ri = new RenderItem(s, rB, c);
 	gScene->addActor(*rB);
+	ri->shape->getSphereGeometry(geometry);
+
 	if (inertiaTensor == Vector3(-1, -1, -1))
 		PxRigidBodyExt::setMassAndUpdateInertia(*rB, m);
 	else
@@ -52,6 +56,8 @@ RigidBody::RigidBody(Particle* p, Vector3 pos, double m, PxShape* s, PxVec4 c, V
 	rB->attachShape(*s);
 	ri = new RenderItem(s, rB, c);
 	gScene->addActor(*rB);
+	ri->shape->getSphereGeometry(geometry);
+
 	if (inertiaTensor == Vector3(-1, -1, -1))
 		PxRigidBodyExt::setMassAndUpdateInertia(*rB, m);
 	else
@@ -83,9 +89,16 @@ void RigidBody::addForce(const Vector3& f)
 	rB->addForce(f);
 }
 
-Vector3 RigidBody::getPos()
+PxTransform RigidBody::getPose()
 {
-	return rB->getGlobalPose().p;
+	if (rB == nullptr) 
+		return { -999, -999, -999 };
+	return rB->getGlobalPose();
+}
+
+PxGeometry RigidBody::getGeometry()
+{
+	return geometry;
 }
 
 void RigidBody::setInertiaTensor(const Vector3& inertiaTensor)

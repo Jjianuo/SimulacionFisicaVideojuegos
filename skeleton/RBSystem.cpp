@@ -10,6 +10,15 @@ RBSystem::RBSystem() : ParticleSystem()
 	rb->attachShape(*s);
 	RenderItem* ri = new RenderItem(s, rb, { 0.39,0.24,0.16,1 });
 	gScene->addActor(*rb);
+
+	//PxMaterial* mMaterial;
+	//mMaterial = gPhysics->createMaterial(0.5, 0.5, 0.5);
+
+	//rb = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
+	//PxShape* s = CreateShape(PxBoxGeometry(90, 0.1, 90), mMaterial);
+	//rb->attachShape(*s);
+	//RenderItem* ri = new RenderItem(s, rb, { 0.39,0.24,0.16,1 });
+	//gScene->addActor(*rb);
 }
 
 RBSystem::~RBSystem()
@@ -39,18 +48,13 @@ void RBSystem::addGenerator(unsigned type)
 		Particle* auxParticle = new Particle(partType[ICE], false);
 		auxParticle->setSize(2);
 		auxParticle->setMass(2);
-		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial);
-		rbGen->setOrigin({ 20.0f, 50.0f, 0.0f });
-		rbGen->setMeanVelocity({ 1,1,1 });
-		rbGen->setOffset({ 1,1,1 });
-
-		TornadoGenerator* aux = new TornadoGenerator(0.1);
-		aux->setArea(70.0);
-		aux->setOrigin({ 20.0f, 30.0f, 0.0f });
-		pfr.addPaticleGenerator(aux, rbGen);
+		dem = new RigidBodyGenerator(auxParticle, mMaterial);
+		dem->setOrigin({ 20.0f, 50.0f, 0.0f });
+		dem->setMeanVelocity({ 1,1,1 });
+		dem->setOffset({ 1,1,1 });
 
 		auxParticle->die();
-		_pGenerator.push_back(rbGen);
+		_pGenerator.push_back(dem);
 		break;
 	}
 	case 2: {
@@ -91,6 +95,13 @@ void RBSystem::addGenerator(unsigned type)
 		_pGenerator.push_back(rbGen);
 
 		auxParticle->die();
+		break;
+	}
+	case 4: {
+		ExplosiveForce* aux = new ExplosiveForce();
+		aux->setOrigin({ 20.0f, 40.0f, 0.0f });
+		pfr.addPaticleGenerator(aux, dem);
+		cout << "BOOOM\n";
 		break;
 	}
 	default:

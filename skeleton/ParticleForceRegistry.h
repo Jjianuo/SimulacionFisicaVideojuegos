@@ -19,6 +19,7 @@ public:
 
 	void updateForces(double t) {
 		for (auto& g : gens) {
+			g.first->updateTime(t);
 			for (auto& p : g.second.first) { //p es la particula
 				g.first->updateForce(p, t);
 			}
@@ -55,6 +56,11 @@ public:
 			}
 			gens.erase(fg);
 		}
+	}
+
+	void reset() {
+		gens.clear();
+		particleGenerators.clear();
 	}
 
 	inline unordered_map<ParticleGenerator*, unordered_set<ForceGenerator*>>& getPartGens() { return particleGenerators; }

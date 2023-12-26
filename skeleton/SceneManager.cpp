@@ -15,7 +15,7 @@ SceneManager::SceneManager()
 
 	// For Solid Rigids +++++++++++++++++++++++++++++++++++++
 	sceneDesc = new PxSceneDesc(gPhysics->getTolerancesScale());
-	sceneDesc->gravity = PxVec3(0.0f, -9.8f, 0.0f);
+	sceneDesc->gravity = PxVec3(0.0f, -99.8f, 0.0f);
 	gDispatcher = PxDefaultCpuDispatcherCreate(2);
 	sceneDesc->cpuDispatcher = gDispatcher;
 	sceneDesc->filterShader = contactReportFilterShader;
@@ -228,8 +228,14 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 			}
 			case 'X': {
 				rbSys->addGenerator(1);
-				rbSys->addGenerator(2);
-				rbSys->addGenerator(3);
+				//rbSys->addGenerator(2);
+				//rbSys->addGenerator(3);
+				break;
+			}
+			case 'C': {
+				rbSys->addGenerator(4);
+				//rbSys->addGenerator(2);
+				//rbSys->addGenerator(3);
 				break;
 			}
 			default:
@@ -251,7 +257,8 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 
 void SceneManager::onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 {
-	gameSys->onCollision(actor1, actor2);
+	if(gameSys != nullptr)
+		gameSys->onCollision(actor1, actor2);
 }
 
 void SceneManager::changeScene(int scene)

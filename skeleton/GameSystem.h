@@ -7,15 +7,18 @@
 class GameSystem : public RBSystem
 {
 	Particle* currFruit = nullptr;
+	Particle* dropIndicator = nullptr;
 	double pointerPos;
+	double fruitScale;
 
+	list<Fruit*> _fruits;
 	unordered_map<PxActor*, Fruit*> rels;
 	queue<pair<Fruit*, Fruit*>> genQueue;
 	std::mt19937 _mt;
 	std::uniform_real_distribution<double> _uFruit{ 0, 5 };
 public:
 	GameSystem();
-	~GameSystem() {};
+	~GameSystem() { currFruit->die(); };
 
 	virtual void update(double t);
 	void handleMotion(double x);
@@ -24,6 +27,6 @@ public:
 	void gameSetup();
 
 	void randomFruit();
-	void combineFruit(Fruit* fruit1, Fruit* fruit2);
+	Fruit* combineFruit(Fruit* fruit1, Fruit* fruit2);
 };
 

@@ -131,47 +131,47 @@ namespace part {
 		colorsInfo[BLACK], 1, true, true, nullptr},
 
 		{CHERRY, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 0.2, 0.998, -1, 0.3,
+		{ 0.0, 0.0, 0.0 }, 1, 0.998, -1, 0.4,
 		colorsInfo[CRIMSON], 1, true, true, nullptr},
 
 		{STRAWBERRY, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 0.4, 0.998, -1, 0.5,
+		{ 0.0, 0.0, 0.0 }, 1.4, 0.998, -1, 0.5,
 		colorsInfo[LIGHT_RED], 1, true, true, nullptr},
 
 		{BLACKBERRY, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 0.5, 0.998, -1, 0.8,
+		{ 0.0, 0.0, 0.0 }, 1.8, 0.998, -1, 0.6,
 		colorsInfo[PURPLE], 1, true, true, nullptr},
 
 		{DEKOPON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 1, 0.998, -1, 1,
+		{ 0.0, 0.0, 0.0 }, 2.2, 0.998, -1, 0.7,
 		colorsInfo[LIGHT_ORANGE], 1, true, true, nullptr},
 
 		{PERSIMMON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 1.3, 0.998, -1, 1.3,
+		{ 0.0, 0.0, 0.0 }, 2.6, 0.998, -1, 0.8,
 		colorsInfo[ORANGE], 1, true, true, nullptr},
 
 		{APPLE, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 1.8, 0.998, -1, 1.6,
+		{ 0.0, 0.0, 0.0 }, 3.0, 0.998, -1, 0.9,
 		colorsInfo[RED], 1, true, true, nullptr},
 
 		{PEAR, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 2, 0.998, -1, 1.9,
+		{ 0.0, 0.0, 0.0 }, 3.4, 0.998, -1, 1.0,
 		colorsInfo[LIGHT_YELLOW], 1, true, true, nullptr},
 
 		{PEACH, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 2.3, 0.998, -1, 2.2,
+		{ 0.0, 0.0, 0.0 }, 3.8, 0.998, -1, 1.1,
 		colorsInfo[LIGHT_PINK], 1, true, true, nullptr},
 
 		{PINEAPPLE, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 2.8, 0.998, -1, 2.5,
+		{ 0.0, 0.0, 0.0 }, 4.2, 0.998, -1, 1.2,
 		colorsInfo[YELLOW], 1, true, true, nullptr},
 
 		{MELON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 3, 0.998, -1, 2.8,
+		{ 0.0, 0.0, 0.0 }, 4.6, 0.998, -1, 1.3,
 		colorsInfo[LIGHT_GREEN], 1, true, true, nullptr},
 
 		{WATERMELON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 3.3, 0.998, -1, 3.0,
+		{ 0.0, 0.0, 0.0 }, 5.0, 0.998, -1, 1.5,
 		colorsInfo[GREEN], 1, true, true, nullptr},
 	};
 }
@@ -201,7 +201,7 @@ protected:
 public:
 	inline ParticleInfo& getPInfo() { return pInfo; }
 
-	inline PxTransform getPose() { return pInfo.pose; }
+	virtual inline PxTransform getPose() { return pInfo.pose; }
 	virtual inline void setPos(Vector3 pos) { pInfo.pose = PxTransform(pos.x, pos.y, pos.z); }
 
 	inline Vector3 getVelocity() { return pInfo.velocity; }

@@ -32,7 +32,7 @@ protected:
 	ParticleGenerator* _firework_generator;
 	ParticleForceRegistry pfr;
 
-	UniformParticleGenerator* uniGen;
+	ParticleGenerator* uniGen;
 	Particle* p1;
 	//! This is used currently in the Fireworks to spread more Fireworks!
 	void onParticleDeath(Particle* p);

@@ -81,5 +81,6 @@ public:
 	Fruit(Particle* p, Vector3 pos, double m, PxShape* s, PxVec4 c, Vector3 mat, Vector3 inertiaTensor = { -1,-1,-1 });
 
 	PxActor* getActor();
+	virtual void setPos(PxVec3 p);
 };
 

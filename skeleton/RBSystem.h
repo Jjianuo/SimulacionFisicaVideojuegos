@@ -9,6 +9,7 @@ extern PxScene* gScene;
 class RBSystem : public ParticleSystem
 {
 	PxRigidStatic* rb = nullptr;
+	RigidBodyGenerator* dem;
 public:
 	RBSystem();
 	~RBSystem();
