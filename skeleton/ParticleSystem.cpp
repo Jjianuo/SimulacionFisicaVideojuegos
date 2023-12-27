@@ -276,7 +276,7 @@ void ParticleSystem::generateSlinkyDemo()
 	Particle* p2 = new Particle(partType[FIRE]);
 	Particle* p3 = new Particle(partType[WATER]);
 	Particle* p4 = new Particle(partType[BULLET]);
-	Particle* p5 = new Particle(partType[MIST]);
+	Particle* p5 = new Particle(partType[CLOUD]);
 	Particle* p6 = new Particle(partType[DEFAULT]);
 
 	p1->setPos({ 0,35,0 });
@@ -349,7 +349,7 @@ void ParticleSystem::addGenerator(unsigned type) {
 	{
 	case 0: {
 		UniformParticleGenerator* mistGen = new UniformParticleGenerator();
-		Particle* mistParticle = new Particle(partType[MIST]);
+		Particle* mistParticle = new Particle(partType[CLOUD]);
 		mistGen->setParticle(mistParticle);
 		mistGen->setOffset({ 50.0f, 50.0f, 50.0f });
 		mistGen->setMeanVelocity({ 0.1, 0.1, 0.1 });

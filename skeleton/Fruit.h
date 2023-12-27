@@ -82,5 +82,6 @@ public:
 
 	PxActor* getActor();
 	virtual void setPos(PxVec3 p);
+	virtual void setSize(double s);
 };
 

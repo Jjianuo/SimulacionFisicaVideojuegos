@@ -33,3 +33,12 @@ void Fruit::setPos(PxVec3 p)
 {
 	rB->setGlobalPose(PxTransform(p));
 }
+
+void Fruit::setSize(double s)
+{
+	pInfo.size = s;
+	rB->detachShape(*ri->shape);
+	ri->shape->release();
+	ri->shape = CreateShape(PxSphereGeometry(s));
+	rB->attachShape(*ri->shape);
+}

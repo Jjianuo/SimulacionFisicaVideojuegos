@@ -6,15 +6,28 @@ GameSystem::GameSystem() : RBSystem(), fruitScale(11.5)
 
 	randomFruit();
 	dropIndicator = new Particle(false);
-	dropIndicator->setRenderItem(CreateShape(PxBoxGeometry(0.5, 50, 0.5)), { 0,0,0 }, colorsInfo[WHITE]);
+	dropIndicator->setRenderItem(CreateShape(PxBoxGeometry(0.5, 55, 0.5)), { 0,0,0 }, colorsInfo[WHITE]);
+
+	cloud = new UniformParticleGenerator();
+	Particle* mistParticle = new Particle(partType[CLOUD]);
+	cloud->setParticle(mistParticle);
+	//cloud->setOffset({ 5.0f, 5.0f, 5.0f });
+	cloud->setMeanVelocity({ 10.0, 10.0, 10.0 });
+	_pGenerator.push_back(cloud);
+	delete mistParticle;
 }
 
 void GameSystem::update(double t)
 {
 	RBSystem::update(t);
 
-	dropIndicator->setPos({ (((float)pointerPos - 250 - (float)(GLdouble(glutGet(GLUT_WINDOW_WIDTH)) / 2)) / 5), 80, -55});
-	currFruit->setPos({ (((float)pointerPos - 250 - (float)(GLdouble(glutGet(GLUT_WINDOW_WIDTH)) / 2)) / 5), 140, -45});
+	Vector3 pointer = { (((float)pointerPos - 250 - (float)(GLdouble(glutGet(GLUT_WINDOW_WIDTH)) / 2)) / 5), 140, -45 };
+	//if (pointer.x < (float)(GLdouble(glutGet(GLUT_WINDOW_WIDTH)) / 2)) {
+		dropIndicator->setPos({ (((float)pointerPos - 250 - (float)(GLdouble(glutGet(GLUT_WINDOW_WIDTH)) / 2)) / 5), 85, -50});
+		currFruit->setPos(pointer);
+		cloud->setOrigin(pointer);
+	//}
+
 
 	pfr.updateForces(t);
 
@@ -22,8 +35,14 @@ void GameSystem::update(double t)
 		combineFruit(genQueue.front().first, genQueue.front().second); genQueue.pop();
 	}
 
-	for (auto e : _fruits)
-		e->clearForce();
+	for (auto e : _fruits) {
+		if (e->getSize() < partType[e->getType()].size * fruitScale) {
+			e->setSize(e->getSize() + 2.5 * t);
+			if (e->getSize() > partType[e->getType()].size * fruitScale)
+				e->setSize(partType[e->getType()].size * fruitScale);
+		}
+	}
+		//e->clearForce();
 
 }
 
@@ -95,11 +114,11 @@ void GameSystem::randomFruit()
 
 Fruit* GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
 {
-	Vector3 newPos = (fruit1->getPose().p + fruit2->getPose().p) / 2;
-	//Vector3 newPos = fruit1->getPos();
+	//Vector3 newPos = (fruit1->getPose().p + fruit2->getPose().p) / 2;
+	Vector3 newPos = fruit2->getPose().p;
 
 	Particle* nextFruit = new Particle(partType[fruit1->getType() + 1], true);
-	nextFruit->setSize(nextFruit->getSize() * fruitScale);
+	nextFruit->setSize(fruit1->getSize());
 
 	Vector3 offset = Vector3(0.0, (nextFruit->getSize() - fruit1->getSize()), 0.0);
 	ExplosiveForce* makeSpace = new ExplosiveForce(newPos, 100000, (nextFruit->getSize() + nextFruit->getSize() - fruit1->getSize()) * 2);

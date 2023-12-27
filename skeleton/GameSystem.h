@@ -8,6 +8,7 @@ class GameSystem : public RBSystem
 {
 	Particle* currFruit = nullptr;
 	Particle* dropIndicator = nullptr;
+	UniformParticleGenerator* cloud = nullptr;
 	double pointerPos;
 	double fruitScale;
 

@@ -51,7 +51,7 @@ namespace part {
 		BULLET,
 		FIREWORK,
 		CHERRY_BLOSSOM,
-		MIST,
+		CLOUD,
 		ICE,
 		WATER,
 		FIRE,
@@ -106,9 +106,9 @@ namespace part {
 		{ 0.0, 9.8, -0.01 }, 0.1, 0.998, 10, 0.1,
 		colorsInfo[LIGHT_PINK], 1, true, true, nullptr},
 
-		{MIST, { 0.0, 0.0, 0.0 }, { 0.1, 0.1, -0.1 },
-		{ 0.1, 9.8, -0.01 }, 1, 0.998, 10, 1,
-		colorsInfo[GRAY], 1, true, true, nullptr},
+		{CLOUD, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
+		{ 0.0, -9.8, 0.0 }, 1, 0.998, 0.7, 0.1,
+		colorsInfo[WHITE], 1, true, true, nullptr},
 
 		{ICE, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
 		{ 0.0, 0.0, 0.0 }, 0.8, 0.998, 10, 1,
