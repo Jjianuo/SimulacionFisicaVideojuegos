@@ -3,7 +3,7 @@
 RBSystem::RBSystem() : ParticleSystem()
 {
 	PxMaterial* mMaterial;
-	mMaterial = gPhysics->createMaterial(0.5, 0.5, 0.0);
+	mMaterial = gPhysics->createMaterial(0.5, 0.5, 0.3);
 
 	rb = gPhysics->createRigidStatic(PxTransform({ -50,30,-50 }));
 	PxShape* s = CreateShape(PxBoxGeometry(40, 1.5, 10), mMaterial);
@@ -11,14 +11,14 @@ RBSystem::RBSystem() : ParticleSystem()
 	RenderItem* ri = new RenderItem(s, rb, { 0.39,0.24,0.16,1 });
 	gScene->addActor(*rb);
 
-	//PxMaterial* mMaterial;
-	//mMaterial = gPhysics->createMaterial(0.5, 0.5, 0.5);
+	//PxMaterial* mMaterial1;
+	//mMaterial1 = gPhysics->createMaterial(0.5, 0.5, 0.5);
 
-	//rb = gPhysics->createRigidStatic(PxTransform({ 0,0,0 }));
-	//PxShape* s = CreateShape(PxBoxGeometry(90, 0.1, 90), mMaterial);
-	//rb->attachShape(*s);
-	//RenderItem* ri = new RenderItem(s, rb, { 0.39,0.24,0.16,1 });
-	//gScene->addActor(*rb);
+	//PxRigidStatic* rb1 = gPhysics->createRigidStatic(PxTransform({ 0,-200,0 }));
+	//PxShape* s1 = CreateShape(PxBoxGeometry(90, 0.1, 90), mMaterial1);
+	//rb1->attachShape(*s1);
+	//RenderItem* ri1 = new RenderItem(s1, rb1, { 0.39,0.24,0.16,1 });
+	//gScene->addActor(*rb1);
 }
 
 RBSystem::~RBSystem()
@@ -79,17 +79,17 @@ void RBSystem::addGenerator(unsigned type)
 		PxMaterial* mMaterial;
 		mMaterial = gPhysics->createMaterial(0.8f, 0.5f, 0.1f);
 
-		Particle* auxParticle = new Particle(partType[CHERRY_BLOSSOM], false);
-		auxParticle->setMass(10);
+		Particle* auxParticle = new Particle(partType[FIRE], false);
+		auxParticle->setMass(200);
 		auxParticle->setShape(PxGeometryType::eBOX);
 		RigidBodyGenerator* rbGen = new RigidBodyGenerator(auxParticle, mMaterial, { 0.0,0.0,0.0 }, { 0.0,0.0,0.0 });
-		rbGen->setOrigin({ 0.0f, 50.0f, 20.0f });
+		rbGen->setOrigin({ 0.0f, -60.0f, 20.0f });
 		rbGen->setMeanVelocity({ 1,1,1 });
 		rbGen->setOffset({ 5,5,5 });
 
-		WindGenerator* windGen = new WindGenerator();
-		windGen->setArea(70.0);
-		windGen->setOrigin({ 0.0f, 20.0f, 20.0f });
+		TornadoGenerator* windGen = new TornadoGenerator(3);
+		//windGen->setArea(70.0);
+		windGen->setOrigin({ 0.0f, -60.0f, 20.0f });
 		pfr.addPaticleGenerator(windGen, rbGen);
 
 		_pGenerator.push_back(rbGen);

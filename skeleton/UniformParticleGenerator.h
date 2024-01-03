@@ -9,6 +9,7 @@ class UniformParticleGenerator : public ParticleGenerator
 	std::uniform_real_distribution<float> _uVel{ minVar, maxVar };
 public:
 	UniformParticleGenerator(Vector3 origin = { 0.0, 0.0, 0.0 }, Vector3 mean_velocity = { 0.0, 0.0, 0.0 });
+	UniformParticleGenerator(Particle* p, Vector3 origin = { 0.0, 0.0, 0.0 }, Vector3 mean_velocity = { 0.0, 0.0, 0.0 });
 	~UniformParticleGenerator() {};
 	virtual void setVars();
 	virtual Vector3 getRandomDist();

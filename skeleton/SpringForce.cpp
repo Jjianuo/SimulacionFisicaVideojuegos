@@ -2,7 +2,7 @@
 
 void SpringForce::updateForce(Particle* p, double t)
 {
-	if (fabs(p->getInvMass()) < 1e-10) return;
+	if (fabs(p->getInvMass()) < 1e-10 || !active) return;
 
 	Vector3 rel_pos = other->getPose().p - p->getPose().p;
 

@@ -72,7 +72,8 @@ RigidBody::~RigidBody()
 
 void RigidBody::setVelocity(Vector3 v)
 {
-	rB->setLinearVelocity(v);
+	if (rB != nullptr)
+		rB->setLinearVelocity(v);
 }
 
 RigidBody* RigidBody::clone() const
@@ -86,7 +87,8 @@ RigidBody* RigidBody::clone() const
 
 void RigidBody::addForce(const Vector3& f)
 {
-	rB->addForce(f);
+	if(rB != nullptr)
+		rB->addForce(f);
 }
 
 PxTransform RigidBody::getPose()

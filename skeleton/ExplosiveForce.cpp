@@ -2,7 +2,7 @@
 
 void ExplosiveForce::updateForce(Particle* p, double t)
 {
-    if (fabs(p->getInvMass()) < 1e-10) return;
+    if (fabs(p->getInvMass()) < 1e-10 || !active) return;
 
     double aux = (area / dur) * _t;
     Vector3 pos = p->getPose().p;

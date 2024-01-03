@@ -3,7 +3,7 @@
 void ParticleDragGenerator::updateForce(Particle* particle, double t)
 {
 	//chek if particle has finite mass
-	if (fabs(particle->getInvMass()) < 1e-10)
+	if (fabs(particle->getInvMass()) < 1e-10 || !active)
 		return;
 
 	//compute the drag force

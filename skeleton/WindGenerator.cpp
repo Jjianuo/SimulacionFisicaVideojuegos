@@ -2,7 +2,7 @@
 
 void WindGenerator::updateForce(Particle* p, double t)
 {
-    if (fabs(p->getInvMass()) < 1e-10) return;
+    if (fabs(p->getInvMass()) < 1e-10 || !active) return;
     if (area > 0 && (p->getPose().p.x < origin.x - area || p->getPose().p.x > origin.x + area ||
         p->getPose().p.y < origin.y - area || p->getPose().p.y > origin.y + area ||
         p->getPose().p.z < origin.z - area || p->getPose().p.z > origin.z + area)) return; //out of bounds
@@ -13,6 +13,7 @@ void WindGenerator::updateForce(Particle* p, double t)
 
     Vector3 v = windVel - p->getVelocity();
     // Apply the wind force
-    Vector3 windF = (k1 + k2 * v.magnitude()) * v;
+    Vector3 windF = k1 * v + k2 * abs(v.magnitude()) * v;
+
     p->addForce(windF);
 }

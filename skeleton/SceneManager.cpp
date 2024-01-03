@@ -227,9 +227,9 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 				break;
 			}
 			case 'X': {
-				rbSys->addGenerator(1);
+				//rbSys->addGenerator(1);
 				//rbSys->addGenerator(2);
-				//rbSys->addGenerator(3);
+				rbSys->addGenerator(3);
 				break;
 			}
 			case 'C': {
@@ -246,7 +246,12 @@ void SceneManager::keyPress(unsigned char key, const PxTransform& camera)
 		case 3: //juego
 		{
 			switch (toupper(key)) {
-
+			case 'S': {
+				gameSys->shake(true);
+				break;
+			}
+			default:
+				break;
 			}
 			break;
 		}

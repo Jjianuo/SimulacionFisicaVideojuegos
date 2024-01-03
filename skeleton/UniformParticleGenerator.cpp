@@ -10,6 +10,16 @@ UniformParticleGenerator::UniformParticleGenerator(Vector3 origin, Vector3 mean_
 	_mt = std::mt19937{ std::random_device()() };
 }
 
+UniformParticleGenerator::UniformParticleGenerator(Particle* p, Vector3 origin, Vector3 mean_velocity)
+{
+	_origin = origin;
+	_mean_velocity = mean_velocity;
+
+	setParticle(p, false);
+
+	_mt = std::mt19937{ std::random_device()() };
+}
+
 void UniformParticleGenerator::setVars()
 {
 	_uVel = std::uniform_real_distribution<float>(minVar, maxVar);

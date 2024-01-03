@@ -37,9 +37,6 @@
     <ClCompile Include="Shooter.cpp">
       <Filter>ParticleGenerators</Filter>
     </ClCompile>
-    <ClCompile Include="ForceGenerator.cpp">
-      <Filter>Forces</Filter>
-    </ClCompile>
     <ClCompile Include="GravityForceGenerator.cpp">
       <Filter>Forces</Filter>
     </ClCompile>
@@ -81,6 +78,7 @@
     </ClCompile>
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="Fruit.cpp" />
+    <ClCompile Include="FireworksGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -169,6 +167,7 @@
     </ClInclude>
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="Fruit.h" />
+    <ClInclude Include="FireworksGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

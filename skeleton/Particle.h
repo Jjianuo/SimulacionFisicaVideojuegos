@@ -98,9 +98,9 @@ namespace part {
 		{ 0.0, 0.0, 0.0 }, 1, 0.998, 3, 1,
 		colorsInfo[BLACK], 1, true, true, nullptr},
 
-		{FIREWORK, { 0.0, 0.0, 0.0 }, { 0.0, 55.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 0.8, 0.998, 2, 0.8,
-		colorsInfo[WHITE], 3, true, true, nullptr},
+		{FIREWORK, { 0.0, 0.0, 0.0 }, { 0.0, 35.0, 0.0 },
+		{ 0.0, 0.0, 0.0 }, 0.8, 0.998, 4, 0.8,
+		colorsInfo[WHITE], 1, true, true, nullptr},
 
 		{CHERRY_BLOSSOM, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
 		{ 0.0, 9.8, -0.01 }, 0.1, 0.998, 10, 0.1,
@@ -131,47 +131,47 @@ namespace part {
 		colorsInfo[BLACK], 1, true, true, nullptr},
 
 		{CHERRY, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 1, 0.998, -1, 0.4,
+		{ 0.0, 0.0, 0.0 }, 10, 0.998, -1, 0.4,
 		colorsInfo[CRIMSON], 1, true, true, nullptr},
 
 		{STRAWBERRY, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 1.4, 0.998, -1, 0.5,
+		{ 0.0, 0.0, 0.0 }, 14, 0.998, -1, 0.5,
 		colorsInfo[LIGHT_RED], 1, true, true, nullptr},
 
 		{BLACKBERRY, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 1.8, 0.998, -1, 0.6,
+		{ 0.0, 0.0, 0.0 }, 18, 0.998, -1, 0.6,
 		colorsInfo[PURPLE], 1, true, true, nullptr},
 
 		{DEKOPON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 2.2, 0.998, -1, 0.7,
+		{ 0.0, 0.0, 0.0 }, 22, 0.998, -1, 0.7,
 		colorsInfo[LIGHT_ORANGE], 1, true, true, nullptr},
 
 		{PERSIMMON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 2.6, 0.998, -1, 0.8,
+		{ 0.0, 0.0, 0.0 }, 26, 0.998, -1, 0.8,
 		colorsInfo[ORANGE], 1, true, true, nullptr},
 
 		{APPLE, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 3.0, 0.998, -1, 0.9,
+		{ 0.0, 0.0, 0.0 }, 30, 0.998, -1, 0.9,
 		colorsInfo[RED], 1, true, true, nullptr},
 
 		{PEAR, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 3.4, 0.998, -1, 1.0,
+		{ 0.0, 0.0, 0.0 }, 34, 0.998, -1, 1.0,
 		colorsInfo[LIGHT_YELLOW], 1, true, true, nullptr},
 
 		{PEACH, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 3.8, 0.998, -1, 1.1,
+		{ 0.0, 0.0, 0.0 }, 38, 0.998, -1, 1.1,
 		colorsInfo[LIGHT_PINK], 1, true, true, nullptr},
 
 		{PINEAPPLE, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 4.2, 0.998, -1, 1.2,
+		{ 0.0, 0.0, 0.0 }, 42, 0.998, -1, 1.2,
 		colorsInfo[YELLOW], 1, true, true, nullptr},
 
 		{MELON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 4.6, 0.998, -1, 1.3,
+		{ 0.0, 0.0, 0.0 }, 46, 0.998, -1, 1.3,
 		colorsInfo[LIGHT_GREEN], 1, true, true, nullptr},
 
 		{WATERMELON, { 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 0.0 }, 5.0, 0.998, -1, 1.5,
+		{ 0.0, 0.0, 0.0 }, 50, 0.998, -1, 1.5,
 		colorsInfo[GREEN], 1, true, true, nullptr},
 	};
 }
@@ -224,6 +224,8 @@ public:
 
 	inline int getType() { return pInfo._type; };
 
+	inline void setVisible(bool visible) { if (!visible) pInfo.renderItem->release(); else setShape(pInfo.shape); }
+
 	inline RenderItem* getRenderItem() { return pInfo.renderItem; }
 	inline void setRenderItem(PxShape* s, Vector3 t, Vector4 c) { 
 		pInfo.shape = s->getGeometryType();
@@ -262,7 +264,7 @@ public:
 	enum ParticleType { DEFAULT, BULLET, FIREWORK};
 
 	virtual Particle* clone() const;
-	inline virtual void die() { if (pInfo.renderItem != nullptr) pInfo.renderItem->release(); pInfo.renderItem = nullptr; };
+	inline virtual void die() { if (pInfo.renderItem != nullptr) pInfo.renderItem->release(); pInfo.renderItem = nullptr; pInfo.alive = false; };
 	inline void show() { if(pInfo.renderItem == nullptr) pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(pInfo.mass)), &pInfo.pose, pInfo.color); }
 	inline int randomColor() { return rand() % nColors ; }
 

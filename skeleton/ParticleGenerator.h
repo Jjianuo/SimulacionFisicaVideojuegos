@@ -24,13 +24,14 @@ protected:
 	bool randomLifespan = false;
 	int randomLifespanLimits;
 	int minLifespan = 1;
+	bool active = true;
 
 public:
 	~ParticleGenerator() {  };
 
 	virtual std::list<Particle*> generateParticles() {
 		std::list<Particle*> ret;
-		if (_u(_mt) <= _generation_prob) {
+		if (active && _u(_mt) <= _generation_prob) {
 			for (int i = 0; i < _n_particles; ++i) {
 				Particle* p = new Particle(_model_particle, true);
 				p->setPos(_origin + (getRandomDist() * offset));
@@ -71,16 +72,18 @@ public:
 
 	inline void setNParticles(int n_p) { _n_particles = n_p; }
 
-	inline void setGenerationProb(double p) { _generation_prob = p; };
+	inline void setGenerationProb(double p) { _generation_prob = p; }
 
-	inline void setDistribution(std::uniform_real_distribution<float> d) { _u = d; };
+	inline void setDistribution(std::uniform_real_distribution<float> d) { _u = d; }
 
-	inline void setRandomLifespan(bool b) { randomLifespan = b; };
+	inline void setRandomLifespan(bool b) { randomLifespan = b; }
 
-	inline void setRandomLifespanLimits(int ls) { randomLifespanLimits = ls; };
+	inline void setRandomLifespanLimits(int ls) { randomLifespanLimits = ls; }
 
-	inline void setMinVar(float i) { minVar = i; setVars(); };
+	inline void setMinVar(float i) { minVar = i; setVars(); }
 
-	inline void setMaxVar(float i) { maxVar = i; setVars(); };
+	inline void setMaxVar(float i) { maxVar = i; setVars(); }
+
+	inline void setActive(bool b) { active = b; }
 };
 

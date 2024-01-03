@@ -1,8 +1,10 @@
 #include "Firework.h"
+#include <iostream>
 
 Firework::Firework(bool v, Vector3 pos, Vector3 Vel, Vector3 Acc, double m, double damp, double ls, Vector4 c, unsigned t, int gen)
 	: Particle(false, { 0.0, 0.0, 0.0 }, { 0.0, 25.0, 0.0 }, Acc, m, damp, ls, m, c, t, gen)
 {
+	_mt = std::mt19937{ std::random_device()() };
 	if (pInfo.visible)
 		pInfo.renderItem = new RenderItem(CreateShape(PxSphereGeometry(m)), &pInfo.pose, c);
 	else
@@ -11,6 +13,7 @@ Firework::Firework(bool v, Vector3 pos, Vector3 Vel, Vector3 Acc, double m, doub
 
 Firework::Firework(ParticleInfo pInf) : Particle(pInf, false)
 {
+	_mt = std::mt19937{ std::random_device()() };
 	pInfo = pInf;
 
 	if (pInfo.visible)
@@ -24,9 +27,10 @@ std::list<Particle*> Firework::explode()
 {
 	std::list<Particle*> ret;
 	for (auto e : _gens) {
-		//e->setParticle(this, false);
 		e->setOrigin(Vector3(pInfo.pose.p));
-		e->setMeanVelocity({20, 20, 20});
+		//std::cout << pInfo.pose.p.x << " " << pInfo.pose.p.y << " " << pInfo.pose.p.z << "\n";
+		Vector3 v = Vector3(_u(_mt), _u(_mt), _u(_mt)) * 20;
+		e->setMeanVelocity(v);
 		e->setMeanDuration(pInfo.lifespan);
 
 		for (auto g : e->generateParticles()) {
@@ -44,10 +48,9 @@ void Firework::addGenerator(std::shared_ptr<ParticleGenerator> p)
 	_gens.push_back(p);
 }
 
-Particle* Firework::clone() const
+Firework* Firework::clone() const
 {
-	Firework* aux = new Firework(false, pInfo.pose.p, pInfo.velocity, pInfo.acceleration, pInfo.mass, 
-		pInfo.damping, pInfo.lifespan, pInfo.color, pInfo._type, pInfo._generation);
+	Firework* aux = new Firework(pInfo);
 	aux->_gens = _gens;
 	return aux;
 }

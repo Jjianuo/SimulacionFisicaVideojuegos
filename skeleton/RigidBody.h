@@ -22,7 +22,7 @@ public:
 	PxRigidDynamic* rB;
 
 	RigidBody* clone() const;
-	inline virtual void die() { if (ri != nullptr) ri->release(); ri = nullptr; if (rB != nullptr) rB->release(); rB = nullptr; };
+	inline virtual void die() { if (ri != nullptr) ri->release(); ri = nullptr; if (rB != nullptr) rB->release(); rB = nullptr; pInfo.alive = false; };
 	virtual void addForce(const Vector3& f);
 	virtual PxTransform getPose();
 	PxGeometry getGeometry();

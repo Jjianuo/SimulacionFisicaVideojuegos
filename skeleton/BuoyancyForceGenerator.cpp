@@ -2,7 +2,7 @@
 
 void BuoyancyForceGenerator::updateForce(Particle* p, double t)
 {
-	if (fabs(p->getInvMass()) < 1e-10) return;
+	if (fabs(p->getInvMass()) < 1e-10 || !active) return;
 
 	const float h = p->getPose().p.y;
 	const float h0 = liquid->getPose().p.y;
