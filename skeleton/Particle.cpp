@@ -16,6 +16,7 @@ Particle::Particle(bool v, Vector3 pos, Vector3 Vel, Vector3 Acc, double m, doub
 	pInfo._type = t;
 	pInfo._generation = gen;
 	pInfo.visible = v;
+	pInfo.shape = PxGeometryType::eSPHERE;
 
 	_inv_mass = 1 / m;
 	force = { 0.0,0.0,0.0 };
