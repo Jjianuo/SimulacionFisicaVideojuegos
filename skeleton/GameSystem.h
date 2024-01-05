@@ -49,7 +49,7 @@ public:
 	void gameSetup();
 
 	Particle* randomFruit();
-	Fruit* combineFruit(Fruit* fruit1, Fruit* fruit2);
+	void combineFruit(Fruit* fruit1, Fruit* fruit2);
 
 	void activateFireworks(bool b);
 	void shake(bool b);

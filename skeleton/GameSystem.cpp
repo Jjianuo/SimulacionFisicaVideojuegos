@@ -44,13 +44,13 @@ GameSystem::GameSystem() : RBSystem(), fruitScale(11.5)
 	fireWorks2->setActive(false);
 	_pGenerator.push_back(fireWorks2);
 
-	tornado = new WindGenerator({ -50,0,-45 }, -1, { 0, 5.0, 0 }, 0.07, 0.07);
+	tornado = new WindGenerator({ -40,0,-45 }, -1, { 0, 5.0, 0 }, 0.07, 0.07);
 	tornado->setActive(false);
 
 	keychain = randomFruit();
 	keychain->setPos({ -50, 140, -45 });
-	keychain->setSize(2);
 	keychainAux = new Particle(false);
+	keychainAux->changeLifespan(-1);
 
 	sf = new SpringForce(10, 0.005, keychainAux);
 	grav = new GravityForceGenerator({ 0.0, -9.8, 0.0 });
@@ -58,6 +58,7 @@ GameSystem::GameSystem() : RBSystem(), fruitScale(11.5)
 	pfr.addRegistry(grav, keychain);
 	pfr.addRegistry(sf, keychain);
 	_particles.push_back(keychain);
+	_particles.push_back(keychainAux);
 }
 
 GameSystem::~GameSystem()
@@ -102,7 +103,6 @@ void GameSystem::update(double t)
 	if (pointer.x > -85 && pointer.x < -17) {
 		dropIndicator->setPos({ (((float)pointerPos - 250 - (float)(GLdouble(glutGet(GLUT_WINDOW_WIDTH)) / 2)) / 5), 85, -50});
 		currFruit->setPos(pointer);
-		keychainAux->setPos(pointer);
 		cloud->setOrigin(pointer);
 	}
 
@@ -138,7 +138,8 @@ void GameSystem::mouseClick(int button, int state, int x, int y)
 		rels.insert({ fruit->getActor(), fruit });
 
 		currFruit->die();
-		currFruit = new Particle(keychain);
+		currFruit = new Particle(keychain->getType());
+		currFruit->setSize(currFruit->getSize() * fruitScale);
 
 		Vector3 kPos = keychain->getPose().p;
 		Vector3 kVel = keychain->getVelocity();
@@ -204,18 +205,18 @@ Particle* GameSystem::randomFruit()
 {
 	int f = _uFruit(_mt) + 10;
 
-	Particle* ret = new Particle(partType[f], true);
+	Particle* ret = new Particle(partType[f], false);
 	ret->setSize(ret->getSize() * fruitScale);
 
 	return ret;
 }
 
-Fruit* GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
+void GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
 {
 	//Vector3 newPos = (fruit1->getPose().p + fruit2->getPose().p) / 2;
 	Vector3 newPos = fruit2->getPose().p;
 
-	Particle* nextFruit = new Particle(partType[fruit1->getType() + 1], true);
+	Particle* nextFruit = new Particle(partType[fruit1->getType() + 1], false);
 	nextFruit->setSize(fruit1->getSize());
 
 	Vector3 offset = Vector3(0.0, (nextFruit->getSize() - fruit1->getSize()), 0.0);
@@ -225,8 +226,9 @@ Fruit* GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
 	fruit2->die();
 
 	for (auto it = _fruits.begin(); it != _fruits.end();) {
-		if (*it == fruit1 || *it == fruit2)
+		if (*it == fruit1 || *it == fruit2) {
 			it = _fruits.erase(it);
+		}
 		else {
 			pfr.addRegistry(makeSpace, *it);
 			++it;
@@ -245,7 +247,7 @@ Fruit* GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
 
 	nextFruit->die();
 
-	return genfruit;
+	//return genfruit;
 }
 
 void GameSystem::activateFireworks(bool b)

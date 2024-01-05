@@ -11,10 +11,6 @@ void ExplosiveForce::updateForce(Particle* p, double t)
     if (r >= aux) return;
     if (r < 1e-10) r = 0.1;
 
-    Particle* aaa = new Particle(true);
-    aaa->setPos(pos);
-    aaa->setColor({ 1.0,1.0,1.0, 0.1 });
-
     Vector3 expF = (K/ pow(r, 2)) * (pos - origin) * exp(-(_t / dur));
     p->addForce(expF);
 }
