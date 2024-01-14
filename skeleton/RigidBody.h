@@ -17,8 +17,6 @@ public:
 	RigidBody(Particle* p, Vector3 pos, double m, PxShape* s, PxVec4 c, Vector3 mat, Vector3 inertiaTensor = { -1,-1,-1 });
 	~RigidBody();
 
-	void setVelocity(Vector3 v);
-
 	PxRigidDynamic* rB;
 
 	RigidBody* clone() const;
@@ -32,7 +30,10 @@ public:
 		pInfo.alive = false; 
 	};
 	virtual void addForce(const Vector3& f);
+	virtual void clearForce();
 	virtual PxTransform getPose();
+	virtual Vector3 getVelocity();
+	virtual void setVelocity(const Vector3& v);
 	PxGeometry getGeometry();
 
 	virtual void setInertiaTensor(const Vector3& inertiaTensor);

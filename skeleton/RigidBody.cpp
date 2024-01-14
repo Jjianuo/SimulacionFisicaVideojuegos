@@ -70,12 +70,6 @@ RigidBody::~RigidBody()
 	die();
 }
 
-void RigidBody::setVelocity(Vector3 v)
-{
-	if (rB != nullptr)
-		rB->setLinearVelocity(v);
-}
-
 RigidBody* RigidBody::clone() const
 {
 	PxShape* s = CreateShape(PxSphereGeometry(this->pInfo.size));
@@ -91,12 +85,32 @@ void RigidBody::addForce(const Vector3& f)
 		rB->addForce(f);
 }
 
+void RigidBody::clearForce()
+{
+	if (rB != nullptr)
+		rB->clearForce();
+}
+
 PxTransform RigidBody::getPose()
 {
 	if (rB == nullptr) 
 		return { -999, -999, -999 };
 	return rB->getGlobalPose();
 }
+
+inline Vector3 RigidBody::getVelocity()
+{
+	if (rB == nullptr)
+		return { -999, -999, -999 };
+	return Vector3(rB->getLinearVelocity());
+}
+
+void RigidBody::setVelocity(const Vector3& v)
+{
+	if (rB != nullptr)
+		rB->setLinearVelocity(v);
+}
+
 
 PxGeometry RigidBody::getGeometry()
 {

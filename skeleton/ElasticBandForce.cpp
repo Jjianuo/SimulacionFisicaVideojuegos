@@ -13,4 +13,5 @@ void ElasticBandForce::updateForce(Particle* p, double t)
 	if (rel_pos.magnitude() > restingLength) {
 		SpringForce::updateForce(p, t);
 	}
+	else p->clearForce();
 }

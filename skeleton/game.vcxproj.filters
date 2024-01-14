@@ -79,6 +79,8 @@
     <ClCompile Include="GameSystem.cpp" />
     <ClCompile Include="Fruit.cpp" />
     <ClCompile Include="FireworksGenerator.cpp" />
+    <ClCompile Include="SquishedTornadoGenerator.cpp" />
+    <ClCompile Include="CentripetalForce.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -168,6 +170,8 @@
     <ClInclude Include="GameSystem.h" />
     <ClInclude Include="Fruit.h" />
     <ClInclude Include="FireworksGenerator.h" />
+    <ClInclude Include="SquishedTornadoGenerator.h" />
+    <ClInclude Include="CentripetalForce.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

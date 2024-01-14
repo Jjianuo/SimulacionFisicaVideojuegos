@@ -44,15 +44,24 @@ GameSystem::GameSystem() : RBSystem(), fruitScale(11.5)
 	fireWorks2->setActive(false);
 	_pGenerator.push_back(fireWorks2);
 
-	tornado = new WindGenerator({ -40,0,-45 }, -1, { 0, 5.0, 0 }, 0.07, 0.07);
+	//tornado = new WindGenerator({ -40,0,-45 }, -1, { 0, 5.0, 0 }, 0.07, 0.07);
+	tornado = new TornadoGenerator(0.25, { -40,0,-45 }, -1, { 0.1,0.0,0.1 });
 	tornado->setActive(false);
 
-	keychain = randomFruit();
-	keychain->setPos({ -50, 140, -45 });
-	keychainAux = new Particle(false);
+	nextFruit = randomFruit();
+	nextFruit->setPos(Vector3(0.0, 0.0, 90.0));
+
+	keychain = new Particle(nextFruit);
+	keychain->setPos({ 0, 70, -45 });
+	keychainAux = new Particle(true);
+	keychainAux->setColor(colorsInfo[RED]);
+	keychainAux->setPos({ 0, 70, -45 });
+	//keychainAux->setSize(3);
+	keychainAux->setShape(PxGeometryType::eBOX);
 	keychainAux->changeLifespan(-1);
 
-	sf = new SpringForce(10, 0.005, keychainAux);
+	sf = new SpringForce(20, 5, keychainAux);
+	//sf = new ElasticBandForce(100, 5, keychainAux);
 	grav = new GravityForceGenerator({ 0.0, -9.8, 0.0 });
 
 	pfr.addRegistry(grav, keychain);
@@ -64,6 +73,9 @@ GameSystem::GameSystem() : RBSystem(), fruitScale(11.5)
 GameSystem::~GameSystem()
 {
 	currFruit->die();
+	keychain->die();
+	keychainAux->die();
+	nextFruit->die();
 	dropIndicator->die();
 
 	leftWall->release();
@@ -72,6 +84,9 @@ GameSystem::~GameSystem()
 	topWall->release();
 
 	delete currFruit;
+	delete keychain;
+	delete keychainAux;
+	delete nextFruit;
 	delete dropIndicator;
 
 	for (auto it = _fruits.begin(); it != _fruits.end();) {
@@ -99,6 +114,16 @@ void GameSystem::update(double t)
 		}
 	}
 
+	if (clicked) {
+		clickTimer += t;	
+		//cout << clickTimer << "\n";
+		if (clickTimer >= clickCooldown) {
+			clicked = false;
+			clickTimer = 0;
+			createNextFruit();
+		}
+	}
+
 	Vector3 pointer = { (((float)pointerPos - 250 - (float)(GLdouble(glutGet(GLUT_WINDOW_WIDTH)) / 2)) / 5), 140, -45 };
 	if (pointer.x > -85 && pointer.x < -17) {
 		dropIndicator->setPos({ (((float)pointerPos - 250 - (float)(GLdouble(glutGet(GLUT_WINDOW_WIDTH)) / 2)) / 5), 85, -50});
@@ -113,11 +138,35 @@ void GameSystem::update(double t)
 		combineFruit(genQueue.front().first, genQueue.front().second); genQueue.pop();
 	}
 
-	for (auto e : _fruits) {
-		if (e->getSize() < partType[e->getType()].size * fruitScale) {
-			e->setSize(e->getSize() + 2.5 * t);
-			if (e->getSize() > partType[e->getType()].size * fruitScale)
-				e->setSize(partType[e->getType()].size * fruitScale);
+	for (auto e = _fruits.begin(); e != _fruits.end();) {
+		if ((*e)->getSize() < partType[(*e)->getType()].size * fruitScale) {
+			(*e)->setSize((*e)->getSize() + 2.5 * t);
+			if ((*e)->getSize() > partType[(*e)->getType()].size * fruitScale)
+				(*e)->setSize(partType[(*e)->getType()].size * fruitScale);
+		}
+		if ((*e)->getPose().p.y > 140.0) {
+			lost = true;
+			break;
+		}
+		if (((*e)->getLifespan() != -1 && (*e)->_ls < 0) || outOfBounds(*e) || !(*e)->isAlive() ) {
+			if (!lost) {
+				(*e)->die();
+				rels.erase((*e)->getActor());
+				e = _fruits.erase(e);
+			}
+		}
+		else ++e;
+	}
+
+	if (lost) {
+		lost = false;
+		cout << "GAME OVER\n";
+		for (auto e = _fruits.begin(); e != _fruits.end();) {
+			pfr.deleteParticleRegistry(*e);
+			rels.erase((*e)->getActor());
+			(*e)->die();
+			delete *e;
+			e = _fruits.erase(e);
 		}
 	}
 }
@@ -129,7 +178,8 @@ void GameSystem::handleMotion(double x)
 
 void GameSystem::mouseClick(int button, int state, int x, int y)
 {
-	if (button == 0 && state == 0 && !shaking) {
+	if (button == 0 && state == 0 && !shaking && !clicked) {
+		clicked = true;
 
 		Fruit* fruit = new Fruit(currFruit, currFruit->getPose().p, currFruit->getMass(),
 			CreateShape(PxSphereGeometry(currFruit->getSize())), currFruit->getColor(), Vector3(0.0f, 0.0f, 0.0f));
@@ -138,19 +188,6 @@ void GameSystem::mouseClick(int button, int state, int x, int y)
 		rels.insert({ fruit->getActor(), fruit });
 
 		currFruit->die();
-		currFruit = new Particle(keychain->getType());
-		currFruit->setSize(currFruit->getSize() * fruitScale);
-
-		Vector3 kPos = keychain->getPose().p;
-		Vector3 kVel = keychain->getVelocity();
-		keychain->die();
-		keychain = randomFruit();
-		keychain->setPos(kPos);
-		keychain->setVelocity(kVel);
-
-		pfr.addRegistry(grav, keychain);
-		pfr.addRegistry(sf, keychain);
-		_particles.push_back(keychain);
 	}
 }
 
@@ -213,17 +250,18 @@ Particle* GameSystem::randomFruit()
 
 void GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
 {
-	//Vector3 newPos = (fruit1->getPose().p + fruit2->getPose().p) / 2;
-	Vector3 newPos = fruit2->getPose().p;
+	Vector3 newPos = (fruit1->getPose().p + fruit2->getPose().p) / 2;
+	//Vector3 newPos = fruit2->getPose().p;
 
 	Particle* nextFruit = new Particle(partType[fruit1->getType() + 1], false);
 	nextFruit->setSize(fruit1->getSize());
 
-	Vector3 offset = Vector3(0.0, (nextFruit->getSize() - fruit1->getSize()), 0.0);
-	ExplosiveForce* makeSpace = new ExplosiveForce(newPos, 100000, (nextFruit->getSize() + nextFruit->getSize() - fruit1->getSize()) * 2);
+	ExplosiveForce* makeSpace = new ExplosiveForce(newPos, 1000, (nextFruit->getSize() + nextFruit->getSize() - fruit1->getSize() * fruitScale));
 
 	fruit1->die();
 	fruit2->die();
+	rels.erase(fruit1->getActor());
+	rels.erase(fruit2->getActor());
 
 	for (auto it = _fruits.begin(); it != _fruits.end();) {
 		if (*it == fruit1 || *it == fruit2) {
@@ -268,6 +306,10 @@ void GameSystem::shake(bool b)
 		dropIndicator->setVisible(false);
 	}
 	else {
+		for (auto e : _fruits) {
+			e->clearForce();
+			e->setVelocity(Vector3(0.0, 0.0, 0.0));
+		}
 		topWall->setGlobalPose(PxTransform({ -50,30,-50 }));
 		dropIndicator->setRenderItem(CreateShape(PxBoxGeometry(0.5, 55, 0.5)), { 0,0,0 }, colorsInfo[WHITE]);
 	}
@@ -277,4 +319,30 @@ void GameSystem::celebrate(bool b)
 {
 	win = b;
 	activateFireworks(b);
+}
+
+void GameSystem::lose()
+{
+	cout << "GAME OVER\n";
+	for (auto e : _fruits) {
+		onParticleDeath(e);
+		_dumpster.push_back(e);
+	}
+}
+
+void GameSystem::createNextFruit()
+{
+	currFruit = new Particle(nextFruit);
+
+	nextFruit->die();
+	nextFruit = randomFruit();
+
+	Vector3 kPos = keychain->getPose().p;
+	keychain->die();
+	keychain = new Particle(nextFruit);
+	keychain->setPos(kPos);
+
+	pfr.addRegistry(grav, keychain);
+	pfr.addRegistry(sf, keychain);
+	_particles.push_back(keychain);
 }

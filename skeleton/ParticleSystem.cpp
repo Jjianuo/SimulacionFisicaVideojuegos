@@ -52,13 +52,12 @@ void ParticleSystem::update(double t)
 	}
 	for (auto e : _particles) {
 		e->integrate(t);
-		if (e->getLifespan() != -1 || !e->isAlive()) {
+		if (e->getLifespan() != -1) 
 			e->_ls -= t;
-			if (e->_ls < 0 || outOfBounds(e)) {
-				onParticleDeath(e);
-
-				_dumpster.push_back(e);
-			}
+		
+		if ((e->getLifespan() != -1 && e->_ls < 0) || outOfBounds(e) || !e->isAlive()) {
+			onParticleDeath(e);
+			_dumpster.push_back(e);
 		}
 	}
 

@@ -4,12 +4,15 @@
 #include "RBSystem.h"
 #include "Fruit.h"
 #include "FireworksGenerator.h"
+#include "SquishedTornadoGenerator.h"
+#include "CentripetalForce.h"
 
 class GameSystem : public RBSystem
 {
 	Particle* currFruit = nullptr;
 	Particle* keychain = nullptr;
 	Particle* keychainAux = nullptr;
+	Particle* nextFruit = nullptr;
 	Particle* dropIndicator = nullptr;
 	UniformParticleGenerator* cloud = nullptr;
 	FireworksGenerator* fireWorks1 = nullptr;
@@ -18,7 +21,7 @@ class GameSystem : public RBSystem
 	PxRigidStatic* rightWall = nullptr;
 	PxRigidStatic* backWall = nullptr;
 	PxRigidStatic* topWall = nullptr;
-	WindGenerator* tornado = nullptr;
+	TornadoGenerator* tornado = nullptr;
 	SpringForce* sf = nullptr;
 	GravityForceGenerator* grav = nullptr;
 	double pointerPos;
@@ -30,6 +33,10 @@ class GameSystem : public RBSystem
 	std::mt19937 _mt;
 	std::uniform_real_distribution<double> _uFruit{ 0, 5 };
 
+	bool clicked = false;
+	double clickTimer = 0.0;
+	double clickCooldown = 1.0;
+
 	Firework* createModelFirework();
 	bool shaking = false;
 	double timer = 0.0;
@@ -38,6 +45,7 @@ class GameSystem : public RBSystem
 	bool win = false;
 	double winTimer = 0.0;
 	double winDuration = 3.0;
+	bool lost = false;
 public:
 	GameSystem();
 	~GameSystem();
@@ -54,5 +62,7 @@ public:
 	void activateFireworks(bool b);
 	void shake(bool b);
 	void celebrate(bool b);
+	void lose();
+	void createNextFruit();
 };
 

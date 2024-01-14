@@ -36,11 +36,11 @@ namespace part {
 		{0.65, 0.78, 0.9, 1.0},//light blue
 		{0.0, 0.0, 1.0, 1.0},//blue
 		{0.19, 0.1, 0.2, 1.0},//purple
-		{1.0, 0.82, 0.86, 1.0},//pink
+		{1.0, 0.5, 0.5, 1.0},//pink
 		{0.0, 0.0, 0.0, 1.0},//black
 		{1.0, 1.0, 1.0, 1.0},//white
 		{0.3, 0.02, 0.11, 1.0},//crimson
-		{1.0, 0.5, 0.5, 1.0},//light red
+		{1.0, 0.25, 0.25, 1.0},//light red
 		{1.0, 0.65, 0.0, 1.0},//light orange
 		{1.0, 1.0, 0.45, 1.0},//light yellow
 		{0.56, 0.93, 0.56, 1.0} //light green
@@ -224,7 +224,12 @@ public:
 
 	inline int getType() { return pInfo._type; };
 
-	inline void setVisible(bool visible) { if (!visible) pInfo.renderItem->release(); else setShape(pInfo.shape); }
+	inline void setVisible(bool visible) { 
+		if (!visible) {
+			if(pInfo.renderItem != nullptr)
+				pInfo.renderItem->release(); 
+		}
+		else setShape(pInfo.shape); }
 
 	inline RenderItem* getRenderItem() { return pInfo.renderItem; }
 	inline void setRenderItem(PxShape* s, Vector3 t, Vector4 c) { 
