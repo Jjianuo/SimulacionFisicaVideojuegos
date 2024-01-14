@@ -46,8 +46,13 @@
 #error platform not supported.
 #endif
 #include <string>
+#include <vector>
+#include "PxPhysics.h"
 
-extern std::string display_text;
+extern int text;
+extern int textColour;
+extern std::vector<std::string> display_texts;
+extern std::vector<physx::PxVec3> display_text_colours;
 
 namespace Snippets
 {

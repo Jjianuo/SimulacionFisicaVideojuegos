@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Particle">
+    <Position X="10.5" Y="11.75" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Particle::ParticleType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Particle.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>BEkUgUiACKAFDAhAAAAAAAAAAQAABAACFQBBkAFIQAA=</HashCode>
+      <FileName>Particle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParticleSystem">
+    <Position X="19.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAhAAAhEAABAiAIAIQAIAAAgMAEAAgAAAAABFCAE=</HashCode>
+      <FileName>ParticleSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SceneManager">
+    <Position X="23" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEgQAAAEAAQAAEAAAAAAAABAAAAAAAQCAAAGACAEAAQ=</HashCode>
+      <FileName>SceneManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Firework">
+    <Position X="15" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAQAAAAgAQAAAACAAAAAAAAAAAgAAAAAAAEAAAQAA=</HashCode>
+      <FileName>Firework.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuoyancyForceGenerator">
+    <Position X="1.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAIAAACAQAQAAAAAwAAAAAAQAAAAAAAAACAAE=</HashCode>
+      <FileName>BuoyancyForceGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElasticBandForce">
+    <Position X="10.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ElasticBandForce.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExplosiveForce">
+    <Position X="8" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAgBAACAAQgACAAAAAAAAEAAAAAAAAAAAAAAAIAAAAE=</HashCode>
+      <FileName>ExplosiveForce.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ForceGenerator">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gACAIAAAAAAACAAAABAAAAAAAgAAAQAAAAAAIAAAAAA=</HashCode>
+      <FileName>ForceGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GravityForceGenerator">
+    <Position X="15.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAACAAAAAABAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>GravityForceGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParticleDragGenerator">
+    <Position X="3.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACCABAAAAAAAAAAAAAgAAACQAAAAAAAAA=</HashCode>
+      <FileName>ParticleDragGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParticleForceRegistry">
+    <Position X="21" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAACAAAAAiAAABAAAAAAGJAAIAIAAAoAAA=</HashCode>
+      <FileName>ParticleForceRegistry.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpringForce">
+    <Position X="10.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAACAACAAAQAAAAAAAAAAAAAIQAAAA=</HashCode>
+      <FileName>SpringForce.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TornadoGenerator">
+    <Position X="12.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAACAAAAAABAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>TornadoGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WindGenerator">
+    <Position X="12.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAABAAAAAAgADAAAAAAAAAAAAJAAIAAICEAAAAAAAAE=</HashCode>
+      <FileName>WindGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GaussianParticleGenerator">
+    <Position X="5.5" Y="11.75" Width="1.5" />
+    <InheritanceLine Type="ParticleGenerator" FixedFromPoint="true">
+      <Path>
+        <Point X="3" Y="17.812" />
+        <Point X="6.25" Y="17.812" />
+        <Point X="6.25" Y="14.588" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAgAAAACAAAAAAAAAAACAAMAAACAAAA=</HashCode>
+      <FileName>GaussianParticleGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParticleGenerator">
+    <Position X="1.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCLAYAQCgYiAmCSJjAAIAIAgAAAABQACAAEAIAAAQEA=</HashCode>
+      <FileName>ParticleGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shooter">
+    <Position X="19.25" Y="1.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Shooter::currentShotType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Shooter.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAEAAAABAAAAAAAAAQAAAAAAAAI=</HashCode>
+      <FileName>Shooter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UniformParticleGenerator">
+    <Position X="3.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAgAAQACAAAIAAAAAAACAAEAAAAAAAA=</HashCode>
+      <FileName>UniformParticleGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RBSystem">
+    <Position X="21.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAEEAAAgAAgAAAAAAAAAAAAAQBECAA=</HashCode>
+      <FileName>RBSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RigidBody">
+    <Position X="12.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>VACAAUAAACAABAgAAAAAAAAAAAAAAAAAAABAEAJACAA=</HashCode>
+      <FileName>RigidBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RigidBodyGenerator">
+    <Position X="7.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAoAAAAAAAAAgAAAAiAIAAAAAAAAACAAEAAACQAAA=</HashCode>
+      <FileName>RigidBodyGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CentripetalForce">
+    <Position X="5.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAABAAAAQAgACAAAACAAAAAAAAAAAAAAAAABAIAAAAE=</HashCode>
+      <FileName>CentripetalForce.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FireworksGenerator">
+    <Position X="3.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAIAAAAAAAAAAAIBAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>FireworksGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fruit">
+    <Position X="12.75" Y="16.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgCAAAAAAAgAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Fruit.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameSystem">
+    <Position X="23.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BA0gQBAAYEyAxCEAABAEMIhEQAEgAAOCAQCgCiAsAEA=</HashCode>
+      <FileName>GameSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SquishedTornadoGenerator">
+    <Position X="14.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAACAAAAAABAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>SquishedTornadoGenerator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="part::ParticleInfo">
+    <Position X="24.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIgAAAAAAAAAAAQAAIIAAAAABAAAAASABAQQCAAABAA=</HashCode>
+      <FileName>Particle.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="part::_colors">
+    <Position X="16.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAEAAAAEAgAQIIAAAAAEABEggAAAAAAEEAAgIAAAAA=</HashCode>
+      <FileName>Particle.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="part::_types">
+    <Position X="15" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIAAAAkAAFEAAAAAAAwAAAiQgggBBAAAQAQAEAQ=</HashCode>
+      <FileName>Particle.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -45,7 +45,7 @@ GameSystem::GameSystem() : RBSystem(), fruitScale(11.5)
 	_pGenerator.push_back(fireWorks2);
 
 	//tornado = new WindGenerator({ -40,0,-45 }, -1, { 0, 5.0, 0 }, 0.07, 0.07);
-	tornado = new TornadoGenerator(0.25, { -40,0,-45 }, -1, { 0.1,0.0,0.1 });
+	tornado = new SquishedTornadoGenerator(0.05, { -50,80,-45 }, -1, { 0.1,0.0,0.1 });
 	tornado->setActive(false);
 
 	nextFruit = randomFruit();
@@ -182,7 +182,7 @@ void GameSystem::mouseClick(int button, int state, int x, int y)
 		clicked = true;
 
 		Fruit* fruit = new Fruit(currFruit, currFruit->getPose().p, currFruit->getMass(),
-			CreateShape(PxSphereGeometry(currFruit->getSize())), currFruit->getColor(), Vector3(0.0f, 0.0f, 0.0f));
+			CreateShape(PxSphereGeometry(currFruit->getSize())), currFruit->getColor(), Vector3(1.0f, 1.0f, 0.0f), { 0.0, 1.0, 1.0 });
 		pfr.addRegistry(tornado, fruit);
 		_fruits.push_back(fruit);
 		rels.insert({ fruit->getActor(), fruit });
@@ -210,26 +210,26 @@ void GameSystem::onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 
 void GameSystem::gameSetup()
 {
+	PxMaterial* mMaterial;
+	mMaterial = gPhysics->createMaterial(0.5, 0.5, 0.0);
+
 	leftWall = gPhysics->createRigidStatic(PxTransform({ -88.5,80,-50 }));
-	PxShape* s = CreateShape(PxBoxGeometry(1.5, 50, 10));
+	PxShape* s = CreateShape(PxBoxGeometry(1.5, 50, 10), mMaterial);
 	leftWall->attachShape(*s);
 	RenderItem* ri = new RenderItem(s, leftWall, { 0.39,0.24,0.16,1 });
 	gScene->addActor(*leftWall);
 
 	rightWall = gPhysics->createRigidStatic(PxTransform({ -11.5,80,-50 }));
-	s = CreateShape(PxBoxGeometry(1.5, 50, 10));
+	s = CreateShape(PxBoxGeometry(1.5, 50, 10), mMaterial);
 	rightWall->attachShape(*s);
 	RenderItem* ri2 = new RenderItem(s, rightWall, { 0.39,0.24,0.16,1 });
 	gScene->addActor(*rightWall);
 
 	backWall = gPhysics->createRigidStatic(PxTransform({ -50,80,-65 }));
-	s = CreateShape(PxBoxGeometry(40, 50, 1.5));
+	s = CreateShape(PxBoxGeometry(40, 50, 1.5), mMaterial);
 	backWall->attachShape(*s);
 	RenderItem* ri3 = new RenderItem(s, backWall, { 0.39,0.24,0.16,1 });
 	gScene->addActor(*backWall);
-
-	PxMaterial* mMaterial;
-	mMaterial = gPhysics->createMaterial(0.5, 0.5, 0.0);
 
 	topWall = gPhysics->createRigidStatic(PxTransform({ -50,-100,-50 }));
 	s = CreateShape(PxBoxGeometry(40, 1.5, 10), mMaterial);
@@ -250,8 +250,8 @@ Particle* GameSystem::randomFruit()
 
 void GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
 {
-	Vector3 newPos = (fruit1->getPose().p + fruit2->getPose().p) / 2;
-	//Vector3 newPos = fruit2->getPose().p;
+	//Vector3 newPos = (fruit1->getPose().p + fruit2->getPose().p) / 2;
+	Vector3 newPos = fruit2->getPose().p;
 
 	Particle* nextFruit = new Particle(partType[fruit1->getType() + 1], false);
 	nextFruit->setSize(fruit1->getSize());
@@ -274,7 +274,7 @@ void GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
 	}
 
 	Fruit* genfruit = new Fruit(nextFruit, newPos, nextFruit->getMass(),
-		CreateShape(PxSphereGeometry(nextFruit->getSize())), nextFruit->getColor(), Vector3(0.0f, 0.0f, 0.0f));
+		CreateShape(PxSphereGeometry(nextFruit->getSize())), nextFruit->getColor(), Vector3(1.0f, 1.0f, 0.0f), {0.0, 1.0, 1.0});
 
 	_fruits.push_back(genfruit);
 	rels.insert({ genfruit->getActor(), genfruit });

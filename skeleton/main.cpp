@@ -11,7 +11,10 @@
 
 #include <iostream>
 
-std::string display_text = "I like orcas";
+int text = 0;
+int textColour = 0;
+std::vector<std::string> display_texts = { "GAME OVER", "YOU WON", "" };
+std::vector<physx::PxVec3> display_text_colours = { physx::PxVec3(1.0, 0.0, 0.0), physx::PxVec3(0.0, 1.0, 0.0) };
 
 PxDefaultAllocator		gAllocator;
 PxDefaultErrorCallback	gErrorCallback;

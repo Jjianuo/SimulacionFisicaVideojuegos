@@ -13,9 +13,10 @@ protected:
 	double dragCoef;
 	double airDensity;
 	Vector3 windVel;
+	bool game;
 public:
 	WindGenerator(const Vector3& _origin = {0.0, 0.0, 0.0}, const double _area = -1, const Vector3& vel = {5.0,0.0,5.0}, 
-		double _k1 = 0.3, double coef = 0.5, double density = 1.225)
+		double _k1 = 0.3, double coef = 0.5, double density = 1.225, bool g = false)
 		: origin(_origin), area(_area), k1(_k1), dragCoef(coef), airDensity(density), windVel(vel) {};
 
 	virtual void updateForce(Particle* p, double t);

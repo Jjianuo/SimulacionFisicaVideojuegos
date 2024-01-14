@@ -1,26 +1,15 @@
 #pragma once
 
-#include "ForceGenerator.h"
-#include "core.hpp"
-#include <cmath>
+#include "WindGenerator.h"
 
-class SquishedTornadoGenerator : public ForceGenerator
+class SquishedTornadoGenerator : public WindGenerator
 {
 protected:
-	Vector3 origin;
-	double area;
+	Vector3 _gravity;
 	double K;
-	double dragCoef;
-	Vector3 linearVel;
-	Vector3 angularVel;
 public:
-	SquishedTornadoGenerator(int k = 3, const Vector3& _origin = { 0.0, 0.0, 0.0 }, const double _area = -1, 
-		const Vector3& lvel = { 5.0,5.0,0.0 }, const Vector3& avel = { 5.0,5.0,0.0 })
-		: K(k), origin(_origin), area(_area), linearVel(lvel), angularVel(avel) {};
+	SquishedTornadoGenerator(double _K, const Vector3& _origin = { 0.0, 0.0, 0.0 }, const double _area = -1, const Vector3& vel = { 10.0,10.0,10.0 })
+		: WindGenerator(_origin, _area, vel, 0.3, 0.5, 1.225, true), K(_K) {};
 
 	virtual void updateForce(Particle* p, double t);
-
-	inline void setOrigin(Vector3 o) { origin = o; }
-	inline void setArea(double a) { area = a; }
 };
-

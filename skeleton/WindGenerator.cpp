@@ -14,7 +14,8 @@ void WindGenerator::updateForce(Particle* p, double t)
     Vector3 v = windVel - p->getVelocity();
     // Apply the wind force
     Vector3 windF = k1 * v + k2 * abs(v.magnitude()) * v;
-    windF.z = 0.0;
+    if (game)
+        windF.z = 0.0;
 
     p->addForce(windF);
 }

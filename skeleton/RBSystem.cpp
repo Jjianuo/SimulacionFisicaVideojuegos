@@ -3,7 +3,7 @@
 RBSystem::RBSystem() : ParticleSystem()
 {
 	PxMaterial* mMaterial;
-	mMaterial = gPhysics->createMaterial(0.5, 0.5, 0.3);
+	mMaterial = gPhysics->createMaterial(0.5, 0.5, 0.0);
 
 	rb = gPhysics->createRigidStatic(PxTransform({ -50,30,-50 }));
 	PxShape* s = CreateShape(PxBoxGeometry(40, 1.5, 10), mMaterial);

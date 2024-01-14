@@ -5,7 +5,6 @@
 #include "Fruit.h"
 #include "FireworksGenerator.h"
 #include "SquishedTornadoGenerator.h"
-#include "CentripetalForce.h"
 
 class GameSystem : public RBSystem
 {
@@ -21,7 +20,7 @@ class GameSystem : public RBSystem
 	PxRigidStatic* rightWall = nullptr;
 	PxRigidStatic* backWall = nullptr;
 	PxRigidStatic* topWall = nullptr;
-	TornadoGenerator* tornado = nullptr;
+	SquishedTornadoGenerator* tornado = nullptr;
 	SpringForce* sf = nullptr;
 	GravityForceGenerator* grav = nullptr;
 	double pointerPos;

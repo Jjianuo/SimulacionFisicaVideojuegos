@@ -61,8 +61,8 @@ RigidBody::RigidBody(Particle* p, Vector3 pos, double m, PxShape* s, PxVec4 c, V
 	if (inertiaTensor == Vector3(-1, -1, -1))
 		PxRigidBodyExt::setMassAndUpdateInertia(*rB, m);
 	else
-		rB->setMassSpaceInertiaTensor({ inertiaTensor.y * inertiaTensor.z,
-			inertiaTensor.x * inertiaTensor.z, inertiaTensor.x * inertiaTensor.y });
+		rB->setMassSpaceInertiaTensor({ inertiaTensor.x,
+			inertiaTensor.y, inertiaTensor.z });
 }
 
 RigidBody::~RigidBody()
