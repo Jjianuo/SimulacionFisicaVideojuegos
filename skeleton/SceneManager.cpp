@@ -317,3 +317,17 @@ void SceneManager::clear()
 	gScene->release();
 	gScene = gPhysics->createScene(*sceneDesc);
 }
+
+int SceneManager::getScore()
+{
+	if (gameSys == nullptr)
+		return -1;
+	return gameSys->getScore();
+}
+
+int SceneManager::getGameState()
+{
+	if (gameSys == nullptr)
+		return -1;
+	return gameSys->getGameState();
+}

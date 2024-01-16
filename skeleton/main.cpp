@@ -11,10 +11,20 @@
 
 #include <iostream>
 
-int text = 0;
+struct Text
+{
+	std::string text;
+	Vector3 color;
+	int x; int y;
+	void* font;
+};
+
+int text = 2;
 int textColour = 0;
 std::vector<std::string> display_texts = { "GAME OVER", "YOU WON", "" };
 std::vector<physx::PxVec3> display_text_colours = { physx::PxVec3(1.0, 0.0, 0.0), physx::PxVec3(0.0, 1.0, 0.0) };
+int score = 0;
+std::string scoreString = "0";
 
 PxDefaultAllocator		gAllocator;
 PxDefaultErrorCallback	gErrorCallback;
@@ -97,6 +107,10 @@ void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
 	scene->onCollision(actor1, actor2);
 }
 
+void updateScore() {
+	scoreString = to_string(scene->getScore());
+	text = scene->getGameState();
+}
 
 int main(int, const char*const*)
 {

@@ -47,5 +47,7 @@ public:
 	void onCollision(physx::PxActor* actor1, physx::PxActor* actor2);
 	void changeScene(int scene);
 	void clear();
+	int getScore();
+	int getGameState();
 };
 

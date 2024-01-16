@@ -53,6 +53,8 @@ extern int text;
 extern int textColour;
 extern std::vector<std::string> display_texts;
 extern std::vector<physx::PxVec3> display_text_colours;
+extern std::string scoreString;
+extern void updateScore();
 
 namespace Snippets
 {

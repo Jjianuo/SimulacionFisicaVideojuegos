@@ -44,7 +44,14 @@ class GameSystem : public RBSystem
 	bool win = false;
 	double winTimer = 0.0;
 	double winDuration = 3.0;
+
 	bool lost = false;
+	double lostTimer = 0.0;
+	double lostDuration = 3.0;
+
+	vector<int> points = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+	int score = 0;
+	int gameState = 2;
 public:
 	GameSystem();
 	~GameSystem();
@@ -63,5 +70,7 @@ public:
 	void celebrate(bool b);
 	void lose();
 	void createNextFruit();
+	inline int getScore() { return score; }
+	inline int getGameState() { return gameState; }
 };
 

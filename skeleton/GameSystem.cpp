@@ -113,6 +113,15 @@ void GameSystem::update(double t)
 			winTimer = 0;
 		}
 	}
+	else if (lost) {
+		lostTimer += t;
+		if (lostTimer >= lostDuration) {
+			lost = false;
+			gameState = 2;
+			lostTimer = 0;
+		}
+	}
+
 
 	if (clicked) {
 		clickTimer += t;	
@@ -146,6 +155,7 @@ void GameSystem::update(double t)
 		}
 		if ((*e)->getPose().p.y > 140.0) {
 			lost = true;
+			gameState = 0;
 			break;
 		}
 		if (((*e)->getLifespan() != -1 && (*e)->_ls < 0) || outOfBounds(*e) || !(*e)->isAlive() ) {
@@ -159,13 +169,12 @@ void GameSystem::update(double t)
 	}
 
 	if (lost) {
-		lost = false;
-		cout << "GAME OVER\n";
+		score = 0;
 		for (auto e = _fruits.begin(); e != _fruits.end();) {
 			pfr.deleteParticleRegistry(*e);
 			rels.erase((*e)->getActor());
 			(*e)->die();
-			delete *e;
+			delete* e;
 			e = _fruits.erase(e);
 		}
 	}
@@ -276,6 +285,8 @@ void GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
 	Fruit* genfruit = new Fruit(nextFruit, newPos, nextFruit->getMass(),
 		CreateShape(PxSphereGeometry(nextFruit->getSize())), nextFruit->getColor(), Vector3(1.0f, 1.0f, 0.0f), {0.0, 1.0, 1.0});
 
+	score += points[fruit1->getType() - 11] + points[fruit1->getType() + 1 - 11];
+
 	_fruits.push_back(genfruit);
 	rels.insert({ genfruit->getActor(), genfruit });
 	pfr.addRegistry(tornado, genfruit);
@@ -317,6 +328,11 @@ void GameSystem::shake(bool b)
 
 void GameSystem::celebrate(bool b)
 {
+	if (b)
+		gameState = 1;
+	else
+		gameState = 2;
+
 	win = b;
 	activateFireworks(b);
 }
