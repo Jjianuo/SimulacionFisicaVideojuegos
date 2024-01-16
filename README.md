@@ -10,5 +10,7 @@ Carpetas bin y common https://ucomplutense-my.sharepoint.com/:u:/g/personal/dava
 
 
 	Movimiento de izquierda a derecha con el ratón
+
 	Dejar caer fruta con el botón izquierdo del ratón
+
 	Poder de tornado con la tecla “s”
