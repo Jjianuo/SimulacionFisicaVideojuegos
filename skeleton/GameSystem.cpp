@@ -266,6 +266,7 @@ void GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
 	nextFruit->setSize(fruit1->getSize());
 
 	ExplosiveForce* makeSpace = new ExplosiveForce(newPos, 1000, (nextFruit->getSize() + nextFruit->getSize() - fruit1->getSize() * fruitScale));
+	score += nextFruit->getType() - 10 + nextFruit->getType() - 11;
 
 	fruit1->die();
 	fruit2->die();
@@ -285,7 +286,6 @@ void GameSystem::combineFruit(Fruit* fruit1, Fruit* fruit2)
 	Fruit* genfruit = new Fruit(nextFruit, newPos, nextFruit->getMass(),
 		CreateShape(PxSphereGeometry(nextFruit->getSize())), nextFruit->getColor(), Vector3(1.0f, 1.0f, 0.0f), {0.0, 1.0, 1.0});
 
-	score += points[fruit1->getType() - 11] + points[fruit1->getType() + 1 - 11];
 
 	_fruits.push_back(genfruit);
 	rels.insert({ genfruit->getActor(), genfruit });
